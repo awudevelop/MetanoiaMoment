@@ -272,10 +272,9 @@ export function useUserRole() {
 }
 
 export function useAuthError() {
-  return useAuthStore((state) => ({
-    error: state.error,
-    clearError: state.clearError,
-  }))
+  const error = useAuthStore((state) => state.error)
+  const clearError = useAuthStore((state) => state.clearError)
+  return { error, clearError }
 }
 
 export function useAuthLoading() {
