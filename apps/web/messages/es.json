@@ -1,0 +1,329 @@
+{
+  "metadata": {
+    "title": "Momento Metanoia",
+    "description": "Comparte tu testimonio de transformación a través de Jesucristo. Captura tu historia para las generaciones."
+  },
+  "common": {
+    "tagline": "Captura Tu Metanoia — Ecos para la Eternidad",
+    "learnMore": "Saber Más",
+    "watchNow": "Ver Ahora",
+    "shareStory": "Comparte Tu Historia",
+    "viewAll": "Ver Todo",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "retry": "Intentar de Nuevo"
+  },
+  "nav": {
+    "home": "Inicio",
+    "testimonies": "Testimonios",
+    "record": "Grabar",
+    "about": "Nosotros",
+    "support": "Apoyar",
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión",
+    "myAccount": "Mi Cuenta"
+  },
+  "home": {
+    "hero": {
+      "title": "Cada Transformación Cuenta una Historia",
+      "subtitle": "Únete a creyentes de todo el mundo compartiendo cómo Jesús cambió tu vida. Tu testimonio hoy se convierte en un legado para las generaciones.",
+      "cta": "Comparte Tu Testimonio",
+      "watchTestimonies": "Ver Testimonios"
+    },
+    "featured": {
+      "title": "Testimonios Recientes",
+      "subtitle": "Escucha cómo vidas están siendo transformadas"
+    },
+    "impact": {
+      "title": "Un Movimiento Global de Fe",
+      "testimoniesShared": "Testimonios Compartidos",
+      "countriesReached": "Países Alcanzados",
+      "livesTouched": "Vidas Tocadas"
+    },
+    "cta": {
+      "title": "Tu Historia Importa",
+      "description": "Ya sea que fuiste salvo ayer o hace décadas, tu testimonio tiene el poder de inspirar a otros y permanecer como testigo para las generaciones venideras.",
+      "button": "Graba Tu Testimonio"
+    }
+  },
+  "testimonies": {
+    "title": "Testimonios de Transformación",
+    "subtitle": "Historias de esperanza, redención y nueva vida en Cristo",
+    "search": "Buscar testimonios...",
+    "filter": {
+      "all": "Todos",
+      "recent": "Recientes",
+      "popular": "Más Vistos",
+      "language": "Idioma"
+    },
+    "empty": "No se encontraron testimonios. ¡Sé el primero en compartir!",
+    "card": {
+      "watchNow": "Ver",
+      "duration": "{minutes} min",
+      "views": "{count} vistas"
+    }
+  },
+  "record": {
+    "title": "Comparte Tu Testimonio",
+    "subtitle": "Graba tu historia de transformación y fe",
+    "steps": {
+      "prepare": {
+        "title": "Preparar",
+        "description": "Toma un momento para reflexionar sobre tu camino con Jesús"
+      },
+      "record": {
+        "title": "Grabar",
+        "description": "Comparte tu historia con tus propias palabras"
+      },
+      "submit": {
+        "title": "Enviar",
+        "description": "Revisa y comparte con el mundo"
+      }
+    },
+    "prompts": {
+      "title": "Preguntas Guía",
+      "intro": "Puedes responder alguna o todas estas:",
+      "questions": [
+        "¿Cómo era tu vida antes de conocer a Jesús?",
+        "¿Cómo llegaste a conocer a Cristo?",
+        "¿Cómo ha cambiado tu vida desde entonces?",
+        "¿Qué le dirías a alguien que busca esperanza?"
+      ]
+    },
+    "camera": {
+      "start": "Comenzar Grabación",
+      "stop": "Detener Grabación",
+      "retake": "Grabar de Nuevo",
+      "preview": "Vista Previa",
+      "submit": "Enviar Testimonio",
+      "permissionDenied": "Se requiere acceso a la cámara para grabar tu testimonio",
+      "notSupported": "Tu navegador no soporta grabación de video"
+    },
+    "upload": {
+      "title": "O Sube un Video",
+      "description": "¿Ya tienes una grabación? Súbela aquí.",
+      "dragDrop": "Arrastra y suelta tu video aquí",
+      "browse": "Buscar Archivos",
+      "maxSize": "Tamaño máximo: 500MB"
+    },
+    "form": {
+      "title": "Título del Testimonio",
+      "titlePlaceholder": "Dale un título a tu testimonio",
+      "description": "Breve Descripción",
+      "descriptionPlaceholder": "Comparte un breve resumen de tu testimonio",
+      "language": "Idioma Hablado",
+      "tags": "Temas (opcional)",
+      "tagsPlaceholder": "ej., sanidad, salvación, familia"
+    },
+    "success": {
+      "title": "¡Gracias!",
+      "message": "Tu testimonio ha sido enviado para revisión. Te notificaremos cuando esté disponible.",
+      "shareMore": "Compartir Otro",
+      "goHome": "Volver al Inicio"
+    }
+  },
+  "about": {
+    "title": "Sobre Momento Metanoia",
+    "mission": {
+      "title": "Nuestra Misión",
+      "description": "Momento Metanoia existe para capturar y preservar testimonios de transformación a través de Jesucristo, creando un archivo atemporal accesible para creyentes de todo el mundo y para las generaciones venideras."
+    },
+    "meaning": {
+      "title": "¿Qué es Metanoia?",
+      "description": "Metanoia (μετάνοια) es una palabra griega que significa 'un cambio transformador del corazón.' Representa la profunda transformación espiritual que ocurre cuando alguien encuentra a Jesucristo."
+    },
+    "vision": {
+      "title": "Nuestra Visión",
+      "description": "Imaginamos un mundo donde cada historia de creyente sea preservada, donde los perdidos puedan encontrar esperanza en testimonios reales, y donde las generaciones futuras puedan presenciar el poder inmutable de Dios."
+    }
+  },
+  "support": {
+    "title": "Apoya la Misión",
+    "subtitle": "Ayúdanos a preservar testimonios para las generaciones",
+    "description": "Momento Metanoia es un ministerio dedicado a capturar y compartir historias de fe. Tu apoyo nos ayuda a mantener la plataforma, alcanzar más personas y asegurar que estos testimonios perduren.",
+    "donate": {
+      "title": "Dona Hoy",
+      "monthly": "Mensual",
+      "oneTime": "Una Vez",
+      "amounts": ["$10", "$25", "$50", "$100"],
+      "custom": "Cantidad Personalizada",
+      "button": "Donar Ahora"
+    },
+    "other": {
+      "title": "Otras Formas de Ayudar",
+      "share": {
+        "title": "Comparte Tu Historia",
+        "description": "Graba y comparte tu testimonio"
+      },
+      "spread": {
+        "title": "Difunde la Palabra",
+        "description": "Cuéntales a otros sobre Momento Metanoia"
+      },
+      "pray": {
+        "title": "Ora por Nosotros",
+        "description": "Eleva este ministerio en oración"
+      }
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Bienvenido de Nuevo",
+      "subtitle": "Inicia sesión para continuar",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "button": "Iniciar Sesión",
+      "noAccount": "¿No tienes cuenta?",
+      "signUp": "Registrarse"
+    },
+    "signUp": {
+      "title": "Únete al Movimiento",
+      "subtitle": "Crea tu cuenta para compartir tu historia",
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "button": "Crear Cuenta",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "signIn": "Iniciar Sesión"
+    }
+  },
+  "footer": {
+    "tagline": "Preservando historias de fe para la eternidad",
+    "links": {
+      "testimonies": "Testimonios",
+      "about": "Nosotros",
+      "support": "Apoyar",
+      "privacy": "Privacidad",
+      "terms": "Términos"
+    },
+    "copyright": "© {year} Momento Metanoia. Todos los testimonios compartidos con permiso."
+  },
+  "pwa": {
+    "install": {
+      "title": "Instalar App",
+      "description": "Instala Momento Metanoia para una mejor experiencia con acceso sin conexión y apertura rápida.",
+      "button": "Instalar",
+      "notNow": "Ahora No",
+      "dismiss": "Cerrar",
+      "gotIt": "Entendido"
+    },
+    "offline": {
+      "title": "Sin Conexión",
+      "backOnline": "¡Conectado de Nuevo!",
+      "description": "Parece que perdiste tu conexión a internet. No te preocupes, parte del contenido aún puede estar disponible.",
+      "reconnecting": "¡Buenas noticias! Tu conexión ha sido restaurada. Redirigiendo...",
+      "tryAgain": "Intentar de Nuevo",
+      "goHome": "Ir al Inicio",
+      "tips": {
+        "title": "Mientras esperas:",
+        "tip1": "Los testimonios vistos anteriormente pueden seguir disponibles",
+        "tip2": "Verifica tu conexión WiFi o datos móviles",
+        "tip3": "La página se actualizará automáticamente cuando vuelvas a estar en línea"
+      }
+    },
+    "update": {
+      "title": "Actualización disponible",
+      "description": "Actualiza para obtener la última versión",
+      "button": "Actualizar"
+    },
+    "instructions": {
+      "ios": {
+        "title": "Instalar en iPhone/iPad",
+        "step1": {
+          "title": "Toca el botón Compartir",
+          "description": "Busca el ícono de compartir en la parte inferior de tu pantalla",
+          "iconLabel": "Compartir"
+        },
+        "step2": {
+          "title": "Toca 'Agregar a la pantalla de inicio'",
+          "description": "Desplázate hacia abajo y toca esta opción",
+          "iconLabel": "Agregar a inicio"
+        },
+        "step3": {
+          "title": "Toca 'Agregar' para confirmar",
+          "description": "La app aparecerá en tu pantalla de inicio"
+        }
+      },
+      "iosChrome": {
+        "title": "Instalar en iOS",
+        "step1": {
+          "title": "Abrir en Safari",
+          "description": "Para la mejor experiencia, abre esta página en el navegador Safari"
+        },
+        "step2": {
+          "title": "Toca el botón Compartir",
+          "description": "Busca el ícono de compartir en la parte inferior de la pantalla"
+        }
+      },
+      "androidFirefox": {
+        "title": "Instalar en Android",
+        "step1": {
+          "title": "Toca el botón de menú",
+          "description": "Busca los tres puntos en la esquina superior derecha",
+          "iconLabel": "Menú"
+        },
+        "step2": {
+          "title": "Toca 'Instalar'",
+          "description": "Selecciona 'Instalar' o 'Agregar a pantalla de inicio'"
+        },
+        "step3": {
+          "title": "Confirma la instalación",
+          "description": "La app se agregará a tu pantalla de inicio"
+        }
+      },
+      "macosSafari": {
+        "title": "Instalar en Mac",
+        "step1": {
+          "title": "Haz clic en el botón Compartir",
+          "description": "Encuéntralo en la barra de herramientas de Safari",
+          "iconLabel": "Compartir"
+        },
+        "step2": {
+          "title": "Haz clic en 'Agregar al Dock'",
+          "description": "Selecciona esta opción del menú compartir"
+        },
+        "step3": {
+          "title": "Haz clic en 'Agregar' para confirmar",
+          "description": "La app aparecerá en tu Dock"
+        }
+      },
+      "firefox": {
+        "title": "Instalar App",
+        "step1": {
+          "title": "Soporte PWA de Firefox",
+          "description": "Firefox de escritorio no soporta completamente la instalación de apps. Para la mejor experiencia, prueba Chrome o Edge."
+        },
+        "step2": {
+          "title": "Agrega esta página a marcadores",
+          "description": "Presiona Ctrl+D (Cmd+D en Mac) para marcar y acceder rápidamente"
+        }
+      },
+      "generic": {
+        "title": "Instalar App",
+        "platformLabel": "Tu Navegador",
+        "step1": {
+          "title": "Abre el menú del navegador",
+          "description": "Busca el ícono de menú (generalmente tres puntos o líneas)",
+          "iconLabel": "Menú"
+        },
+        "step2": {
+          "title": "Busca 'Instalar' o 'Agregar a pantalla de inicio'",
+          "description": "Esta opción puede estar en un submenú"
+        },
+        "step3": {
+          "title": "Confirma la instalación",
+          "description": "Sigue las instrucciones para completar la instalación"
+        }
+      }
+    }
+  },
+  "accessibility": {
+    "skipToMain": "Saltar al contenido principal",
+    "loading": "Cargando contenido",
+    "loaded": "Contenido cargado",
+    "error": "Ocurrió un error",
+    "menuOpen": "Menú abierto",
+    "menuClosed": "Menú cerrado"
+  }
+}

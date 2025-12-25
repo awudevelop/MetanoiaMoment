@@ -1,0 +1,53 @@
+{
+  "project": {
+    "name": "Metanoia Moment",
+    "description": "Global platform for sharing faith testimonies via video",
+    "version": "0.1.0"
+  },
+  "conventions": {
+    "components": {
+      "location": "packages/ui/src/components",
+      "naming": "kebab-case files, PascalCase exports",
+      "pattern": "React.forwardRef with TypeScript props interface"
+    },
+    "pages": {
+      "location": "apps/web/src/app/[locale]",
+      "pattern": "Server components with setRequestLocale"
+    },
+    "stores": {
+      "location": "apps/web/src/lib/stores",
+      "pattern": "Zustand with TypeScript interface"
+    },
+    "types": {
+      "location": "apps/web/src/types/index.ts",
+      "pattern": "Centralized type definitions"
+    }
+  },
+  "styling": {
+    "framework": "Tailwind CSS",
+    "colors": {
+      "primary": "Gold/amber (#ed7412) - divine light, hope",
+      "secondary": "Earth tones (#988862) - stability",
+      "accent": "Green (#4d9653) - growth, new life",
+      "warm": "Neutral backgrounds"
+    },
+    "fonts": {
+      "display": "Playfair Display",
+      "serif": "Lora",
+      "sans": "Inter"
+    }
+  },
+  "i18n": {
+    "defaultLocale": "en",
+    "locales": ["en", "es", "fr", "pt", "zh", "ar", "hi", "ru"],
+    "messagesPath": "apps/web/messages"
+  },
+  "testing": {
+    "unit": "Vitest (planned)",
+    "e2e": "Playwright (planned)"
+  },
+  "deployment": {
+    "primary": "Vercel",
+    "mirrors": ["IncogNET", "1984 Hosting"]
+  }
+}

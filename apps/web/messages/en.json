@@ -1,0 +1,404 @@
+{
+  "metadata": {
+    "title": "Metanoia Moment",
+    "description": "Share your testimony of transformation through Jesus Christ. Capture your story for generations."
+  },
+  "common": {
+    "tagline": "Capture Your Metanoia — Echoes for Eternity",
+    "learnMore": "Learn More",
+    "watchNow": "Watch Now",
+    "shareStory": "Share Your Story",
+    "viewAll": "View All",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again"
+  },
+  "nav": {
+    "home": "Home",
+    "testimonies": "Testimonies",
+    "record": "Record",
+    "about": "About",
+    "support": "Support",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "myAccount": "My Account"
+  },
+  "home": {
+    "hero": {
+      "title": "Every Transformation Tells a Story",
+      "subtitle": "Join believers worldwide in sharing how Jesus changed your life. Your testimony today becomes a legacy for generations.",
+      "cta": "Share Your Testimony",
+      "watchTestimonies": "Watch Testimonies"
+    },
+    "featured": {
+      "title": "Recent Testimonies",
+      "subtitle": "Hear how lives are being transformed"
+    },
+    "impact": {
+      "title": "A Global Movement of Faith",
+      "testimoniesShared": "Testimonies Shared",
+      "countriesReached": "Countries Reached",
+      "livesTouched": "Lives Touched"
+    },
+    "cta": {
+      "title": "Your Story Matters",
+      "description": "Whether you were saved yesterday or decades ago, your testimony has the power to inspire others and stand as a witness for generations to come.",
+      "button": "Record Your Testimony"
+    },
+    "recentlyShared": {
+      "title": "Happening Right Now",
+      "subtitle": "See testimonies being shared and watched around the world"
+    }
+  },
+  "testimonies": {
+    "title": "Testimonies of Transformation",
+    "subtitle": "Stories of hope, redemption, and new life in Christ",
+    "search": "Search testimonies...",
+    "filter": {
+      "all": "All",
+      "recent": "Recent",
+      "popular": "Most Viewed",
+      "language": "Language"
+    },
+    "empty": "No testimonies found. Be the first to share!",
+    "card": {
+      "watchNow": "Watch",
+      "duration": "{minutes} min",
+      "views": "{count} views"
+    }
+  },
+  "record": {
+    "title": "Share Your Testimony",
+    "subtitle": "Record your story of transformation and faith",
+    "steps": {
+      "prepare": {
+        "title": "Prepare",
+        "description": "Take a moment to reflect on your journey with Jesus"
+      },
+      "record": {
+        "title": "Record",
+        "description": "Share your story in your own words"
+      },
+      "submit": {
+        "title": "Submit",
+        "description": "Review and share with the world"
+      }
+    },
+    "prompts": {
+      "title": "Guiding Questions",
+      "intro": "You can answer any or all of these:",
+      "questions": [
+        "What was your life like before you knew Jesus?",
+        "How did you come to know Christ?",
+        "How has your life changed since?",
+        "What would you say to someone seeking hope?"
+      ]
+    },
+    "camera": {
+      "start": "Start Recording",
+      "stop": "Stop Recording",
+      "retake": "Record Again",
+      "preview": "Preview",
+      "submit": "Submit Testimony",
+      "permissionDenied": "Camera access is required to record your testimony",
+      "notSupported": "Your browser doesn't support video recording"
+    },
+    "upload": {
+      "title": "Or Upload a Video",
+      "description": "Already have a recording? Upload it here.",
+      "dragDrop": "Drag and drop your video here",
+      "browse": "Browse Files",
+      "maxSize": "Maximum file size: 500MB"
+    },
+    "form": {
+      "title": "Testimony Title",
+      "titlePlaceholder": "Give your testimony a title",
+      "description": "Brief Description",
+      "descriptionPlaceholder": "Share a brief summary of your testimony",
+      "language": "Spoken Language",
+      "tags": "Topics (optional)",
+      "tagsPlaceholder": "e.g., healing, salvation, family"
+    },
+    "success": {
+      "title": "Thank You!",
+      "message": "Your testimony has been submitted for review. We'll notify you once it's live.",
+      "shareMore": "Share Another",
+      "goHome": "Return Home"
+    }
+  },
+  "about": {
+    "title": "About Metanoia Moment",
+    "mission": {
+      "title": "Our Mission",
+      "description": "Metanoia Moment exists to capture and preserve testimonies of transformation through Jesus Christ, creating a timeless archive accessible to believers worldwide and for generations to come."
+    },
+    "meaning": {
+      "title": "What is Metanoia?",
+      "description": "Metanoia (μετάνοια) is a Greek word meaning 'a transformative change of heart.' It represents the profound spiritual transformation that occurs when someone encounters Jesus Christ."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "We envision a world where every believer's story is preserved, where the lost can find hope in real testimonies, and where future generations can witness the unchanging power of God."
+    }
+  },
+  "support": {
+    "title": "Support the Mission",
+    "subtitle": "Help us preserve testimonies for generations",
+    "description": "Metanoia Moment is a ministry dedicated to capturing and sharing stories of faith. Your support helps us maintain the platform, reach more people, and ensure these testimonies endure.",
+    "donate": {
+      "title": "Give Today",
+      "monthly": "Monthly",
+      "oneTime": "One-Time",
+      "amounts": ["$10", "$25", "$50", "$100"],
+      "custom": "Custom Amount",
+      "button": "Donate Now"
+    },
+    "other": {
+      "title": "Other Ways to Help",
+      "share": {
+        "title": "Share Your Story",
+        "description": "Record and share your testimony"
+      },
+      "spread": {
+        "title": "Spread the Word",
+        "description": "Tell others about Metanoia Moment"
+      },
+      "pray": {
+        "title": "Pray for Us",
+        "description": "Lift this ministry in prayer"
+      }
+    }
+  },
+  "auth": {
+    "signIn": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to continue",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "button": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up"
+    },
+    "signUp": {
+      "title": "Join the Movement",
+      "subtitle": "Create your account to share your story",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "button": "Create Account",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign In"
+    }
+  },
+  "footer": {
+    "tagline": "Preserving stories of faith for eternity",
+    "links": {
+      "testimonies": "Testimonies",
+      "about": "About",
+      "support": "Support",
+      "privacy": "Privacy",
+      "terms": "Terms"
+    },
+    "copyright": "© {year} Metanoia Moment. All testimonies shared with permission."
+  },
+  "pwa": {
+    "install": {
+      "title": "Install App",
+      "description": "Install Metanoia Moment for a better experience with offline access and quick launch.",
+      "button": "Install",
+      "notNow": "Not Now",
+      "dismiss": "Dismiss",
+      "gotIt": "Got it"
+    },
+    "offline": {
+      "title": "You're Offline",
+      "backOnline": "Back Online!",
+      "description": "It looks like you've lost your internet connection. Don't worry, some content may still be available.",
+      "reconnecting": "Great news! Your connection has been restored. Redirecting...",
+      "tryAgain": "Try Again",
+      "goHome": "Go Home",
+      "tips": {
+        "title": "While you wait:",
+        "tip1": "Previously viewed testimonies may still be available",
+        "tip2": "Check your WiFi or mobile data connection",
+        "tip3": "The page will refresh automatically when you're back online"
+      }
+    },
+    "update": {
+      "title": "Update available",
+      "description": "Refresh for the latest version",
+      "button": "Update"
+    },
+    "instructions": {
+      "ios": {
+        "title": "Install on iPhone/iPad",
+        "step1": {
+          "title": "Tap the Share button",
+          "description": "Look for the share icon at the bottom of your screen",
+          "iconLabel": "Share"
+        },
+        "step2": {
+          "title": "Tap 'Add to Home Screen'",
+          "description": "Scroll down and tap this option",
+          "iconLabel": "Add to Home Screen"
+        },
+        "step3": {
+          "title": "Tap 'Add' to confirm",
+          "description": "The app will appear on your home screen"
+        }
+      },
+      "iosChrome": {
+        "title": "Install on iOS",
+        "step1": {
+          "title": "Open in Safari",
+          "description": "For the best experience, open this page in Safari browser"
+        },
+        "step2": {
+          "title": "Tap the Share button",
+          "description": "Look for the share icon at the bottom of the screen"
+        }
+      },
+      "androidFirefox": {
+        "title": "Install on Android",
+        "step1": {
+          "title": "Tap the menu button",
+          "description": "Look for the three dots at the top right",
+          "iconLabel": "Menu"
+        },
+        "step2": {
+          "title": "Tap 'Install'",
+          "description": "Select 'Install' or 'Add to Home screen'"
+        },
+        "step3": {
+          "title": "Confirm installation",
+          "description": "The app will be added to your home screen"
+        }
+      },
+      "macosSafari": {
+        "title": "Install on Mac",
+        "step1": {
+          "title": "Click the Share button",
+          "description": "Find it in the Safari toolbar",
+          "iconLabel": "Share"
+        },
+        "step2": {
+          "title": "Click 'Add to Dock'",
+          "description": "Select this option from the share menu"
+        },
+        "step3": {
+          "title": "Click 'Add' to confirm",
+          "description": "The app will appear in your Dock"
+        }
+      },
+      "firefox": {
+        "title": "Install App",
+        "step1": {
+          "title": "Firefox PWA Support",
+          "description": "Firefox desktop doesn't fully support app installation. For the best experience, try Chrome or Edge."
+        },
+        "step2": {
+          "title": "Bookmark this page",
+          "description": "Press Ctrl+D (Cmd+D on Mac) to bookmark for quick access"
+        }
+      },
+      "generic": {
+        "title": "Install App",
+        "platformLabel": "Your Browser",
+        "step1": {
+          "title": "Open browser menu",
+          "description": "Look for the menu icon (usually three dots or lines)",
+          "iconLabel": "Menu"
+        },
+        "step2": {
+          "title": "Find 'Install' or 'Add to Home Screen'",
+          "description": "This option may be in a submenu"
+        },
+        "step3": {
+          "title": "Confirm installation",
+          "description": "Follow the prompts to complete installation"
+        }
+      }
+    }
+  },
+  "accessibility": {
+    "skipToMain": "Skip to main content",
+    "loading": "Loading content",
+    "loaded": "Content loaded",
+    "error": "An error occurred",
+    "menuOpen": "Menu opened",
+    "menuClosed": "Menu closed"
+  },
+  "account": {
+    "title": "My Account",
+    "subtitle": "Manage your profile and testimonies",
+    "settings": "Profile Settings",
+    "email": "Email Address",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "bio": "Bio",
+    "bioPlaceholder": "Tell us a little about yourself...",
+    "changePhoto": "Change photo",
+    "anonymous": "Anonymous",
+    "admin": "Administrator",
+    "saveChanges": "Save Changes",
+    "saved": "Profile updated",
+    "savedDescription": "Your changes have been saved.",
+    "error": "Update failed",
+    "errorDescription": "Could not save your changes. Please try again.",
+    "signOut": "Sign Out",
+    "signedOut": "Signed out",
+    "signedOutDescription": "You have been signed out successfully.",
+    "myTestimonies": "My Testimonies",
+    "dangerZone": "Danger Zone",
+    "dangerZoneDescription": "Once you delete your account, there is no going back. Please be certain.",
+    "deleteAccount": "Delete Account",
+    "stats": {
+      "testimonies": "Testimonies",
+      "totalViews": "Total Views",
+      "memberSince": "Member Since"
+    }
+  },
+  "myTestimonies": {
+    "title": "My Testimonies",
+    "subtitle": "Manage and track your shared testimonies",
+    "backToAccount": "Back to Account",
+    "recordNew": "Record New",
+    "views": "views",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this testimony? This action cannot be undone.",
+    "deleted": "Testimony deleted",
+    "deletedDescription": "Your testimony has been removed.",
+    "error": "Error",
+    "errorDescription": "Something went wrong. Please try again.",
+    "status": {
+      "pending": "Pending Review",
+      "approved": "Published",
+      "rejected": "Not Approved"
+    },
+    "empty": {
+      "title": "No Testimonies Yet",
+      "description": "You haven't shared any testimonies yet. Your story can inspire others!",
+      "cta": "Record Your First Testimony"
+    }
+  },
+  "forgotPassword": {
+    "title": "Reset Password",
+    "subtitle": "Enter your email to receive a reset link",
+    "email": "Email Address",
+    "button": "Send Reset Link",
+    "backToSignIn": "Back to Sign In",
+    "sent": "Email Sent",
+    "sentDescription": "Check your inbox for a password reset link.",
+    "error": "Error",
+    "errorDescription": "Could not send reset email. Please check your email and try again."
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Go Home",
+    "goBack": "Go Back"
+  }
+}
