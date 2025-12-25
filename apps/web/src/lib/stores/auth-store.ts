@@ -1,8 +1,15 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { User, SignInCredentials, SignUpCredentials } from '@/types'
+import type { User, UserRole, SignInCredentials, SignUpCredentials } from '@/types'
 import { MOCK_USERS } from '@/lib/mock-data'
-import { createAppError, parseError, type AppError, type Result, success, failure } from '@/lib/errors'
+import {
+  createAppError,
+  parseError,
+  type AppError,
+  type Result,
+  success,
+  failure,
+} from '@/lib/errors'
 
 // =============================================================================
 // AUTH STORE
@@ -30,8 +37,10 @@ interface AuthActions {
   resetPassword: (email: string) => Promise<void>
   updateProfile: (data: { fullName?: string; bio?: string; avatarUrl?: string }) => Promise<void>
 
-  // For demo purposes
-  signInAsDemo: () => void
+  // For demo purposes - instant sign-in without API delay
+  signInAsDemo: (role: UserRole) => void
+  signInAsUser: () => void
+  signInAsCreator: () => void
   signInAsAdmin: () => void
 }
 
@@ -106,6 +115,7 @@ export const useAuthStore = create<AuthStore>()(
             fullName: credentials.fullName,
             avatarUrl: null,
             bio: null,
+            role: 'user',
             isAdmin: false,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
@@ -167,7 +177,11 @@ export const useAuthStore = create<AuthStore>()(
         }
       },
 
-      updateProfile: async (data: { fullName?: string; bio?: string; avatarUrl?: string }): Promise<void> => {
+      updateProfile: async (data: {
+        fullName?: string
+        bio?: string
+        avatarUrl?: string
+      }): Promise<void> => {
         set({ isLoading: true, error: null })
 
         try {
@@ -194,18 +208,32 @@ export const useAuthStore = create<AuthStore>()(
         }
       },
 
-      // Demo sign-in for testing
-      signInAsDemo: () => {
-        const demoUser = MOCK_USERS.find((u) => !u.isAdmin)
+      // Demo sign-in for testing - instant, no API delay
+      signInAsDemo: (role: UserRole) => {
+        const demoUser = MOCK_USERS.find((u) => u.role === role)
         if (demoUser) {
           set({ user: demoUser, isAuthenticated: true, error: null })
         }
       },
 
+      signInAsUser: () => {
+        const user = MOCK_USERS.find((u) => u.role === 'user')
+        if (user) {
+          set({ user, isAuthenticated: true, error: null })
+        }
+      },
+
+      signInAsCreator: () => {
+        const creator = MOCK_USERS.find((u) => u.role === 'creator')
+        if (creator) {
+          set({ user: creator, isAuthenticated: true, error: null })
+        }
+      },
+
       signInAsAdmin: () => {
-        const adminUser = MOCK_USERS.find((u) => u.isAdmin)
-        if (adminUser) {
-          set({ user: adminUser, isAuthenticated: true, error: null })
+        const admin = MOCK_USERS.find((u) => u.role === 'admin')
+        if (admin) {
+          set({ user: admin, isAuthenticated: true, error: null })
         }
       },
     }),
@@ -232,7 +260,15 @@ export function useIsAuthenticated() {
 }
 
 export function useIsAdmin() {
-  return useAuthStore((state) => state.user?.isAdmin ?? false)
+  return useAuthStore((state) => state.user?.role === 'admin')
+}
+
+export function useIsCreator() {
+  return useAuthStore((state) => state.user?.role === 'creator' || state.user?.role === 'admin')
+}
+
+export function useUserRole() {
+  return useAuthStore((state) => state.user?.role ?? null)
 }
 
 export function useAuthError() {

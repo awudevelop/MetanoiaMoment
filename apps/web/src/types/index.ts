@@ -6,13 +6,16 @@
 
 export type TestimonyStatus = 'pending' | 'approved' | 'rejected'
 
+export type UserRole = 'user' | 'creator' | 'admin'
+
 export interface User {
   id: string
   email: string
   fullName: string | null
   avatarUrl: string | null
   bio: string | null
-  isAdmin: boolean
+  role: UserRole
+  isAdmin: boolean // Kept for backwards compatibility, derived from role === 'admin'
   createdAt: string
   updatedAt: string
 }
@@ -29,6 +32,8 @@ export interface Testimony {
   tags: string[]
   status: TestimonyStatus
   viewCount: number
+  likeCount: number
+  shareCount: number
   featured: boolean
   publishedAt: string | null
   createdAt: string

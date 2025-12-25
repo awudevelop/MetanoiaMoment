@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter, usePathname, Link } from '@/i18n/routing'
-import { useAuthStore } from '@/lib/stores/auth-store'
+import { useAuthStore, useIsAdmin } from '@/lib/stores/auth-store'
 import {
   LayoutDashboard,
   Video,
@@ -35,6 +35,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const router = useRouter()
   const pathname = usePathname()
   const { user, isAuthenticated, signOut } = useAuthStore()
+  const isAdmin = useIsAdmin()
   const [isLoading, setIsLoading] = useState(true)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -44,13 +45,14 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       return
     }
 
-    if (!user?.isAdmin) {
+    // Check both role-based and legacy isAdmin flag
+    if (!isAdmin && !user?.isAdmin) {
       router.push('/')
       return
     }
 
     setIsLoading(false)
-  }, [isAuthenticated, user, router])
+  }, [isAuthenticated, isAdmin, user, router])
 
   const handleSignOut = () => {
     signOut()
@@ -160,7 +162,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
           <div className="flex items-center gap-4">
             <span className="text-sm text-warm-600">
-              Welcome, <span className="font-medium text-warm-900">{user?.fullName || 'Admin'}</span>
+              Welcome,{' '}
+              <span className="font-medium text-warm-900">{user?.fullName || 'Admin'}</span>
             </span>
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-100 text-primary-600">
               {user?.fullName?.charAt(0) || 'A'}
@@ -169,9 +172,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-auto p-4 lg:p-6">
-          {children}
-        </main>
+        <main className="flex-1 overflow-auto p-4 lg:p-6">{children}</main>
       </div>
     </div>
   )

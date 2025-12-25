@@ -36,9 +36,9 @@ export function OfflineIndicator() {
 
   return (
     <div
-      className={`fixed left-1/2 top-4 z-50 -translate-x-1/2 transform animate-slide-in-down ${
+      className={`fixed inset-x-0 bottom-0 z-50 ${
         isOnline ? 'bg-accent-600' : 'bg-warm-800'
-      } flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white shadow-lg`}
+      } flex animate-slide-in-up items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-white shadow-lg`}
     >
       {isOnline ? (
         <>

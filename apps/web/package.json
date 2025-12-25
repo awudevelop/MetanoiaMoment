@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3012",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --port 3012",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
-    "@metanoia/ui": "workspace:*",
+    "@metanoia/ui": "*",
     "clsx": "^2.1.1",
     "lucide-react": "^0.468.0",
     "next": "15.1.0",

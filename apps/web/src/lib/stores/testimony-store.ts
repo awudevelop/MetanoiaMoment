@@ -255,6 +255,8 @@ export const useTestimonyStore = create<TestimonyStore>((set, get) => ({
         tags: data.tags || [],
         status: 'pending',
         viewCount: 0,
+        likeCount: 0,
+        shareCount: 0,
         featured: false,
         author: undefined,
         createdAt: new Date().toISOString(),

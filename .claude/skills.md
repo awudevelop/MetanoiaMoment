@@ -718,6 +718,104 @@ export function use{Name}(options: Use{Name}Options = {}): Use{Name}Result {
 - `useFormValidation` - Form validation with i18n
 - `useBotProtection` - reCAPTCHA + honeypot + rate limiting
 - `useAsync` - Async operation state management
+- `useIsAdmin` - Check if current user has admin role
+- `useIsCreator` - Check if current user has creator or admin role
+- `useUserRole` - Get current user's role ('user' | 'creator' | 'admin')
+
+---
+
+### `/portal` - Create Portal Dashboard Page
+
+Creates a new page for a user portal (admin, creator, or user).
+
+**Usage**: `/portal creator/settings` or `/portal admin/reports`
+
+**Creates**: `apps/web/src/app/[locale]/{portal}/{page}/page.tsx`
+
+**Template**:
+
+```tsx
+'use client'
+
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { Card, CardContent, CardHeader, CardTitle } from '@metanoia/ui'
+import { ArrowLeft } from 'lucide-react'
+import { Link } from '@/i18n/routing'
+import { useAuthStore, useIsCreator } from '@/lib/stores/auth-store'
+import { AnimateOnScroll } from '@/components/animations'
+
+export default function {Name}Page() {
+  const router = useRouter()
+  const { user, isAuthenticated } = useAuthStore()
+  const isCreator = useIsCreator() // or useIsAdmin()
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/auth/signin')
+      return
+    }
+    if (!isCreator) {
+      router.push('/account')
+      return
+    }
+  }, [isAuthenticated, isCreator, router])
+
+  if (!isAuthenticated || !user || !isCreator) {
+    return null
+  }
+
+  return (
+    <div className="section">
+      <div className="container max-w-6xl">
+        <AnimateOnScroll animation="fade-in-down">
+          <Link
+            href="/creator"
+            className="mb-4 inline-flex items-center gap-2 text-sm text-warm-500 hover:text-warm-700"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Dashboard
+          </Link>
+          <h1 className="font-display text-3xl font-bold text-warm-900">
+            {/* Page Title */}
+          </h1>
+        </AnimateOnScroll>
+
+        {/* Page Content */}
+      </div>
+    </div>
+  )
+}
+```
+
+**Available Portals**:
+
+| Portal  | Route      | Access Check     | Description                        |
+| ------- | ---------- | ---------------- | ---------------------------------- |
+| Admin   | `/admin`   | `useIsAdmin()`   | Full platform management           |
+| Creator | `/creator` | `useIsCreator()` | Manage own testimonies & analytics |
+| User    | `/account` | Authenticated    | Profile & settings                 |
+
+**Portal Structure**:
+
+```
+/admin/                    # Admin Portal
+├── page.tsx               # Dashboard with stats
+├── testimonies/page.tsx   # Moderation queue
+├── users/page.tsx         # User management
+├── analytics/page.tsx     # Platform analytics
+├── moderation/page.tsx    # Reports & flagged content
+└── settings/page.tsx      # Platform settings
+
+/creator/                  # Creator Portal
+├── page.tsx               # Dashboard with personal stats
+├── testimonies/page.tsx   # Manage own testimonies
+└── analytics/page.tsx     # Personal analytics
+
+/account/                  # User Portal
+├── page.tsx               # Profile settings
+└── testimonies/page.tsx   # View own testimonies
+```
 
 ---
 

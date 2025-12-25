@@ -2,15 +2,57 @@ import type { User, Testimony, TestimonyFilters, TestimonySort } from '@/types'
 
 // =============================================================================
 // MOCK USERS
+// Demo credentials for testing:
+// - User:    user@demo.com / demo123
+// - Creator: creator@demo.com / demo123
+// - Admin:   admin@demo.com / demo123
 // =============================================================================
 
 export const MOCK_USERS: User[] = [
+  // Demo User (can view, favorite, comment)
+  {
+    id: 'demo-user',
+    email: 'user@demo.com',
+    fullName: 'Demo User',
+    avatarUrl: null,
+    bio: 'A regular user exploring testimonies.',
+    role: 'user',
+    isAdmin: false,
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-01-01T00:00:00Z',
+  },
+  // Demo Creator (can record and manage own testimonies)
+  {
+    id: 'demo-creator',
+    email: 'creator@demo.com',
+    fullName: 'Demo Creator',
+    avatarUrl: null,
+    bio: 'Sharing my faith journey with the world.',
+    role: 'creator',
+    isAdmin: false,
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-01-01T00:00:00Z',
+  },
+  // Demo Admin (full access)
+  {
+    id: 'demo-admin',
+    email: 'admin@demo.com',
+    fullName: 'Demo Admin',
+    avatarUrl: null,
+    bio: 'Platform administrator.',
+    role: 'admin',
+    isAdmin: true,
+    createdAt: '2024-01-01T00:00:00Z',
+    updatedAt: '2024-01-01T00:00:00Z',
+  },
+  // Regular users/creators for content
   {
     id: 'user-1',
     email: 'michael.r@example.com',
     fullName: 'Michael Robinson',
     avatarUrl: null,
     bio: 'Saved by grace, sharing my story.',
+    role: 'creator',
     isAdmin: false,
     createdAt: '2024-01-15T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
@@ -21,6 +63,7 @@ export const MOCK_USERS: User[] = [
     fullName: 'Sarah Mitchell',
     avatarUrl: null,
     bio: 'Walking in faith since 2018.',
+    role: 'creator',
     isAdmin: false,
     createdAt: '2024-02-20T14:30:00Z',
     updatedAt: '2024-02-20T14:30:00Z',
@@ -31,19 +74,10 @@ export const MOCK_USERS: User[] = [
     fullName: 'David Kim',
     avatarUrl: null,
     bio: 'Former prodigal, now home.',
+    role: 'creator',
     isAdmin: false,
     createdAt: '2024-03-10T09:15:00Z',
     updatedAt: '2024-03-10T09:15:00Z',
-  },
-  {
-    id: 'admin-1',
-    email: 'admin@metanoiamoment.com',
-    fullName: 'Admin User',
-    avatarUrl: null,
-    bio: null,
-    isAdmin: true,
-    createdAt: '2024-01-01T00:00:00Z',
-    updatedAt: '2024-01-01T00:00:00Z',
   },
 ]
 
@@ -65,6 +99,8 @@ export const MOCK_TESTIMONIES: Testimony[] = [
     tags: ['addiction', 'freedom', 'healing'],
     status: 'approved',
     viewCount: 1245,
+    likeCount: 87,
+    shareCount: 23,
     featured: true,
     publishedAt: '2024-06-15T12:00:00Z',
     createdAt: '2024-06-14T10:00:00Z',
@@ -88,6 +124,8 @@ export const MOCK_TESTIMONIES: Testimony[] = [
     tags: ['grief', 'healing', 'peace', 'loss'],
     status: 'approved',
     viewCount: 892,
+    likeCount: 64,
+    shareCount: 18,
     featured: true,
     publishedAt: '2024-07-20T14:00:00Z',
     createdAt: '2024-07-19T11:30:00Z',
@@ -111,6 +149,8 @@ export const MOCK_TESTIMONIES: Testimony[] = [
     tags: ['prodigal', 'restoration', 'faith'],
     status: 'approved',
     viewCount: 2103,
+    likeCount: 156,
+    shareCount: 42,
     featured: true,
     publishedAt: '2024-08-05T09:00:00Z',
     createdAt: '2024-08-04T16:45:00Z',
@@ -134,6 +174,8 @@ export const MOCK_TESTIMONIES: Testimony[] = [
     tags: ['purpose', 'retirement', 'calling'],
     status: 'approved',
     viewCount: 567,
+    likeCount: 38,
+    shareCount: 12,
     featured: false,
     publishedAt: '2024-09-10T11:00:00Z',
     createdAt: '2024-09-09T15:20:00Z',
@@ -157,6 +199,8 @@ export const MOCK_TESTIMONIES: Testimony[] = [
     tags: ['homelessness', 'hope', 'salvation'],
     status: 'approved',
     viewCount: 1876,
+    likeCount: 124,
+    shareCount: 35,
     featured: false,
     publishedAt: '2024-10-01T08:00:00Z',
     createdAt: '2024-09-30T14:10:00Z',
@@ -180,6 +224,8 @@ export const MOCK_TESTIMONIES: Testimony[] = [
     tags: ['marriage', 'restoration', 'forgiveness'],
     status: 'approved',
     viewCount: 2341,
+    likeCount: 189,
+    shareCount: 56,
     featured: false,
     publishedAt: '2024-10-15T10:00:00Z',
     createdAt: '2024-10-14T09:00:00Z',
@@ -203,6 +249,8 @@ export const MOCK_TESTIMONIES: Testimony[] = [
     tags: ['faith'],
     status: 'pending',
     viewCount: 0,
+    likeCount: 0,
+    shareCount: 0,
     featured: false,
     publishedAt: null,
     createdAt: '2024-12-20T10:00:00Z',
@@ -225,6 +273,8 @@ export const MOCK_TESTIMONIES: Testimony[] = [
     tags: ['salvation'],
     status: 'pending',
     viewCount: 0,
+    likeCount: 0,
+    shareCount: 0,
     featured: false,
     publishedAt: null,
     createdAt: '2024-12-21T14:00:00Z',

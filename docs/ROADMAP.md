@@ -162,6 +162,29 @@ docs/               # Technical documentation
   - Custom 404 page with inspirational message
   - Fixed dead links on Support page
 
+- [x] **Multi-Portal System (NEW)**
+  - **Role-Based Access Control**
+    - `UserRole` type: 'user' | 'creator' | 'admin'
+    - Helper hooks: `useIsAdmin()`, `useIsCreator()`, `useUserRole()`
+    - Role-based route protection with redirects
+  - **Unified Sign-In Page**
+    - 3 quick-access portal buttons with pre-filled credentials
+    - Hover to preview credentials, click for instant sign-in
+    - Demo credentials for testing (user@demo.com, creator@demo.com, admin@demo.com)
+  - **Creator Portal** (`/creator`)
+    - Dashboard with stats (total, pending, approved, views)
+    - Quick actions (record new, view analytics)
+    - Recent testimonies management
+    - Testimonies page with search, filter, and actions menu
+    - Analytics page with performance metrics and activity feed
+  - **Admin Portal Enhancements** (`/admin`)
+    - Updated to use role-based access checks
+    - Supports both `useIsAdmin()` hook and legacy `isAdmin` flag
+  - **Header Navigation Updates**
+    - Role-based nav links (Admin, Creator, Account)
+    - User dropdown with role badge
+    - Portal-specific links based on user role
+
 ### New Components
 
 ```
@@ -203,6 +226,9 @@ src/app/[locale]/
 ├── account/page.tsx         # User profile page
 ├── account/testimonies/page.tsx  # My testimonies
 ├── auth/forgot-password/page.tsx # Password reset
+├── creator/page.tsx         # Creator dashboard
+├── creator/testimonies/page.tsx  # Creator testimonies management
+├── creator/analytics/page.tsx    # Creator analytics
 ├── not-found.tsx            # Custom 404 page
 ├── featured-testimonies-client.tsx
 └── recently-shared-client.tsx
@@ -540,18 +566,20 @@ Phase 5 complete:
 
 ## Decision Log
 
-| Date    | Decision                                | Rationale                                                  |
-| ------- | --------------------------------------- | ---------------------------------------------------------- |
-| 2024-12 | Frontend-first approach                 | Validate UX before backend investment                      |
-| 2024-12 | Zustand for state                       | Lightweight, works well with Next.js                       |
-| 2024-12 | Supabase for backend                    | Auth + DB + Storage in one, good free tier                 |
-| 2024-12 | next-intl for i18n                      | Best App Router support, type-safe                         |
-| 2024-12 | CSS animations over Framer Motion       | Smaller bundle, better performance, no dependencies        |
-| 2024-12 | Custom service worker                   | Full control over caching, offline strategy                |
-| 2024-12 | Platform-specific PWA instructions      | Better UX for global audience, handles browser differences |
-| 2024-12 | Locale-aware offline pages              | Consistent i18n experience even when offline               |
-| 2024-12 | reCAPTCHA v3 + honeypot + rate limiting | Multi-layer bot protection without friction                |
-| 2024-12 | Pull forward UX features to Phase 1.5   | Viral sharing and engagement crucial for adoption          |
+| Date    | Decision                                 | Rationale                                                  |
+| ------- | ---------------------------------------- | ---------------------------------------------------------- |
+| 2024-12 | Frontend-first approach                  | Validate UX before backend investment                      |
+| 2024-12 | Zustand for state                        | Lightweight, works well with Next.js                       |
+| 2024-12 | Supabase for backend                     | Auth + DB + Storage in one, good free tier                 |
+| 2024-12 | next-intl for i18n                       | Best App Router support, type-safe                         |
+| 2024-12 | CSS animations over Framer Motion        | Smaller bundle, better performance, no dependencies        |
+| 2024-12 | Custom service worker                    | Full control over caching, offline strategy                |
+| 2024-12 | Platform-specific PWA instructions       | Better UX for global audience, handles browser differences |
+| 2024-12 | Locale-aware offline pages               | Consistent i18n experience even when offline               |
+| 2024-12 | reCAPTCHA v3 + honeypot + rate limiting  | Multi-layer bot protection without friction                |
+| 2024-12 | Pull forward UX features to Phase 1.5    | Viral sharing and engagement crucial for adoption          |
+| 2024-12 | Multi-portal system with role-based auth | Separate user, creator, admin experiences for better UX    |
+| 2024-12 | Demo credentials on signin page          | Fast testing and demo during development phase             |
 
 ---
 

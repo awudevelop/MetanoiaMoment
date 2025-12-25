@@ -178,6 +178,7 @@ describe('Auth Store', () => {
         fullName: 'Test User',
         avatarUrl: null,
         bio: null,
+        role: 'user',
         isAdmin: false,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -198,6 +199,7 @@ describe('Auth Store', () => {
         fullName: 'Test User',
         avatarUrl: null,
         bio: null,
+        role: 'user',
         isAdmin: false,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -293,14 +295,35 @@ describe('Auth Store', () => {
   })
 
   describe('demo sign in', () => {
-    it('signInAsDemo should sign in as non-admin user', () => {
+    it('signInAsDemo should sign in as specified role', () => {
       const { signInAsDemo } = useAuthStore.getState()
 
-      signInAsDemo()
+      signInAsDemo('user')
 
       const state = useAuthStore.getState()
       expect(state.isAuthenticated).toBe(true)
+      expect(state.user?.role).toBe('user')
       expect(state.user?.isAdmin).toBe(false)
+    })
+
+    it('signInAsUser should sign in as regular user', () => {
+      const { signInAsUser } = useAuthStore.getState()
+
+      signInAsUser()
+
+      const state = useAuthStore.getState()
+      expect(state.isAuthenticated).toBe(true)
+      expect(state.user?.role).toBe('user')
+    })
+
+    it('signInAsCreator should sign in as creator', () => {
+      const { signInAsCreator } = useAuthStore.getState()
+
+      signInAsCreator()
+
+      const state = useAuthStore.getState()
+      expect(state.isAuthenticated).toBe(true)
+      expect(state.user?.role).toBe('creator')
     })
 
     it('signInAsAdmin should sign in as admin user', () => {
