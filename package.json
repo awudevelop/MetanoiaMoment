@@ -13,7 +13,8 @@
     "test:ui": "vitest --ui",
     "typecheck": "turbo typecheck",
     "prepare": "husky",
-    "generate-icons": "node scripts/generate-icons.js && node scripts/convert-icons-to-png.js"
+    "generate-icons": "node scripts/generate-icons.js && node scripts/convert-icons-to-png.js",
+    "generate-splash": "node scripts/generate-splash-screens.js"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",

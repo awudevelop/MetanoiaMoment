@@ -43,7 +43,6 @@ interface AnimateOnScrollProps {
   threshold?: number
   once?: boolean
   className?: string
-  as?: keyof JSX.IntrinsicElements
 }
 
 export function AnimateOnScroll({
@@ -54,9 +53,8 @@ export function AnimateOnScroll({
   threshold = 0.1,
   once = true,
   className,
-  as: Component = 'div',
 }: AnimateOnScrollProps) {
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
   const prefersReducedMotion = usePrefersReducedMotion()
 
@@ -97,8 +95,8 @@ export function AnimateOnScroll({
       : 'opacity-0'
 
   return (
-    <Component
-      ref={ref as React.RefObject<HTMLDivElement>}
+    <div
+      ref={ref}
       className={cn(animationClass, className)}
       style={
         prefersReducedMotion
@@ -110,7 +108,7 @@ export function AnimateOnScroll({
       }
     >
       {children}
-    </Component>
+    </div>
   )
 }
 

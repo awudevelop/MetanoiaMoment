@@ -25,6 +25,7 @@ type SignUpForm = {
 
 export default function SignUpPage() {
   const t = useTranslations('auth.signUp')
+  const v = useTranslations('validation')
   const router = useRouter()
   const toast = useToast()
   const { signUp, isLoading } = useAuthStore()
@@ -38,17 +39,21 @@ export default function SignUpPage() {
   const [botError, setBotError] = useState<string | null>(null)
 
   // Bot protection
-  const { validateSubmission, honeypotProps, isReady: botProtectionReady } = useBotProtection({
+  const {
+    validateSubmission,
+    honeypotProps,
+    isReady: botProtectionReady,
+  } = useBotProtection({
     action: 'signup',
   })
 
   const { validateAll, handleBlur, getFieldError } = useFormValidation<SignUpForm>({
-    name: [required('Name is required'), minLength(2, 'Name must be at least 2 characters')],
-    email: [required('Email is required'), emailRule('Please enter a valid email')],
-    password: [required('Password is required'), minLength(8, 'Password must be at least 8 characters')],
+    name: [required(v('nameRequired')), minLength(2, v('nameMinLength', { min: 2 }))],
+    email: [required(v('emailRequired')), emailRule(v('invalidEmail'))],
+    password: [required(v('passwordRequired')), minLength(8, v('passwordMinLength', { min: 8 }))],
     confirmPassword: [
-      required('Please confirm your password'),
-      match(() => password, 'Passwords do not match'),
+      required(v('confirmPasswordRequired')),
+      match(() => password, v('passwordMatch')),
     ],
   })
 
@@ -58,15 +63,15 @@ export default function SignUpPage() {
     setBotError(null)
 
     if (!validateAll({ name, email, password, confirmPassword })) {
-      toast.warning('Please fix the errors', 'Check the form fields and try again.')
+      toast.warning(v('formErrors'), v('checkFields'))
       return
     }
 
     // Validate bot protection
     const botCheck = await validateSubmission()
     if (!botCheck.isValid) {
-      setBotError(botCheck.error || 'Security verification failed')
-      toast.error('Submission blocked', botCheck.error || 'Please try again.')
+      setBotError(botCheck.error || v('securityFailed'))
+      toast.error(v('securityFailed'), botCheck.error || v('checkFields'))
       return
     }
 
@@ -116,9 +121,7 @@ export default function SignUpPage() {
               <span className="text-2xl font-bold text-white">M</span>
             </div>
           </Link>
-          <h1 className="mt-6 font-display text-3xl font-bold text-warm-900">
-            {t('title')}
-          </h1>
+          <h1 className="mt-6 font-display text-3xl font-bold text-warm-900">{t('title')}</h1>
           <p className="mt-2 text-warm-600">{t('subtitle')}</p>
         </div>
 

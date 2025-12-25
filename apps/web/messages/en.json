@@ -400,5 +400,30 @@
     "description": "The page you're looking for doesn't exist or has been moved.",
     "goHome": "Go Home",
     "goBack": "Go Back"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "minLength": "Must be at least {min} characters",
+    "maxLength": "Must be at most {max} characters",
+    "passwordMatch": "Passwords do not match",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "nameRequired": "Name is required",
+    "confirmPasswordRequired": "Please confirm your password",
+    "invalidEmail": "Please enter a valid email",
+    "passwordMinLength": "Password must be at least {min} characters",
+    "nameMinLength": "Name must be at least {min} characters",
+    "titleRequired": "Title is required",
+    "securityFailed": "Security verification failed",
+    "formErrors": "Please fix the errors",
+    "checkFields": "Check the form fields and try again",
+    "noVideo": "No video",
+    "noVideoDescription": "Please record a video first.",
+    "titleRequiredDescription": "Please enter a title for your testimony.",
+    "invalidFile": "Invalid file",
+    "invalidFileDescription": "Please select a video file.",
+    "fileTooLarge": "File too large",
+    "fileTooLargeDescription": "Maximum file size is 100MB."
   }
 }

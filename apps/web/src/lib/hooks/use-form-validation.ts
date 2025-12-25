@@ -1,16 +1,16 @@
 import { useState, useCallback } from 'react'
 
-export type ValidationRule<T> = {
+export type ValidationRule<T = unknown> = {
   validate: (value: T) => boolean
   message: string
 }
 
-export type FieldValidation<T> = ValidationRule<T>[]
+export type FieldValidation = ValidationRule[]
 
 export type FormErrors<T> = Partial<Record<keyof T, string>>
 
 export function useFormValidation<T extends Record<string, unknown>>(
-  validationRules: Partial<Record<keyof T, FieldValidation<unknown>>>
+  validationRules: Partial<Record<keyof T, FieldValidation>>
 ) {
   const [errors, setErrors] = useState<FormErrors<T>>({})
   const [touched, setTouched] = useState<Partial<Record<keyof T, boolean>>>({})
@@ -89,7 +89,7 @@ export function useFormValidation<T extends Record<string, unknown>>(
 }
 
 // Common validation rules
-export const required = (message = 'This field is required'): ValidationRule<unknown> => ({
+export const required = (message = 'This field is required'): ValidationRule => ({
   validate: (value) => {
     if (typeof value === 'string') return value.trim().length > 0
     return value !== null && value !== undefined
@@ -97,39 +97,36 @@ export const required = (message = 'This field is required'): ValidationRule<unk
   message,
 })
 
-export const email = (message = 'Please enter a valid email address'): ValidationRule<string> => ({
-  validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+export const email = (message = 'Please enter a valid email address'): ValidationRule => ({
+  validate: (value) => typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
   message,
 })
 
 export const minLength = (
   min: number,
   message = `Must be at least ${min} characters`
-): ValidationRule<string> => ({
-  validate: (value) => value.length >= min,
+): ValidationRule => ({
+  validate: (value) => typeof value === 'string' && value.length >= min,
   message,
 })
 
 export const maxLength = (
   max: number,
   message = `Must be at most ${max} characters`
-): ValidationRule<string> => ({
-  validate: (value) => value.length <= max,
+): ValidationRule => ({
+  validate: (value) => typeof value === 'string' && value.length <= max,
   message,
 })
 
 export const match = (
   getOtherValue: () => string,
   message = 'Values do not match'
-): ValidationRule<string> => ({
+): ValidationRule => ({
   validate: (value) => value === getOtherValue(),
   message,
 })
 
-export const pattern = (
-  regex: RegExp,
-  message: string
-): ValidationRule<string> => ({
-  validate: (value) => regex.test(value),
+export const pattern = (regex: RegExp, message: string): ValidationRule => ({
+  validate: (value) => typeof value === 'string' && regex.test(value),
   message,
 })

@@ -93,9 +93,7 @@ export function generateMetadata(config: SEOConfig): Metadata {
       description,
       images: [image],
     },
-    robots: noIndex
-      ? { index: false, follow: false }
-      : { index: true, follow: true },
+    robots: noIndex ? { index: false, follow: false } : { index: true, follow: true },
     alternates: {
       canonical: SITE_URL,
     },
@@ -114,7 +112,7 @@ export function generateTestimonyMetadata(testimony: Testimony, locale: string =
   const ogImage = generateOgImageUrl({
     title: testimony.title,
     description: description.slice(0, 100),
-    author: testimony.author?.fullName,
+    author: testimony.author?.fullName ?? undefined,
     type: 'testimony',
   })
 
@@ -139,11 +137,14 @@ export function generateTestimonyJsonLd(testimony: Testimony): object {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
     name: testimony.title,
-    description: testimony.description || `A testimony from ${testimony.author?.fullName || 'anonymous'}`,
+    description:
+      testimony.description || `A testimony from ${testimony.author?.fullName || 'anonymous'}`,
     thumbnailUrl: testimony.thumbnailUrl || DEFAULT_OG_IMAGE,
     uploadDate: testimony.createdAt,
     ...(testimony.publishedAt && { datePublished: testimony.publishedAt }),
-    duration: testimony.duration ? `PT${Math.floor(testimony.duration / 60)}M${testimony.duration % 60}S` : undefined,
+    duration: testimony.duration
+      ? `PT${Math.floor(testimony.duration / 60)}M${testimony.duration % 60}S`
+      : undefined,
     contentUrl: testimony.videoUrl,
     embedUrl: `${SITE_URL}/testimonies/${testimony.id}`,
     interactionStatistic: {
@@ -176,7 +177,8 @@ export function generateWebsiteJsonLd(): object {
     '@type': 'WebSite',
     name: SITE_NAME,
     url: SITE_URL,
-    description: 'Share your testimony of transformation through Jesus Christ. Capture your story for generations.',
+    description:
+      'Share your testimony of transformation through Jesus Christ. Capture your story for generations.',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
@@ -214,9 +216,7 @@ export function generateOrganizationJsonLd(): object {
 /**
  * Generate breadcrumb JSON-LD
  */
-export function generateBreadcrumbJsonLd(
-  items: Array<{ name: string; url: string }>
-): object {
+export function generateBreadcrumbJsonLd(items: Array<{ name: string; url: string }>): object {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',

@@ -20,7 +20,7 @@ import { Link } from '@/i18n/routing'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { useTestimonyStore } from '@/lib/stores/testimony-store'
 import { AnimateOnScroll, StaggerChildren } from '@/components/animations'
-import { Skeleton } from '@metanoia/ui'
+import { Skeleton } from '@/components/animations/skeleton'
 import type { Testimony } from '@/types'
 
 export default function MyTestimoniesPage() {

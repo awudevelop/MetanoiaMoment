@@ -8,14 +8,14 @@ Build a global, censorship-resistant platform for sharing faith testimonies that
 
 ## Phase Overview
 
-| Phase | Focus | Status |
-|-------|-------|--------|
-| **Phase 1** | Frontend Foundation | **Complete** |
-| **Phase 1.5** | Frontend Enhancements | **Complete** |
-| **Phase 2** | Backend Integration | Ready to Start |
-| **Phase 3** | Video Processing | Planned |
-| **Phase 4** | Production Features | Planned |
-| **Phase 5** | Scale & Resilience | Planned |
+| Phase         | Focus                 | Status         |
+| ------------- | --------------------- | -------------- |
+| **Phase 1**   | Frontend Foundation   | **Complete**   |
+| **Phase 1.5** | Frontend Enhancements | **Complete**   |
+| **Phase 2**   | Backend Integration   | Ready to Start |
+| **Phase 3**   | Video Processing      | Planned        |
+| **Phase 4**   | Production Features   | Planned        |
+| **Phase 5**   | Scale & Resilience    | Planned        |
 
 ---
 
@@ -239,6 +239,7 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 ### Tasks
 
 #### 2.1 Database Setup
+
 - [ ] Create Supabase project
 - [ ] Run `supabase/schema.sql` migrations
 - [ ] Verify RLS policies
@@ -246,6 +247,7 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [ ] Configure storage policies
 
 #### 2.2 Authentication
+
 - [ ] Add `@supabase/ssr` package
 - [ ] Create `src/lib/supabase/client.ts`
 - [ ] Create `src/lib/supabase/server.ts`
@@ -256,6 +258,7 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [ ] Password reset flow
 
 #### 2.3 Testimony CRUD
+
 - [ ] Replace `testimony-store.ts` with Supabase queries
 - [ ] Implement video upload to Supabase Storage
 - [ ] Create API routes for:
@@ -267,6 +270,7 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [ ] View count increment endpoint
 
 #### 2.4 Admin Functions
+
 - [ ] Server-side admin verification
 - [ ] Approve/reject endpoints
 - [ ] Admin stats dashboard data
@@ -289,6 +293,7 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 ### Tasks
 
 #### 3.1 Basic Processing (FFmpeg)
+
 - [ ] Set up FFmpeg in serverless function or worker
 - [ ] Transcode uploads to MP4 (H.264/AAC)
 - [ ] Generate thumbnail at 5-second mark
@@ -296,12 +301,14 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [ ] Update testimony record with metadata
 
 #### 3.2 Storage Optimization
+
 - [ ] Implement chunked uploads for large files
 - [ ] Add upload progress indicators
 - [ ] Compress videos for web delivery
 - [ ] Generate multiple quality levels (optional)
 
 #### 3.3 Cloud Processing (Optional - for scale)
+
 - [ ] Evaluate Mux vs Cloudflare Stream vs AWS MediaConvert
 - [ ] Implement webhook handlers for processing status
 - [ ] Add HLS streaming support
@@ -323,13 +330,15 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 ### Tasks
 
 #### 4.1 User Experience
+
 - [ ] Email notifications (welcome, testimony approved)
-- [x] User profile pages *(moved to Phase 1.5)*
-- [x] "My Testimonies" dashboard *(moved to Phase 1.5)*
-- [x] Share buttons (copy link, social media) *(moved to Phase 1.5)*
-- [x] Embed code generator *(moved to Phase 1.5)*
+- [x] User profile pages _(moved to Phase 1.5)_
+- [x] "My Testimonies" dashboard _(moved to Phase 1.5)_
+- [x] Share buttons (copy link, social media) _(moved to Phase 1.5)_
+- [x] Embed code generator _(moved to Phase 1.5)_
 
 #### 4.2 Content Management
+
 - [ ] Featured testimonies curation
 - [ ] Tag/category management
 - [ ] Content moderation queue improvements
@@ -337,18 +346,21 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [ ] Reporting/flagging system
 
 #### 4.3 Discovery
+
 - [ ] Full-text search implementation
 - [ ] Filter by language, tags, date
 - [ ] Related testimonies suggestions
 - [ ] Popular/trending algorithm
 
 #### 4.4 Analytics
+
 - [ ] View tracking
 - [ ] Play/completion metrics
 - [ ] Geographic distribution
 - [ ] Admin analytics dashboard
 
 #### 4.5 Donations
+
 - [ ] Stripe integration
 - [ ] Recurring donation support
 - [ ] Donation receipt emails
@@ -370,6 +382,7 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 ### Tasks
 
 #### 5.1 Performance
+
 - [ ] Image/video optimization
 - [ ] Edge caching strategy
 - [ ] Database query optimization
@@ -377,12 +390,14 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [ ] Core Web Vitals optimization
 
 #### 5.2 Anti-Censorship
+
 - [ ] IPFS video backup integration
 - [ ] Mirror deployment to IncogNET/1984 Hosting
 - [ ] Decentralized storage evaluation (Filecoin, Arweave)
 - [ ] Alternative distribution (Odysee, Bitchute push)
 
 #### 5.3 Reliability
+
 - [ ] Error monitoring (Sentry)
 - [ ] Uptime monitoring
 - [ ] Automated backups
@@ -390,6 +405,7 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [ ] Rate limiting
 
 #### 5.4 Accessibility
+
 - [ ] WCAG 2.1 AA compliance audit
 - [ ] Screen reader testing
 - [ ] Keyboard navigation improvements
@@ -411,20 +427,23 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 ## Technical Debt & Improvements
 
 ### Known Issues
-- [ ] Video player needs keyboard controls
-- [ ] Form validation messages need i18n
-- [ ] PWA icons need to be generated (currently placeholders)
-- [ ] Splash screens for iOS need creation
+
+- [x] Video player needs keyboard controls _(implemented in Phase 1.5)_
+- [x] Form validation messages need i18n _(completed)_
+- [x] PWA icons need to be generated _(completed with sharp)_
+- [x] Splash screens for iOS need creation _(16 device sizes generated)_
 
 ### Code Quality
-- [ ] Add unit tests for stores
-- [ ] Add component tests for UI library
+
+- [x] Add unit tests for stores _(89 tests: auth-store 19, testimony-store 22)_
+- [x] Add component tests for UI library _(Button 17, Input 13, Card 18 tests)_
 - [ ] Add E2E tests with Playwright
-- [ ] Set up CI/CD pipeline
-- [ ] Add pre-commit hooks (lint, format)
-- [ ] Add typecheck script to package.json
+- [x] Set up CI/CD pipeline _(GitHub Actions: lint, typecheck, test, build)_
+- [x] Add pre-commit hooks (lint, format) _(husky + lint-staged)_
+- [x] Add typecheck script to package.json _(turbo typecheck)_
 
 ### Documentation
+
 - [ ] Component Storybook
 - [ ] API documentation (OpenAPI/Swagger)
 - [ ] Contribution guidelines
@@ -433,6 +452,7 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [ ] PWA setup guide for contributors
 
 ### Performance Optimization (Phase 1.5 complete)
+
 - [x] CSS-level reduced motion support
 - [ ] Image optimization with next/image (deferred to Phase 2 - needs real images)
 - [x] Font subsetting for non-Latin scripts (Inter, Lora, Playfair with extended subsets)
@@ -440,39 +460,77 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 - [x] Bundle analysis and optimization (bundle-analyzer, optimizePackageImports, image formats)
 
 ### Accessibility (Phase 1.5 complete)
+
 - [x] Skip to main content link
 - [x] Focus visible states for all interactive elements
 - [x] Reduced motion support for animations
 - [x] ARIA live regions for dynamic content (LiveRegionProvider)
 - [x] Keyboard-accessible focus ring (global CSS)
 
+### Testing Infrastructure (New)
+
+**Test Framework**: Vitest 4.x + React Testing Library + jsdom
+
+**Test Coverage**:
+| Package | Tests | Coverage |
+|---------|-------|----------|
+| auth-store | 19 | Sign in, sign up, sign out, profile update |
+| testimony-store | 22 | CRUD, pagination, moderation, view counts |
+| Button | 17 | Variants, sizes, loading, disabled states |
+| Input | 13 | Labels, errors, icons, disabled states |
+| Card | 18 | All sub-components and composition |
+
+**Scripts**:
+
+```bash
+npm test              # Watch mode
+npm run test:run      # Single run (CI)
+npm run test:coverage # With coverage report
+npm run test:ui       # Vitest UI
+```
+
+**CI/CD Pipeline** (`.github/workflows/ci.yml`):
+
+1. Lint check
+2. TypeScript typecheck
+3. Unit tests
+4. Production build
+
 ---
 
 ## Milestone Definitions
 
 ### MVP (Minimum Viable Product)
+
 Phase 2 complete:
+
 - User authentication working
 - Video upload and storage functional
 - Admin can moderate content
 - Public can view approved testimonies
 
 ### Beta
+
 Phase 3 + partial Phase 4:
+
 - Video processing automated
 - Email notifications active
 - Basic search working
 - Analytics tracking
 
 ### 1.0 Release
+
 Phase 4 complete:
+
 - All user-facing features polished
 - Donation system operational
 - Comprehensive admin tools
 - Performance optimized
 
 ### 2.0 Release
+
 Phase 5 complete:
+
 - Multi-host deployment
 - Decentralized backup
 - Full accessibility compliance
@@ -482,18 +540,18 @@ Phase 5 complete:
 
 ## Decision Log
 
-| Date | Decision | Rationale |
-|------|----------|-----------|
-| 2024-12 | Frontend-first approach | Validate UX before backend investment |
-| 2024-12 | Zustand for state | Lightweight, works well with Next.js |
-| 2024-12 | Supabase for backend | Auth + DB + Storage in one, good free tier |
-| 2024-12 | next-intl for i18n | Best App Router support, type-safe |
-| 2024-12 | CSS animations over Framer Motion | Smaller bundle, better performance, no dependencies |
-| 2024-12 | Custom service worker | Full control over caching, offline strategy |
-| 2024-12 | Platform-specific PWA instructions | Better UX for global audience, handles browser differences |
-| 2024-12 | Locale-aware offline pages | Consistent i18n experience even when offline |
-| 2024-12 | reCAPTCHA v3 + honeypot + rate limiting | Multi-layer bot protection without friction |
-| 2024-12 | Pull forward UX features to Phase 1.5 | Viral sharing and engagement crucial for adoption |
+| Date    | Decision                                | Rationale                                                  |
+| ------- | --------------------------------------- | ---------------------------------------------------------- |
+| 2024-12 | Frontend-first approach                 | Validate UX before backend investment                      |
+| 2024-12 | Zustand for state                       | Lightweight, works well with Next.js                       |
+| 2024-12 | Supabase for backend                    | Auth + DB + Storage in one, good free tier                 |
+| 2024-12 | next-intl for i18n                      | Best App Router support, type-safe                         |
+| 2024-12 | CSS animations over Framer Motion       | Smaller bundle, better performance, no dependencies        |
+| 2024-12 | Custom service worker                   | Full control over caching, offline strategy                |
+| 2024-12 | Platform-specific PWA instructions      | Better UX for global audience, handles browser differences |
+| 2024-12 | Locale-aware offline pages              | Consistent i18n experience even when offline               |
+| 2024-12 | reCAPTCHA v3 + honeypot + rate limiting | Multi-layer bot protection without friction                |
+| 2024-12 | Pull forward UX features to Phase 1.5   | Viral sharing and engagement crucial for adoption          |
 
 ---
 

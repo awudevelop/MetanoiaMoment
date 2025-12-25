@@ -16,7 +16,7 @@ import {
   ChevronLeft,
   ChevronRight,
   RefreshCw,
-  Share2
+  Share2,
 } from 'lucide-react'
 import { ShareModal } from '@/components/sharing'
 import { useTestimonies, useTestimonyFilters } from '@/lib/stores/testimony-store'
@@ -28,9 +28,7 @@ import type { Testimony, TestimonySort } from '@/types'
 const ITEMS_PER_PAGE = 9
 
 // Get unique tags from all testimonies
-const ALL_TAGS = Array.from(
-  new Set(MOCK_TESTIMONIES.flatMap((t) => t.tags))
-).sort()
+const ALL_TAGS = Array.from(new Set(MOCK_TESTIMONIES.flatMap((t) => t.tags))).sort()
 
 const LANGUAGES = [
   { code: 'en', name: 'English' },
@@ -53,7 +51,9 @@ export default function TestimoniesPage() {
   const [search, setSearch] = useState(searchParams.get('q') || '')
   const [selectedTag, setSelectedTag] = useState(searchParams.get('tag') || '')
   const [selectedLanguage, setSelectedLanguage] = useState(searchParams.get('lang') || '')
-  const [sortBy, setSortBy] = useState<SortOption>((searchParams.get('sort') as SortOption) || 'recent')
+  const [sortBy, setSortBy] = useState<SortOption>(
+    (searchParams.get('sort') as SortOption) || 'recent'
+  )
   const [page, setPage] = useState(Number(searchParams.get('page')) || 1)
 
   // UI state
@@ -143,7 +143,7 @@ export default function TestimoniesPage() {
   }
 
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE)
-  const hasActiveFilters = selectedTag || selectedLanguage || search
+  const hasActiveFilters = !!(selectedTag || selectedLanguage || search)
 
   const clearFilters = () => {
     setSearch('')
@@ -158,7 +158,7 @@ export default function TestimoniesPage() {
     <div className="section">
       <div className="container">
         {/* Header */}
-        <div className="mb-8 text-center animate-fade-in-up">
+        <div className="mb-8 animate-fade-in-up text-center">
           <h1 className="font-display text-4xl font-bold text-warm-900 md:text-5xl">
             {t('title')}
           </h1>
@@ -301,10 +301,7 @@ export default function TestimoniesPage() {
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <span className="text-sm text-warm-500">Active filters:</span>
               {selectedTag && (
-                <FilterPill
-                  label={`Topic: ${selectedTag}`}
-                  onRemove={() => setSelectedTag('')}
-                />
+                <FilterPill label={`Topic: ${selectedTag}`} onRemove={() => setSelectedTag('')} />
               )}
               {selectedLanguage && (
                 <FilterPill
@@ -313,15 +310,9 @@ export default function TestimoniesPage() {
                 />
               )}
               {search && (
-                <FilterPill
-                  label={`Search: "${search}"`}
-                  onRemove={() => setSearch('')}
-                />
+                <FilterPill label={`Search: "${search}"`} onRemove={() => setSearch('')} />
               )}
-              <button
-                onClick={clearFilters}
-                className="text-sm text-primary-600 hover:underline"
-              >
+              <button onClick={clearFilters} className="text-sm text-primary-600 hover:underline">
                 Clear all
               </button>
             </div>
@@ -370,7 +361,11 @@ export default function TestimoniesPage() {
             <ShareModal
               isOpen={!!shareTestimony}
               onClose={() => setShareTestimony(null)}
-              url={shareTestimony ? `${typeof window !== 'undefined' ? window.location.origin : ''}/testimonies/${shareTestimony.id}` : ''}
+              url={
+                shareTestimony
+                  ? `${typeof window !== 'undefined' ? window.location.origin : ''}/testimonies/${shareTestimony.id}`
+                  : ''
+              }
               title={shareTestimony?.title || ''}
               description={shareTestimony?.description || ''}
             />
@@ -397,10 +392,7 @@ function FilterPill({ label, onRemove }: { label: string; onRemove: () => void }
   return (
     <span className="inline-flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-sm text-primary-700">
       {label}
-      <button
-        onClick={onRemove}
-        className="ml-1 rounded-full p-0.5 hover:bg-primary-200"
-      >
+      <button onClick={onRemove} className="ml-1 rounded-full p-0.5 hover:bg-primary-200">
         <X className="h-3 w-3" />
       </button>
     </span>
@@ -484,11 +476,7 @@ function TestimoniesGridSkeleton() {
   return (
     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="animate-fade-in"
-          style={{ animationDelay: `${i * 50}ms` }}
-        >
+        <div key={i} className="animate-fade-in" style={{ animationDelay: `${i * 50}ms` }}>
           <SkeletonTestimonyCard />
         </div>
       ))}
@@ -506,18 +494,20 @@ function EmptyState({
   const t = useTranslations('testimonies')
 
   return (
-    <div className="py-20 text-center animate-fade-in-up">
-      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-warm-100 animate-scale-in">
+    <div className="animate-fade-in-up py-20 text-center">
+      <div className="mx-auto mb-6 flex h-20 w-20 animate-scale-in items-center justify-center rounded-full bg-warm-100">
         <Search className="h-10 w-10 text-warm-400" />
       </div>
       <h2 className="text-xl font-semibold text-warm-900">No testimonies found</h2>
       <p className="mt-2 text-warm-600">
-        {hasFilters
-          ? 'Try adjusting your filters or search terms.'
-          : t('empty')}
+        {hasFilters ? 'Try adjusting your filters or search terms.' : t('empty')}
       </p>
       {hasFilters && (
-        <Button variant="outline" className="mt-6 transition-transform hover:scale-105" onClick={onClearFilters}>
+        <Button
+          variant="outline"
+          className="mt-6 transition-transform hover:scale-105"
+          onClick={onClearFilters}
+        >
           Clear Filters
         </Button>
       )}

@@ -23,6 +23,7 @@ type SignInForm = {
 
 export default function SignInPage() {
   const t = useTranslations('auth.signIn')
+  const v = useTranslations('validation')
   const router = useRouter()
   const toast = useToast()
   const { signIn, signInAsDemo, signInAsAdmin, isLoading } = useAuthStore()
@@ -33,13 +34,17 @@ export default function SignInPage() {
   const [botError, setBotError] = useState<string | null>(null)
 
   // Bot protection
-  const { validateSubmission, honeypotProps, isReady: botProtectionReady } = useBotProtection({
+  const {
+    validateSubmission,
+    honeypotProps,
+    isReady: botProtectionReady,
+  } = useBotProtection({
     action: 'signin',
   })
 
   const { validateAll, handleBlur, getFieldError } = useFormValidation<SignInForm>({
-    email: [required('Email is required'), emailRule('Please enter a valid email')],
-    password: [required('Password is required'), minLength(6, 'Password must be at least 6 characters')],
+    email: [required(v('emailRequired')), emailRule(v('invalidEmail'))],
+    password: [required(v('passwordRequired')), minLength(6, v('passwordMinLength', { min: 6 }))],
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,8 +59,8 @@ export default function SignInPage() {
     // Validate bot protection
     const botCheck = await validateSubmission()
     if (!botCheck.isValid) {
-      setBotError(botCheck.error || 'Security verification failed')
-      toast.error('Submission blocked', botCheck.error || 'Please try again.')
+      setBotError(botCheck.error || v('securityFailed'))
+      toast.error(v('securityFailed'), botCheck.error || v('checkFields'))
       return
     }
 
@@ -91,9 +96,7 @@ export default function SignInPage() {
               <span className="text-2xl font-bold text-white">M</span>
             </div>
           </Link>
-          <h1 className="mt-6 font-display text-3xl font-bold text-warm-900">
-            {t('title')}
-          </h1>
+          <h1 className="mt-6 font-display text-3xl font-bold text-warm-900">{t('title')}</h1>
           <p className="mt-2 text-warm-600">{t('subtitle')}</p>
         </div>
 
@@ -156,9 +159,7 @@ export default function SignInPage() {
 
             {/* Demo mode buttons */}
             <div className="mt-6 border-t border-warm-200 pt-6">
-              <p className="mb-3 text-center text-sm text-warm-500">
-                Demo Mode - Quick Sign In
-              </p>
+              <p className="mb-3 text-center text-sm text-warm-500">Demo Mode - Quick Sign In</p>
               <div className="flex gap-3">
                 <Button
                   type="button"

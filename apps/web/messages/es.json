@@ -325,5 +325,107 @@
     "error": "Ocurrió un error",
     "menuOpen": "Menú abierto",
     "menuClosed": "Menú cerrado"
+  },
+  "account": {
+    "title": "Mi Cuenta",
+    "subtitle": "Administra tu perfil y testimonios",
+    "settings": "Configuración de Perfil",
+    "email": "Correo Electrónico",
+    "fullName": "Nombre Completo",
+    "fullNamePlaceholder": "Ingresa tu nombre completo",
+    "bio": "Biografía",
+    "bioPlaceholder": "Cuéntanos un poco sobre ti...",
+    "changePhoto": "Cambiar foto",
+    "anonymous": "Anónimo",
+    "admin": "Administrador",
+    "saveChanges": "Guardar Cambios",
+    "saved": "Perfil actualizado",
+    "savedDescription": "Tus cambios han sido guardados.",
+    "error": "Error al actualizar",
+    "errorDescription": "No se pudieron guardar los cambios. Intenta de nuevo.",
+    "signOut": "Cerrar Sesión",
+    "signedOut": "Sesión cerrada",
+    "signedOutDescription": "Has cerrado sesión exitosamente.",
+    "myTestimonies": "Mis Testimonios",
+    "dangerZone": "Zona de Peligro",
+    "dangerZoneDescription": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, sé cuidadoso.",
+    "deleteAccount": "Eliminar Cuenta",
+    "stats": {
+      "testimonies": "Testimonios",
+      "totalViews": "Vistas Totales",
+      "memberSince": "Miembro Desde"
+    }
+  },
+  "myTestimonies": {
+    "title": "Mis Testimonios",
+    "subtitle": "Administra y rastrea tus testimonios compartidos",
+    "backToAccount": "Volver a Mi Cuenta",
+    "recordNew": "Grabar Nuevo",
+    "views": "vistas",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "confirmDelete": "¿Estás seguro de que quieres eliminar este testimonio? Esta acción no se puede deshacer.",
+    "deleted": "Testimonio eliminado",
+    "deletedDescription": "Tu testimonio ha sido eliminado.",
+    "error": "Error",
+    "errorDescription": "Algo salió mal. Intenta de nuevo.",
+    "status": {
+      "pending": "Pendiente de Revisión",
+      "approved": "Publicado",
+      "rejected": "No Aprobado"
+    },
+    "empty": {
+      "title": "Sin Testimonios Aún",
+      "description": "Aún no has compartido ningún testimonio. ¡Tu historia puede inspirar a otros!",
+      "cta": "Graba Tu Primer Testimonio"
+    }
+  },
+  "forgotPassword": {
+    "title": "Restablecer Contraseña",
+    "subtitle": "Ingresa tu correo para recibir un enlace de restablecimiento",
+    "email": "Correo Electrónico",
+    "button": "Enviar Enlace",
+    "backToSignIn": "Volver a Iniciar Sesión",
+    "sent": "Correo Enviado",
+    "sentDescription": "Revisa tu bandeja de entrada para el enlace de restablecimiento.",
+    "error": "Error",
+    "errorDescription": "No se pudo enviar el correo. Verifica tu dirección e intenta de nuevo."
+  },
+  "notFound": {
+    "title": "Página No Encontrada",
+    "description": "La página que buscas no existe o ha sido movida.",
+    "goHome": "Ir al Inicio",
+    "goBack": "Volver"
+  },
+  "home": {
+    "recentlyShared": {
+      "title": "Sucediendo Ahora",
+      "subtitle": "Mira testimonios siendo compartidos y vistos alrededor del mundo"
+    }
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "email": "Por favor ingresa un correo válido",
+    "minLength": "Debe tener al menos {min} caracteres",
+    "maxLength": "Debe tener máximo {max} caracteres",
+    "passwordMatch": "Las contraseñas no coinciden",
+    "emailRequired": "El correo es requerido",
+    "passwordRequired": "La contraseña es requerida",
+    "nameRequired": "El nombre es requerido",
+    "confirmPasswordRequired": "Por favor confirma tu contraseña",
+    "invalidEmail": "Por favor ingresa un correo válido",
+    "passwordMinLength": "La contraseña debe tener al menos {min} caracteres",
+    "nameMinLength": "El nombre debe tener al menos {min} caracteres",
+    "titleRequired": "El título es requerido",
+    "securityFailed": "Verificación de seguridad fallida",
+    "formErrors": "Por favor corrige los errores",
+    "checkFields": "Revisa los campos del formulario e intenta de nuevo",
+    "noVideo": "Sin video",
+    "noVideoDescription": "Por favor graba un video primero.",
+    "titleRequiredDescription": "Por favor ingresa un título para tu testimonio.",
+    "invalidFile": "Archivo inválido",
+    "invalidFileDescription": "Por favor selecciona un archivo de video.",
+    "fileTooLarge": "Archivo muy grande",
+    "fileTooLargeDescription": "El tamaño máximo es 100MB."
   }
 }

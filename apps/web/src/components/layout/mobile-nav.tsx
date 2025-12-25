@@ -8,11 +8,11 @@ import { cn } from '@metanoia/ui'
 import { useAuthStore } from '@/lib/stores/auth-store'
 
 const NAV_ITEMS = [
-  { key: 'home', href: '/', icon: Home },
-  { key: 'testimonies', href: '/testimonies', icon: Video },
+  { key: 'home', href: '/', icon: Home, primary: false },
+  { key: 'testimonies', href: '/testimonies', icon: Video, primary: false },
   { key: 'record', href: '/record', icon: Mic, primary: true },
-  { key: 'support', href: '/support', icon: Heart },
-  { key: 'account', href: '/auth/signin', authHref: '/profile', icon: User },
+  { key: 'support', href: '/support', icon: Heart, primary: false },
+  { key: 'account', href: '/auth/signin', authHref: '/account', icon: User, primary: false },
 ] as const
 
 export function MobileNav() {
@@ -29,10 +29,7 @@ export function MobileNav() {
       <div className="flex h-16 items-center justify-around px-2">
         {NAV_ITEMS.map((item) => {
           const href = item.key === 'account' && isAuthenticated ? item.authHref : item.href
-          const isActive =
-            item.href === '/'
-              ? pathname === '/'
-              : pathname.startsWith(item.href)
+          const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
           const Icon = item.icon
 
           if (item.primary) {

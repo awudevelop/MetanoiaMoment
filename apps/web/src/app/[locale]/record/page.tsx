@@ -30,9 +30,7 @@ export default function RecordPage() {
         <StepIndicator currentStep={currentStep} />
 
         <div className="mt-12">
-          {currentStep === 'prepare' && (
-            <PrepareStep onContinue={() => setCurrentStep('record')} />
-          )}
+          {currentStep === 'prepare' && <PrepareStep onContinue={() => setCurrentStep('record')} />}
           {currentStep === 'record' && (
             <RecordStep
               onRecordingComplete={(blob) => {
@@ -60,11 +58,11 @@ function AuthPrompt() {
   const t = useTranslations('record')
 
   return (
-    <div className="section flex items-center justify-center min-h-[60vh]">
+    <div className="section flex min-h-[60vh] items-center justify-center">
       <div className="container max-w-md">
         <Card>
           <CardContent className="p-8 text-center">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary-100 animate-scale-in">
+            <div className="mx-auto mb-6 flex h-20 w-20 animate-scale-in items-center justify-center rounded-full bg-primary-100">
               <User className="h-10 w-10 text-primary-600" />
             </div>
             <h2 className="font-display text-2xl font-bold text-warm-900">
@@ -109,9 +107,7 @@ function RecordHeader() {
 
   return (
     <div className="text-center">
-      <h1 className="font-display text-4xl font-bold text-warm-900 md:text-5xl">
-        {t('title')}
-      </h1>
+      <h1 className="font-display text-4xl font-bold text-warm-900 md:text-5xl">{t('title')}</h1>
       <p className="mt-4 text-lg text-warm-600">{t('subtitle')}</p>
     </div>
   )
@@ -141,9 +137,7 @@ function StepIndicator({ currentStep }: { currentStep: Step }) {
           <div key={step.key} className="flex items-center">
             <div
               className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold ${
-                index <= currentIndex
-                  ? 'bg-primary-500 text-white'
-                  : 'bg-warm-200 text-warm-500'
+                index <= currentIndex ? 'bg-primary-500 text-white' : 'bg-warm-200 text-warm-500'
               }`}
             >
               {index + 1}
@@ -210,6 +204,7 @@ function RecordStep({
   onBack: () => void
 }) {
   const t = useTranslations('record')
+  const v = useTranslations('validation')
   const toast = useToast()
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
@@ -220,14 +215,14 @@ function RecordStep({
 
     // Validate file type
     if (!file.type.startsWith('video/')) {
-      toast.error('Invalid file', 'Please select a video file.')
+      toast.error(v('invalidFile'), v('invalidFileDescription'))
       return
     }
 
     // Validate file size (100MB max)
     const maxSize = 100 * 1024 * 1024
     if (file.size > maxSize) {
-      toast.error('File too large', 'Maximum file size is 100MB.')
+      toast.error(v('fileTooLarge'), v('fileTooLargeDescription'))
       return
     }
 
@@ -271,9 +266,31 @@ function RecordStep({
             onChange={handleFileSelect}
             disabled={isProcessing}
           />
-          <Button variant="outline" as="span" loading={isProcessing}>
+          <span className="inline-flex h-11 items-center justify-center rounded-lg border-2 border-primary-500 px-6 font-medium text-primary-600 transition-all duration-200 hover:bg-primary-50 active:bg-primary-100">
+            {isProcessing ? (
+              <svg
+                className="mr-2 h-4 w-4 animate-spin"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
+              </svg>
+            ) : null}
             {uploadedFile ? uploadedFile.name : t('upload.browse')}
-          </Button>
+          </span>
         </label>
         <p className="mt-2 text-sm text-warm-500">{t('upload.maxSize')}</p>
       </div>
@@ -291,6 +308,7 @@ function DetailsStep({
   onBack: () => void
 }) {
   const t = useTranslations('record.form')
+  const v = useTranslations('validation')
   const toast = useToast()
   const { uploadTestimony, isLoading, error, clearError } = useTestimonyStore((state) => ({
     uploadTestimony: state.uploadTestimony,
@@ -309,12 +327,12 @@ function DetailsStep({
     clearError()
 
     if (!videoBlob) {
-      toast.error('No video', 'Please record a video first.')
+      toast.error(v('noVideo'), v('noVideoDescription'))
       return
     }
 
     if (!title.trim()) {
-      toast.warning('Title required', 'Please enter a title for your testimony.')
+      toast.warning(v('titleRequired'), v('titleRequiredDescription'))
       return
     }
 
@@ -323,7 +341,10 @@ function DetailsStep({
       title: title.trim(),
       description: description.trim() || undefined,
       language,
-      tags: tags.split(',').map((t) => t.trim()).filter(Boolean),
+      tags: tags
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean),
     })
 
     if (result.success) {
@@ -338,17 +359,16 @@ function DetailsStep({
     <div className="mx-auto max-w-2xl">
       <div className="mb-8 overflow-hidden rounded-xl bg-black">
         {videoBlob && (
-          <video
-            src={URL.createObjectURL(videoBlob)}
-            controls
-            className="aspect-video w-full"
-          />
+          <video src={URL.createObjectURL(videoBlob)} controls className="aspect-video w-full" />
         )}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (
-          <InlineError message={error.message} onRetry={error.retryable ? () => handleSubmit : undefined} />
+          <InlineError
+            message={error.message}
+            onRetry={error.retryable ? () => handleSubmit : undefined}
+          />
         )}
 
         <Input
@@ -368,9 +388,7 @@ function DetailsStep({
         />
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-warm-700">
-            {t('language')}
-          </label>
+          <label className="mb-2 block text-sm font-medium text-warm-700">{t('language')}</label>
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
@@ -393,7 +411,13 @@ function DetailsStep({
         />
 
         <div className="flex gap-4 pt-4">
-          <Button type="button" variant="outline" onClick={onBack} className="flex-1" disabled={isLoading}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onBack}
+            className="flex-1"
+            disabled={isLoading}
+          >
             <ArrowLeft className="mr-2 h-5 w-5" />
             Back
           </Button>
@@ -408,7 +432,8 @@ function DetailsStep({
 
 function SuccessStep() {
   const t = useTranslations('record.success')
-  const shareUrl = typeof window !== 'undefined' ? window.location.origin : 'https://metanoiamoment.org'
+  const shareUrl =
+    typeof window !== 'undefined' ? window.location.origin : 'https://metanoiamoment.org'
 
   return (
     <div className="mx-auto max-w-lg">
@@ -417,20 +442,24 @@ function SuccessStep() {
 
       {/* Success Message */}
       <div className="text-center">
-        <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-accent-100 animate-bounce-in">
+        <div className="mx-auto mb-6 flex h-24 w-24 animate-bounce-in items-center justify-center rounded-full bg-accent-100">
           <CheckCircle className="h-12 w-12 text-accent-500" />
         </div>
-        <h2 className="text-3xl font-bold text-warm-900 animate-fade-in-up">{t('title')}</h2>
-        <p className="mt-4 text-lg text-warm-600 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+        <h2 className="animate-fade-in-up text-3xl font-bold text-warm-900">{t('title')}</h2>
+        <p
+          className="mt-4 animate-fade-in-up text-lg text-warm-600"
+          style={{ animationDelay: '100ms' }}
+        >
           {t('message')}
         </p>
       </div>
 
       {/* Share Section */}
-      <div className="mt-10 rounded-xl border border-warm-200 bg-warm-50 p-6 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-        <h3 className="mb-4 text-center font-semibold text-warm-900">
-          Share the Good News
-        </h3>
+      <div
+        className="mt-10 animate-fade-in-up rounded-xl border border-warm-200 bg-warm-50 p-6"
+        style={{ animationDelay: '200ms' }}
+      >
+        <h3 className="mb-4 text-center font-semibold text-warm-900">Share the Good News</h3>
         <p className="mb-6 text-center text-sm text-warm-600">
           Spread the word! Let others know about your testimony.
         </p>
@@ -443,17 +472,25 @@ function SuccessStep() {
       </div>
 
       {/* Next Steps */}
-      <div className="mt-8 rounded-xl bg-primary-50 p-4 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+      <div
+        className="mt-8 animate-fade-in-up rounded-xl bg-primary-50 p-4"
+        style={{ animationDelay: '300ms' }}
+      >
         <p className="text-center text-sm text-primary-700">
-          <strong>What happens next?</strong> Your testimony is now pending review.
-          We'll notify you by email once it's live!
+          <strong>What happens next?</strong> Your testimony is now pending review. We'll notify you
+          by email once it's live!
         </p>
       </div>
 
       {/* Actions */}
-      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+      <div
+        className="mt-8 flex animate-fade-in-up flex-col gap-4 sm:flex-row sm:justify-center"
+        style={{ animationDelay: '400ms' }}
+      >
         <Link href="/record">
-          <Button variant="outline" className="w-full sm:w-auto">{t('shareMore')}</Button>
+          <Button variant="outline" className="w-full sm:w-auto">
+            {t('shareMore')}
+          </Button>
         </Link>
         <Link href="/testimonies">
           <Button className="w-full sm:w-auto">Browse Testimonies</Button>

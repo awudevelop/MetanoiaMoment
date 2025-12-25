@@ -42,7 +42,7 @@ export interface TestimonyUpload {
   description?: string
   language: string
   tags?: string[]
-  videoFile: File
+  video: Blob | File
 }
 
 // =============================================================================

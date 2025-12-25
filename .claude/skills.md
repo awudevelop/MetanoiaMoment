@@ -15,10 +15,12 @@ Creates a new component in the shared UI library with proper TypeScript types an
 **Usage**: `/component ButtonGroup`
 
 **Creates**:
+
 - `packages/ui/src/components/button-group.tsx`
 - Updates `packages/ui/src/index.ts` exports
 
 **Template**:
+
 ```tsx
 import * as React from 'react'
 import { cn } from '../lib/utils'
@@ -46,10 +48,12 @@ Creates a new internationalized page with proper layout integration.
 **Usage**: `/page privacy` or `/page testimonies/[id]`
 
 **Creates**:
+
 - `apps/web/src/app/[locale]/{path}/page.tsx`
 - Adds translation keys to `messages/en.json`
 
 **Template**:
+
 ```tsx
 import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
@@ -83,6 +87,7 @@ Adds translation keys to all language files.
 **Usage**: `/translate testimonies.empty "No testimonies found"`
 
 **Updates**:
+
 - `apps/web/messages/en.json`
 - `apps/web/messages/es.json`
 - Other language files (prompts for translations)
@@ -108,6 +113,7 @@ Creates a new Zustand store with TypeScript types.
 **Creates**: `apps/web/src/lib/stores/notification-store.ts`
 
 **Template**:
+
 ```tsx
 import { create } from 'zustand'
 
@@ -153,13 +159,11 @@ Creates a new API route with proper error handling.
 **Creates**: `apps/web/src/app/api/{path}/route.ts`
 
 **Template**:
+
 ```tsx
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
 
@@ -167,10 +171,7 @@ export async function GET(
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 ```
@@ -184,6 +185,7 @@ Replaces a stubbed store with Supabase implementation.
 **Usage**: `/supabase auth` or `/supabase testimonies`
 
 **Updates**:
+
 - Adds Supabase client imports
 - Replaces mock data calls with Supabase queries
 - Maintains existing TypeScript interfaces
@@ -192,11 +194,65 @@ Replaces a stubbed store with Supabase implementation.
 
 ### `/test` - Create Test File
 
-Creates a test file for a component or utility.
+Creates a test file for a component or utility using Vitest and React Testing Library.
 
 **Usage**: `/test button` or `/test auth-store`
 
 **Creates**: `{path}/__tests__/{name}.test.tsx`
+
+**Template for Component**:
+
+```tsx
+import { describe, it, expect } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { {Name} } from '../{name}'
+
+describe('{Name}', () => {
+  it('renders correctly', () => {
+    render(<{Name}>Test</{Name}>)
+    expect(screen.getByText('Test')).toBeInTheDocument()
+  })
+
+  it('handles user interaction', async () => {
+    const user = userEvent.setup()
+    const onClick = vi.fn()
+    render(<{Name} onClick={onClick}>Click me</{Name}>)
+    await user.click(screen.getByRole('button'))
+    expect(onClick).toHaveBeenCalled()
+  })
+})
+```
+
+**Template for Store**:
+
+```tsx
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { act } from '@testing-library/react'
+import { use{Name}Store } from '../{name}-store'
+
+describe('{Name} Store', () => {
+  beforeEach(() => {
+    use{Name}Store.setState(use{Name}Store.getInitialState())
+    vi.clearAllMocks()
+  })
+
+  it('should have initial state', () => {
+    const state = use{Name}Store.getState()
+    expect(state.items).toEqual([])
+    expect(state.isLoading).toBe(false)
+  })
+
+  it('should perform action', async () => {
+    await act(async () => {
+      await use{Name}Store.getState().fetch()
+    })
+    expect(use{Name}Store.getState().items.length).toBeGreaterThan(0)
+  })
+})
+```
+
+**Test Configuration**: Uses `vitest.config.ts` with jsdom environment and `@testing-library/jest-dom` matchers.
 
 ---
 
@@ -205,6 +261,7 @@ Creates a test file for a component or utility.
 Runs through deployment preparation steps.
 
 **Checks**:
+
 1. TypeScript compilation (`pnpm build`)
 2. Linting (`pnpm lint`)
 3. Environment variables configured
@@ -221,6 +278,7 @@ Creates a new animation component with Intersection Observer integration.
 **Creates**: `apps/web/src/components/animations/{name}.tsx`
 
 **Template**:
+
 ```tsx
 'use client'
 
@@ -278,6 +336,7 @@ Creates a new PWA-related component with proper hooks.
 **Creates**: `apps/web/src/components/pwa/{name}.tsx`
 
 **Template**:
+
 ```tsx
 'use client'
 
@@ -309,6 +368,7 @@ Creates a skeleton loading component for a specific content type.
 **Creates**: Adds to `apps/web/src/components/animations/skeleton.tsx`
 
 **Template**:
+
 ```tsx
 export function Skeleton{Name}() {
   return (
@@ -329,11 +389,13 @@ Adds social sharing functionality to a page or component.
 **Usage**: `/share testimony-detail`
 
 **Imports**:
+
 - `SocialShare` - Full sharing widget with all platforms
 - `ShareModal` - Modal dialog for sharing
 - `QuickShareButton` - Compact button for cards
 
 **Template**:
+
 ```tsx
 import { ShareModal } from '@/components/sharing'
 
@@ -353,6 +415,7 @@ const shareUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}
 ```
 
 **Available Components**:
+
 - `SocialShare` - Buttons for Facebook, Twitter, WhatsApp, Email, with QR code option
 - `ShareModal` - Full-page modal with all sharing options
 - `QuickShareButton` - Minimal share button for cards
@@ -366,11 +429,13 @@ Adds bot protection to a form with reCAPTCHA, honeypot, and rate limiting.
 **Usage**: `/protect contact-form`
 
 **Imports**:
+
 ```tsx
 import { useBotProtection } from '@/lib/hooks/use-recaptcha'
 ```
 
 **Template**:
+
 ```tsx
 const { validateSubmission, honeypotProps, isReady } = useBotProtection({
   action: 'contact',
@@ -407,6 +472,7 @@ Creates JSON-LD structured data for a specific page type.
 **Updates**: `apps/web/src/lib/seo.ts`
 
 **Adds**:
+
 ```tsx
 export function generate{Name}JsonLd(data: {Name}): WithContext<Thing> {
   return {
@@ -432,13 +498,13 @@ These skills should be implemented as Claude Code custom commands. Each skill:
 
 ### Naming Conventions
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Components | PascalCase | `VideoPlayer` |
-| Files | kebab-case | `video-player.tsx` |
-| Stores | camelCase with `use` prefix | `useAuthStore` |
-| API routes | kebab-case paths | `/api/testimonies` |
-| Types | PascalCase | `TestimonyStatus` |
+| Type       | Convention                  | Example            |
+| ---------- | --------------------------- | ------------------ |
+| Components | PascalCase                  | `VideoPlayer`      |
+| Files      | kebab-case                  | `video-player.tsx` |
+| Stores     | camelCase with `use` prefix | `useAuthStore`     |
+| API routes | kebab-case paths            | `/api/testimonies` |
+| Types      | PascalCase                  | `TestimonyStatus`  |
 
 ### File Locations
 
@@ -485,18 +551,192 @@ Displays the complete database schema with foreign key relationships and integra
 
 ---
 
+### `/validate` - Add Form Validation
+
+Adds internationalized form validation to a form component.
+
+**Usage**: `/validate signup-form`
+
+**Imports**:
+
+```tsx
+import { useTranslations } from 'next-intl'
+import {
+  useFormValidation,
+  required,
+  email,
+  minLength,
+  match,
+} from '@/lib/hooks/use-form-validation'
+```
+
+**Template**:
+
+```tsx
+type FormData = {
+  email: string
+  password: string
+  confirmPassword: string
+}
+
+export function MyForm() {
+  const v = useTranslations('validation')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
+  const { validateAll, handleBlur, getFieldError } = useFormValidation<FormData>({
+    email: [required(v('emailRequired')), email(v('invalidEmail'))],
+    password: [required(v('passwordRequired')), minLength(8, v('passwordMinLength', { min: 8 }))],
+    confirmPassword: [
+      required(v('confirmPasswordRequired')),
+      match(() => password, v('passwordMatch')),
+    ],
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!validateAll({ email, password, confirmPassword })) {
+      return
+    }
+    // Submit form...
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Input
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        onBlur={() => handleBlur('email', email)}
+        error={getFieldError('email')}
+      />
+      {/* More fields... */}
+    </form>
+  )
+}
+```
+
+**Available Validators**:
+
+- `required(message)` - Field must not be empty
+- `email(message)` - Must be valid email format
+- `minLength(min, message)` - Minimum character length
+- `maxLength(max, message)` - Maximum character length
+- `match(getValue, message)` - Must match another field value
+- `pattern(regex, message)` - Must match regex pattern
+
+**Translation Keys** (in `validation` namespace):
+
+- `emailRequired`, `passwordRequired`, `nameRequired`
+- `invalidEmail`, `passwordMinLength`, `nameMinLength`
+- `confirmPasswordRequired`, `passwordMatch`
+- `formErrors`, `checkFields`, `securityFailed`
+
+---
+
+### `/icons` - Generate PWA Icons
+
+Generates PWA icons and splash screens for all device sizes.
+
+**Usage**: `/icons` or `/icons splash`
+
+**Commands**:
+
+```bash
+# Generate all PWA icons (72px to 512px)
+npm run generate-icons
+
+# Generate iOS splash screens (16 device sizes)
+npm run generate-splash
+```
+
+**Icon Sizes Generated**:
+
+- 72x72, 96x96, 128x128, 144x144, 152x152, 192x192, 384x384, 512x512
+
+**Splash Screen Devices**:
+
+- iPhone: SE, 8, 11, 12, 13, 14, 15 (all variants)
+- iPad: Mini, Air, Pro 10.5", 11", 12.9"
+
+**Output Locations**:
+
+- Icons: `apps/web/public/icons/`
+- Splash: `apps/web/public/splash/`
+
+**Scripts Location**:
+
+- `scripts/generate-icons.js`
+- `scripts/convert-icons-to-png.js`
+- `scripts/generate-splash-screens.js`
+
+---
+
+### `/hook` - Create Custom Hook
+
+Creates a new React hook with proper TypeScript types.
+
+**Usage**: `/hook useDebounce`
+
+**Creates**: `apps/web/src/lib/hooks/{name}.ts`
+
+**Template**:
+
+```tsx
+import { useState, useEffect, useCallback } from 'react'
+
+interface Use{Name}Options {
+  delay?: number
+}
+
+interface Use{Name}Result {
+  value: string
+  setValue: (value: string) => void
+  isLoading: boolean
+}
+
+export function use{Name}(options: Use{Name}Options = {}): Use{Name}Result {
+  const { delay = 300 } = options
+  const [value, setValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    // Hook logic
+  }, [value, delay])
+
+  return {
+    value,
+    setValue,
+    isLoading,
+  }
+}
+```
+
+**Existing Hooks**:
+
+- `usePWA` - PWA install, platform detection
+- `useFormValidation` - Form validation with i18n
+- `useBotProtection` - reCAPTCHA + honeypot + rate limiting
+- `useAsync` - Async operation state management
+
+---
+
 ## Future Skills (Phase 2+)
 
 ### `/migration` - Database Migration
+
 Creates Supabase migration files.
 
 ### `/webhook` - Webhook Handler
+
 Creates webhook endpoint with signature verification.
 
 ### `/email` - Email Template
+
 Creates email template for notifications.
 
 ### `/analytics` - Analytics Event
+
 Adds analytics tracking to a component or page.
 
 ---
@@ -505,22 +745,22 @@ Adds analytics tracking to a component or page.
 
 Available animation classes (Tailwind config):
 
-| Animation | Description |
-|-----------|-------------|
-| `animate-fade-in-up` | Fade in from below |
-| `animate-fade-in-down` | Fade in from above |
-| `animate-fade-in-left` | Fade in from left |
-| `animate-fade-in-right` | Fade in from right |
-| `animate-scale-in` | Scale from 95% to 100% |
+| Animation                 | Description              |
+| ------------------------- | ------------------------ |
+| `animate-fade-in-up`      | Fade in from below       |
+| `animate-fade-in-down`    | Fade in from above       |
+| `animate-fade-in-left`    | Fade in from left        |
+| `animate-fade-in-right`   | Fade in from right       |
+| `animate-scale-in`        | Scale from 95% to 100%   |
 | `animate-scale-in-bounce` | Scale with bounce effect |
-| `animate-slide-in-up` | Slide up from bottom |
-| `animate-slide-in-down` | Slide down from top |
-| `animate-slide-in-left` | Slide in from left |
-| `animate-slide-in-right` | Slide in from right |
-| `animate-wiggle` | Subtle wiggle effect |
-| `animate-shimmer` | Loading shimmer effect |
-| `animate-bounce-soft` | Gentle bounce |
-| `animate-pulse-soft` | Gentle pulse |
+| `animate-slide-in-up`     | Slide up from bottom     |
+| `animate-slide-in-down`   | Slide down from top      |
+| `animate-slide-in-left`   | Slide in from left       |
+| `animate-slide-in-right`  | Slide in from right      |
+| `animate-wiggle`          | Subtle wiggle effect     |
+| `animate-shimmer`         | Loading shimmer effect   |
+| `animate-bounce-soft`     | Gentle bounce            |
+| `animate-pulse-soft`      | Gentle pulse             |
 
 ---
 
@@ -532,12 +772,12 @@ The `usePWA` hook provides:
 
 ```tsx
 const {
-  isInstallable,      // Can show native install prompt
-  isInstalled,        // Already installed as PWA
-  isStandalone,       // Running in standalone mode
-  platformInfo,       // { os, browser, isMobile, isTablet, ... }
+  isInstallable, // Can show native install prompt
+  isInstalled, // Already installed as PWA
+  isStandalone, // Running in standalone mode
+  platformInfo, // { os, browser, isMobile, isTablet, ... }
   canShowInstallPrompt,
-  install             // Trigger native install
+  install, // Trigger native install
 } = usePWA()
 ```
 
@@ -627,18 +867,20 @@ This section documents the complete database schema for when backend integration
 
 ### Foreign Key Relationships
 
-| Child Table | Column | Parent Table | Parent Column | On Delete |
-|-------------|--------|--------------|---------------|-----------|
-| `profiles` | `id` | `auth.users` | `id` | CASCADE |
-| `testimonies` | `user_id` | `profiles` | `id` | CASCADE |
+| Child Table   | Column    | Parent Table | Parent Column | On Delete |
+| ------------- | --------- | ------------ | ------------- | --------- |
+| `profiles`    | `id`      | `auth.users` | `id`          | CASCADE   |
+| `testimonies` | `user_id` | `profiles`   | `id`          | CASCADE   |
 
 ### Database Indexes
 
 **profiles**:
+
 - `profiles_email_idx` on `email`
 - `profiles_is_admin_idx` on `is_admin` WHERE `is_admin = TRUE` (partial)
 
 **testimonies**:
+
 - `testimonies_user_id_idx` on `user_id`
 - `testimonies_status_idx` on `status`
 - `testimonies_language_idx` on `language`
@@ -664,11 +906,11 @@ This section documents the complete database schema for when backend integration
 
 ### Database Triggers
 
-| Trigger | Table | Event | Function |
-|---------|-------|-------|----------|
-| `profiles_updated_at` | profiles | BEFORE UPDATE | `update_updated_at()` |
+| Trigger                  | Table       | Event         | Function              |
+| ------------------------ | ----------- | ------------- | --------------------- |
+| `profiles_updated_at`    | profiles    | BEFORE UPDATE | `update_updated_at()` |
 | `testimonies_updated_at` | testimonies | BEFORE UPDATE | `update_updated_at()` |
-| `on_auth_user_created` | auth.users | AFTER INSERT | `handle_new_user()` |
+| `on_auth_user_created`   | auth.users  | AFTER INSERT  | `handle_new_user()`   |
 
 ### Storage Buckets
 
@@ -686,11 +928,13 @@ testimonies/                    ← Public bucket
 Execute in this order to respect foreign key dependencies:
 
 **Phase 1: Supabase Setup**
+
 - [ ] Create Supabase project
 - [ ] Note project URL and anon key
 - [ ] Note service role key (server-side only)
 
 **Phase 2: Database Migration Order**
+
 ```
 1. Create testimony_status ENUM type
 2. Create profiles table (depends on auth.users)
@@ -703,11 +947,13 @@ Execute in this order to respect foreign key dependencies:
 ```
 
 **Phase 3: Storage Setup**
+
 - [ ] Create `testimonies` storage bucket
 - [ ] Set bucket to public (for video serving)
 - [ ] Create storage policies
 
 **Phase 4: Frontend Integration Order**
+
 1. **Auth first** (other stores depend on user state)
    - [ ] Create `src/lib/supabase/client.ts`
    - [ ] Create `src/lib/supabase/server.ts`

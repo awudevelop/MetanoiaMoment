@@ -7,7 +7,14 @@ import {
   getPendingTestimonies as getMockPendingTestimonies,
   MOCK_TESTIMONIES,
 } from '@/lib/mock-data'
-import { createAppError, parseError, type AppError, type Result, success, failure } from '@/lib/errors'
+import {
+  createAppError,
+  parseError,
+  type AppError,
+  type Result,
+  success,
+  failure,
+} from '@/lib/errors'
 
 // =============================================================================
 // TESTIMONY STORE
@@ -89,7 +96,7 @@ export const useTestimonyStore = create<TestimonyStore>((set, get) => ({
     set({
       isLoading: !append,
       isLoadingMore: append,
-      error: null
+      error: null,
     })
 
     try {
@@ -99,9 +106,7 @@ export const useTestimonyStore = create<TestimonyStore>((set, get) => ({
       const result = getMockTestimonies({ filters, sort, page, pageSize })
 
       set({
-        testimonies: append
-          ? [...get().testimonies, ...result.data]
-          : result.data,
+        testimonies: append ? [...get().testimonies, ...result.data] : result.data,
         total: result.total,
         hasMore: result.hasMore,
         isLoading: false,
@@ -115,7 +120,7 @@ export const useTestimonyStore = create<TestimonyStore>((set, get) => ({
       set({
         error,
         isLoading: false,
-        isLoadingMore: false
+        isLoadingMore: false,
       })
       return { success: false, error }
     }
@@ -250,7 +255,8 @@ export const useTestimonyStore = create<TestimonyStore>((set, get) => ({
         tags: data.tags || [],
         status: 'pending',
         viewCount: 0,
-        author: null,
+        featured: false,
+        author: undefined,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         publishedAt: null,
