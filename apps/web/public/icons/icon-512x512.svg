@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="#ed7412"/>
+
+  <!-- Inner circle for depth -->
+  <circle cx="256" cy="256" r="215.04" fill="white" opacity="0.15"/>
+
+  <!-- Stylized "M" for Metanoia -->
+  <g transform="translate(102.4, 128)">
+    <path
+      d="M0,256 L0,0 L76.8,128 L153.6,0 L153.6,256"
+      fill="none"
+      stroke="white"
+      stroke-width="30.72"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M153.6,256 L153.6,0 L230.4,128 L307.2,0 L307.2,256"
+      fill="none"
+      stroke="white"
+      stroke-width="30.72"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+
+  <!-- Transformation symbol (small cross/sparkle) -->
+  <g transform="translate(358.4, 102.4)">
+    <line x1="0" y1="25.6" x2="0" y2="-25.6" stroke="white" stroke-width="10.24" stroke-linecap="round"/>
+    <line x1="-25.6" y1="0" x2="25.6" y2="0" stroke="white" stroke-width="10.24" stroke-linecap="round"/>
+  </g>
+</svg>
