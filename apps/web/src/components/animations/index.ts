@@ -9,5 +9,10 @@ export {
   SkeletonTable,
   SkeletonStats,
   SkeletonVideoPlayer,
+  SkeletonTestimonyGrid,
+  SkeletonTestimonyDetail,
+  SkeletonProfilePage,
+  SkeletonDashboard,
+  SkeletonCategoryBrowse,
 } from './skeleton'
 export { AnimatedCard, AnimatedButton, AnimatedIcon, CountUp, TypeWriter } from './interactive'

@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@metanoia/ui'
 import {
@@ -17,28 +16,17 @@ import {
   User,
 } from 'lucide-react'
 import { Link, useRouter } from '@/i18n/routing'
-import { useAuthStore, useIsCreator } from '@/lib/stores/auth-store'
+import { useAuthStore } from '@/lib/stores/auth-store'
 import { AnimateOnScroll, StaggerChildren } from '@/components/animations'
 import { MOCK_TESTIMONIES } from '@/lib/mock-data'
 
 export default function CreatorPortalPage() {
   const t = useTranslations('creator')
   const router = useRouter()
-  const { user, isAuthenticated, signOut } = useAuthStore()
-  const isCreator = useIsCreator()
+  const { user, signOut } = useAuthStore()
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/auth/signin')
-      return
-    }
-    if (!isCreator) {
-      router.push('/account')
-      return
-    }
-  }, [isAuthenticated, isCreator, router])
-
-  if (!isAuthenticated || !user || !isCreator) {
+  // Auth is handled by layout - user is guaranteed to be a creator
+  if (!user) {
     return null
   }
 

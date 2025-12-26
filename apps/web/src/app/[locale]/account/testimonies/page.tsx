@@ -15,7 +15,7 @@ import {
   Edit,
   ChevronLeft,
 } from 'lucide-react'
-import { Link, useRouter } from '@/i18n/routing'
+import { Link } from '@/i18n/routing'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { useTestimonyStore } from '@/lib/stores/testimony-store'
 import { AnimateOnScroll, StaggerChildren } from '@/components/animations'
@@ -24,19 +24,15 @@ import type { Testimony } from '@/types'
 
 export default function MyTestimoniesPage() {
   const t = useTranslations('myTestimonies')
-  const router = useRouter()
   const toast = useToast()
-  const { user, isAuthenticated } = useAuthStore()
+  const { user } = useAuthStore()
   const { testimonies, isLoading, fetchTestimonies, deleteTestimony } = useTestimonyStore()
   const [userTestimonies, setUserTestimonies] = useState<Testimony[]>([])
 
+  // Auth is handled by layout - just fetch testimonies
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/auth/signin')
-      return
-    }
     fetchTestimonies()
-  }, [isAuthenticated, router, fetchTestimonies])
+  }, [fetchTestimonies])
 
   useEffect(() => {
     if (user && testimonies.length > 0) {
@@ -84,10 +80,6 @@ export default function MyTestimoniesPage() {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
     return `${mins}:${secs.toString().padStart(2, '0')}`
-  }
-
-  if (!isAuthenticated) {
-    return null
   }
 
   return (

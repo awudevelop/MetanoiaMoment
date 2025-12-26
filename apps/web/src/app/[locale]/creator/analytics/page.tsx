@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@metanoia/ui'
 import {
   Eye,
@@ -14,28 +13,16 @@ import {
   BarChart3,
   Calendar,
 } from 'lucide-react'
-import { Link, useRouter } from '@/i18n/routing'
-import { useAuthStore, useIsCreator } from '@/lib/stores/auth-store'
+import { Link } from '@/i18n/routing'
+import { useAuthStore } from '@/lib/stores/auth-store'
 import { AnimateOnScroll, StaggerChildren } from '@/components/animations'
 import { MOCK_TESTIMONIES } from '@/lib/mock-data'
 
 export default function CreatorAnalyticsPage() {
-  const router = useRouter()
-  const { user, isAuthenticated } = useAuthStore()
-  const isCreator = useIsCreator()
+  const { user } = useAuthStore()
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/auth/signin')
-      return
-    }
-    if (!isCreator) {
-      router.push('/account')
-      return
-    }
-  }, [isAuthenticated, isCreator, router])
-
-  if (!isAuthenticated || !user || !isCreator) {
+  // Auth is handled by layout - user is guaranteed to be a creator
+  if (!user) {
     return null
   }
 

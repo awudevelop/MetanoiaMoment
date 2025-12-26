@@ -11,17 +11,45 @@
     "viewAll": "View All",
     "loading": "Loading...",
     "error": "Something went wrong",
-    "retry": "Try Again"
+    "retry": "Try Again",
+    "back": "Back",
+    "continue": "Continue",
+    "next": "Next",
+    "skip": "Skip"
   },
   "nav": {
     "home": "Home",
     "testimonies": "Testimonies",
     "record": "Record",
+    "pricing": "Pricing",
     "about": "About",
     "support": "Support",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "myAccount": "My Account"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "toggle": "Toggle notifications",
+    "empty": "No notifications",
+    "clearAll": "Clear all",
+    "dismiss": "Dismiss",
+    "count": "{count, plural, =1 {# notification} other {# notifications}}",
+    "markAsRead": "Mark as read"
+  },
+  "search": {
+    "placeholder": "Search testimonies...",
+    "label": "Search",
+    "clear": "Clear search",
+    "open": "Open search",
+    "cancel": "Cancel",
+    "results": "{count, plural, =1 {# result} other {# results}}",
+    "noResults": "No testimonies found",
+    "tryDifferent": "Try a different search term",
+    "recent": "Recent Searches",
+    "clearRecent": "Clear",
+    "trending": "Popular Topics",
+    "hint": "Press Enter to search or ESC to close"
   },
   "home": {
     "hero": {
@@ -53,6 +81,40 @@
       "badge": "Browse by Category",
       "title": "Find Stories That Speak to You",
       "subtitle": "Explore testimonies organized by the type of journey they share"
+    },
+    "pricing": {
+      "badge": "Simple Pricing",
+      "title": "Free for You. Premium for Family.",
+      "subtitle": "Record unlimited stories for free. Upgrade when you're ready to build a family legacy.",
+      "popular": "Most Popular",
+      "viewAll": "View All Plans & Features",
+      "free": {
+        "name": "Free",
+        "period": "forever",
+        "description": "Everything you need to share your story",
+        "f1": "Unlimited stories",
+        "f2": "10-minute videos",
+        "f3": "720p HD quality",
+        "cta": "Get Started Free"
+      },
+      "family": {
+        "name": "Family",
+        "period": "mo",
+        "description": "Preserve stories together as a family",
+        "f1": "Family Vault",
+        "f2": "4K video quality",
+        "f3": "Up to 10 contributors",
+        "cta": "Start Family Plan"
+      },
+      "legacy": {
+        "name": "Legacy",
+        "period": "one-time",
+        "description": "Preserve your stories for eternity",
+        "f1": "IPFS decentralized backup",
+        "f2": "Annual USB drive",
+        "f3": "Printed memory book",
+        "cta": "Go Legacy"
+      }
     }
   },
   "testimonies": {
@@ -438,6 +500,239 @@
     "invalidFile": "Invalid file",
     "invalidFileDescription": "Please select a video file.",
     "fileTooLarge": "File too large",
-    "fileTooLargeDescription": "Maximum file size is 100MB."
+    "fileTooLargeDescription": "Maximum file size is 100MB.",
+    "passwordTooShort": "Password must be at least {min} characters",
+    "passwordEmpty": "Enter a password",
+    "passwordMixedCase": "Add uppercase and lowercase letters",
+    "passwordNumber": "Add a number",
+    "passwordSpecial": "Add a special character (!@#$%...)",
+    "passwordStrength": "Password strength",
+    "passwordWeak": "Weak",
+    "passwordFair": "Fair",
+    "passwordGood": "Good",
+    "passwordStrong": "Strong",
+    "nameTooShort": "Name must be at least {min} characters",
+    "nameTooLong": "Name must be at most {max} characters"
+  },
+  "journey": {
+    "progress": {
+      "welcome": "Welcome",
+      "category": "Category",
+      "discovery": "Discovery",
+      "outline": "Your Story",
+      "ready": "Ready"
+    },
+    "welcome": {
+      "title": "Your Story Matters",
+      "subtitle": "Every testimony has the power to inspire, heal, and transform. Let's help you discover what story is waiting to be told.",
+      "whatToExpect": "In the next few minutes, we'll:",
+      "step1": "Help you choose what kind of story to share",
+      "step2": "Ask thoughtful questions to unlock your memories",
+      "step3": "Create a simple outline to guide your recording",
+      "step4": "Make sure you feel ready and confident",
+      "saveProgress": "Save Your Progress",
+      "saveProgressDescription": "Life happens! Enter your email so we can save your progress and gently remind you if you don't finish today. (Optional)",
+      "emailPlaceholder": "your@email.com",
+      "consentLabel": "Yes, send me gentle reminders if I don't finish. I can unsubscribe anytime.",
+      "letsBegin": "Let's Begin",
+      "duration": "Takes about 5-10 minutes"
+    },
+    "category": {
+      "title": "What Story Will You Tell?",
+      "subtitle": "Choose the type of story that's on your heart right now.",
+      "lifeWisdom": {
+        "label": "Life Wisdom",
+        "description": "Hard-won lessons and insights",
+        "example": "\"The day I learned that success isn't about money...\""
+      },
+      "familyHistory": {
+        "label": "Family History",
+        "description": "Stories of those who came before",
+        "example": "\"My grandmother survived the war and taught me...\""
+      },
+      "transformation": {
+        "label": "Transformation",
+        "description": "Overcoming struggles and finding hope",
+        "example": "\"I was addicted for 10 years, until...\""
+      },
+      "faithJourney": {
+        "label": "Faith Journey",
+        "description": "How God became real in your life",
+        "example": "\"I never believed until that moment when...\""
+      },
+      "finalMessages": {
+        "label": "Final Messages",
+        "description": "Words for those who matter most",
+        "example": "\"To my grandchildren, I want you to know...\""
+      },
+      "milestones": {
+        "label": "Life Milestones",
+        "description": "Celebrations and achievements",
+        "example": "\"On my wedding day, I remember feeling...\""
+      }
+    },
+    "discovery": {
+      "questionOf": "Question {current} of {total}",
+      "shareMore": "Share a bit more...",
+      "characters": "{current}/{min} characters",
+      "greatDetail": "Great detail!",
+      "next": "Next",
+      "seeOutline": "See My Story Outline",
+      "skip": "Skip",
+      "back": "Back",
+      "allRequired": "All required questions answered!",
+      "requiredProgress": "{completed} of {total} required questions answered"
+    },
+    "outline": {
+      "title": "Your Story Outline",
+      "subtitle": "Based on what you shared, here's a structure to guide your recording.",
+      "sectionsReady": "{count} of {total} sections ready",
+      "addMoreLater": "{count} sections filled - you can add more later",
+      "sections": {
+        "hook": {
+          "label": "Opening Hook",
+          "description": "Start strong - draw viewers in immediately"
+        },
+        "context": {
+          "label": "The Background",
+          "description": "Set the scene - help viewers understand where you were"
+        },
+        "turning": {
+          "label": "The Turning Point",
+          "description": "The heart of your story - the moment everything changed"
+        },
+        "impact": {
+          "label": "The Impact",
+          "description": "How did this change you or others?"
+        },
+        "message": {
+          "label": "Your Message",
+          "description": "What do you want viewers to remember?"
+        }
+      },
+      "speakDuringRecording": "You'll speak about this during recording",
+      "proTips": "Pro Tips",
+      "tip1": "You don't have to follow this outline exactly - it's just a guide",
+      "tip2": "Speak naturally, like you're talking to a friend",
+      "tip3": "It's okay to pause, take a breath, or start over",
+      "tip4": "Your authentic self is more powerful than perfection",
+      "editAnswers": "Edit Answers",
+      "readyToRecord": "I'm Ready to Record"
+    },
+    "ready": {
+      "title": "You're Ready!",
+      "subtitle": "You've prepared well. Now it's time to share your story.",
+      "aboutToShare": "You're about to share",
+      "checklist": "Quick Checklist",
+      "beforeRecord": "Before you hit record...",
+      "checks": {
+        "camera": {
+          "label": "Camera is at eye level",
+          "detail": "Position your device so you can look directly at the camera"
+        },
+        "lighting": {
+          "label": "Good lighting on your face",
+          "detail": "Face a window or lamp - avoid backlighting"
+        },
+        "quiet": {
+          "label": "Quiet environment",
+          "detail": "Turn off TV, close windows, put phone on silent"
+        },
+        "clothing": {
+          "label": "Solid colors work best",
+          "detail": "Avoid busy patterns or logos"
+        },
+        "time": {
+          "label": "You have 5-10 uninterrupted minutes",
+          "detail": "Let others know you need some quiet time"
+        },
+        "authentic": {
+          "label": "You're ready to be authentic",
+          "detail": "Imperfect and real is better than polished and fake"
+        }
+      },
+      "remember": "Remember...",
+      "encouragement": "Your story doesn't have to be perfect. It just has to be yours. Someone out there needs to hear exactly what you're about to share.",
+      "reviewOutline": "Review My Outline",
+      "startRecording": "Start Recording"
+    },
+    "storyGuide": {
+      "title": "Your Story Guide",
+      "hide": "Hide",
+      "show": "Show my story guide",
+      "startWith": "1. Start with:",
+      "background": "2. Background:",
+      "moment": "3. The moment:",
+      "impact": "4. Impact:",
+      "message": "5. Message:",
+      "backToPreparation": "Back to Story Preparation"
+    }
+  },
+  "pricing": {
+    "badge": "Simple, Transparent Pricing",
+    "title": "Free for You. Premium for Family.",
+    "subtitle": "Individual storytelling is completely free. Premium features unlock when families want to preserve stories together.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "savePercent": "Save 34%",
+    "month": "mo",
+    "year": "yr",
+    "mostPopular": "Most Popular",
+    "billedYearly": "Billed as ${amount}/year",
+    "orOneTime": "Or ${amount} one-time purchase",
+    "church": {
+      "badge": "For Churches & Ministries",
+      "title": "Church Partnership Program",
+      "subtitle": "Help your congregation preserve their testimonies. Free for small churches.",
+      "size": "Congregation Size",
+      "price": "Monthly Price",
+      "stories": "Stories/Year",
+      "cta": "Contact Us About Church Plans"
+    },
+    "features": {
+      "title": "Everything You Need to Preserve Your Story",
+      "subtitle": "Powerful features designed for families who want to create lasting legacies",
+      "unlimited": {
+        "title": "Unlimited Stories",
+        "description": "Record as many stories as you want, forever"
+      },
+      "forever": {
+        "title": "Forever Storage",
+        "description": "Your stories are preserved for generations"
+      },
+      "secure": {
+        "title": "Bank-Level Security",
+        "description": "Enterprise encryption protects your memories"
+      },
+      "qr": {
+        "title": "QR Code Sharing",
+        "description": "Generate codes for easy story sharing"
+      },
+      "download": {
+        "title": "Download Anytime",
+        "description": "Export your videos in HD quality"
+      },
+      "support": {
+        "title": "Caring Support",
+        "description": "Real humans who understand your mission"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Is the free tier really unlimited?",
+      "a1": "Yes! You can record unlimited stories, up to 10 minutes each, stored forever at 720p quality. No credit card required, no hidden limits.",
+      "q2": "What happens to my stories if I cancel?",
+      "a2": "Your stories are never deleted. If you downgrade from a paid plan, you keep all your content but lose access to premium features like 4K quality and Family Vault.",
+      "q3": "Can I upgrade or downgrade anytime?",
+      "a3": "Absolutely. You can change your plan at any time. When upgrading, you get immediate access to new features. When downgrading, your premium features remain until the end of your billing cycle.",
+      "q4": "What's the difference between Family and Legacy?",
+      "a4": "Family is for active families who want to collaborate on story preservation. Legacy is for those who want permanent, decentralized backup with physical products like annual USB drives and printed books."
+    },
+    "cta": {
+      "title": "Ready to Preserve Your Story?",
+      "description": "Join thousands of families creating lasting legacies. Start free today.",
+      "button": "Get Started Free",
+      "watch": "Watch Testimonies"
+    }
   }
 }

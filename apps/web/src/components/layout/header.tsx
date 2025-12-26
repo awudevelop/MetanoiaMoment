@@ -6,6 +6,8 @@ import { Menu, X, User, LogOut, Shield, Video, Settings } from 'lucide-react'
 import { Link, useRouter, usePathname } from '@/i18n/routing'
 import { Button, LanguageSwitcher } from '@metanoia/ui'
 import { useAuthStore, useIsAdmin, useIsCreator, useUserRole } from '@/lib/stores/auth-store'
+import { NotificationCenter } from '@/components/notifications'
+import { SearchTrigger } from '@/components/search'
 
 export function Header() {
   const t = useTranslations('nav')
@@ -24,6 +26,7 @@ export function Header() {
     { name: t('home'), href: '/' },
     { name: t('testimonies'), href: '/testimonies' },
     { name: t('record'), href: '/record' },
+    { name: t('pricing'), href: '/pricing' },
     { name: t('about'), href: '/about' },
     { name: t('support'), href: '/support' },
   ]
@@ -100,6 +103,8 @@ export function Header() {
 
           {/* Right side actions */}
           <div className="flex items-center gap-3">
+            <SearchTrigger className="hidden sm:block" />
+
             <LanguageSwitcher
               currentLocale={locale}
               onLocaleChange={handleLocaleChange}
@@ -107,80 +112,83 @@ export function Header() {
             />
 
             {isAuthenticated && user ? (
-              <div className="relative hidden sm:block">
-                <button
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-warm-700 transition-colors hover:bg-warm-100"
-                >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-100 text-primary-600">
-                    {user.fullName?.[0]?.toUpperCase() || <User className="h-4 w-4" />}
-                  </div>
-                  <span className="hidden lg:block">{user.fullName || 'User'}</span>
-                  {isAdmin && <Shield className="h-4 w-4 text-purple-500" />}
-                  {isCreator && !isAdmin && <Video className="h-4 w-4 text-green-500" />}
-                </button>
-
-                {userMenuOpen && (
-                  <>
-                    <div className="fixed inset-0 z-10" onClick={() => setUserMenuOpen(false)} />
-                    <div className="absolute right-0 top-full z-20 mt-1 w-48 rounded-lg border border-warm-200 bg-white py-1 shadow-lg">
-                      <div className="border-b border-warm-100 px-4 py-2">
-                        <p className="text-sm font-medium text-warm-900">{user.fullName}</p>
-                        <p className="text-xs text-warm-500">{user.email}</p>
-                        {userRole && (
-                          <span
-                            className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium capitalize ${
-                              userRole === 'admin'
-                                ? 'bg-purple-100 text-purple-700'
-                                : userRole === 'creator'
-                                  ? 'bg-green-100 text-green-700'
-                                  : 'bg-blue-100 text-blue-700'
-                            }`}
-                          >
-                            {userRole}
-                          </span>
-                        )}
-                      </div>
-                      <Link
-                        href="/account"
-                        className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-warm-700 hover:bg-warm-50"
-                        onClick={() => setUserMenuOpen(false)}
-                      >
-                        <User className="h-4 w-4" />
-                        My Account
-                      </Link>
-                      {isCreator && (
-                        <Link
-                          href="/creator"
-                          className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-warm-700 hover:bg-warm-50"
-                          onClick={() => setUserMenuOpen(false)}
-                        >
-                          <Video className="h-4 w-4" />
-                          Creator Portal
-                        </Link>
-                      )}
-                      {isAdmin && (
-                        <Link
-                          href="/admin"
-                          className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-warm-700 hover:bg-warm-50"
-                          onClick={() => setUserMenuOpen(false)}
-                        >
-                          <Shield className="h-4 w-4" />
-                          Admin Dashboard
-                        </Link>
-                      )}
-                      <hr className="my-1 border-warm-100" />
-                      <button
-                        onClick={handleSignOut}
-                        className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50"
-                      >
-                        <LogOut className="h-4 w-4" />
-                        {t('signOut')}
-                      </button>
+              <>
+                <NotificationCenter className="hidden sm:block" />
+                <div className="relative hidden sm:block">
+                  <button
+                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-warm-700 transition-colors hover:bg-warm-100"
+                  >
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-100 text-primary-600">
+                      {user.fullName?.[0]?.toUpperCase() || <User className="h-4 w-4" />}
                     </div>
-                  </>
-                )}
-              </div>
+                    <span className="hidden lg:block">{user.fullName || 'User'}</span>
+                    {isAdmin && <Shield className="h-4 w-4 text-purple-500" />}
+                    {isCreator && !isAdmin && <Video className="h-4 w-4 text-green-500" />}
+                  </button>
+
+                  {userMenuOpen && (
+                    <>
+                      <div className="fixed inset-0 z-10" onClick={() => setUserMenuOpen(false)} />
+                      <div className="absolute right-0 top-full z-20 mt-1 w-48 rounded-lg border border-warm-200 bg-white py-1 shadow-lg">
+                        <div className="border-b border-warm-100 px-4 py-2">
+                          <p className="text-sm font-medium text-warm-900">{user.fullName}</p>
+                          <p className="text-xs text-warm-500">{user.email}</p>
+                          {userRole && (
+                            <span
+                              className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium capitalize ${
+                                userRole === 'admin'
+                                  ? 'bg-purple-100 text-purple-700'
+                                  : userRole === 'creator'
+                                    ? 'bg-green-100 text-green-700'
+                                    : 'bg-blue-100 text-blue-700'
+                              }`}
+                            >
+                              {userRole}
+                            </span>
+                          )}
+                        </div>
+                        <Link
+                          href="/account"
+                          className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-warm-700 hover:bg-warm-50"
+                          onClick={() => setUserMenuOpen(false)}
+                        >
+                          <User className="h-4 w-4" />
+                          My Account
+                        </Link>
+                        {isCreator && (
+                          <Link
+                            href="/creator"
+                            className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-warm-700 hover:bg-warm-50"
+                            onClick={() => setUserMenuOpen(false)}
+                          >
+                            <Video className="h-4 w-4" />
+                            Creator Portal
+                          </Link>
+                        )}
+                        {isAdmin && (
+                          <Link
+                            href="/admin"
+                            className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-warm-700 hover:bg-warm-50"
+                            onClick={() => setUserMenuOpen(false)}
+                          >
+                            <Shield className="h-4 w-4" />
+                            Admin Dashboard
+                          </Link>
+                        )}
+                        <hr className="my-1 border-warm-100" />
+                        <button
+                          onClick={handleSignOut}
+                          className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          {t('signOut')}
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </>
             ) : (
               <Link href="/auth/signin" className="hidden sm:block">
                 <Button variant="ghost" size="sm">

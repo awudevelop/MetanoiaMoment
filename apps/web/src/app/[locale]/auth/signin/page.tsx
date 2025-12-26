@@ -43,6 +43,20 @@ export default function SignInPage() {
           <p className="mt-2 text-warm-600">Choose a portal to explore the platform</p>
         </div>
 
+        {/* Role vs Tier Explanation */}
+        <div className="mb-6 rounded-lg border border-warm-200 bg-warm-50 p-4">
+          <div className="grid grid-cols-2 gap-4 text-center text-xs">
+            <div>
+              <p className="font-semibold text-warm-700">Role = Permissions</p>
+              <p className="text-warm-500">What you can do</p>
+            </div>
+            <div>
+              <p className="font-semibold text-warm-700">Tier = Features</p>
+              <p className="text-warm-500">What you get</p>
+            </div>
+          </div>
+        </div>
+
         {/* Portal Selection Cards */}
         <div className="space-y-4">
           {/* User Portal */}
@@ -53,7 +67,12 @@ export default function SignInPage() {
                   <User className="h-7 w-7" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold text-warm-900">User Portal</h2>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-lg font-semibold text-warm-900">User Portal</h2>
+                    <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700">
+                      Free Tier
+                    </span>
+                  </div>
                   <p className="text-sm text-warm-500">user@demo.com</p>
                   <p className="mt-1 text-xs text-warm-400">
                     Browse testimonies, save favorites, manage profile
@@ -65,17 +84,22 @@ export default function SignInPage() {
           </Card>
 
           {/* Creator Portal */}
-          <Card className="overflow-hidden transition-all hover:shadow-lg">
+          <Card className="overflow-hidden ring-2 ring-green-200 transition-all hover:shadow-lg">
             <button onClick={() => handleSignIn('creator')} className="w-full text-left">
               <CardContent className="flex items-center gap-4 p-6">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-100 text-green-600">
                   <Video className="h-7 w-7" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold text-warm-900">Creator Portal</h2>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-lg font-semibold text-warm-900">Creator Portal</h2>
+                    <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+                      Family Tier
+                    </span>
+                  </div>
                   <p className="text-sm text-warm-500">creator@demo.com</p>
                   <p className="mt-1 text-xs text-warm-400">
-                    Record testimonies, view analytics, manage content
+                    Record testimonies (30 min, 4K), Family Vault, analytics
                   </p>
                 </div>
                 <ArrowRight className="h-5 w-5 text-warm-400" />
@@ -91,10 +115,15 @@ export default function SignInPage() {
                   <Shield className="h-7 w-7" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold text-warm-900">Admin Portal</h2>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-lg font-semibold text-warm-900">Admin Portal</h2>
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+                      Legacy Tier
+                    </span>
+                  </div>
                   <p className="text-sm text-warm-500">admin@demo.com</p>
                   <p className="mt-1 text-xs text-warm-400">
-                    Moderate content, manage users, platform settings
+                    Moderate content, manage users, IPFS backup, all features
                   </p>
                 </div>
                 <ArrowRight className="h-5 w-5 text-warm-400" />

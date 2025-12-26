@@ -12,6 +12,7 @@ import { ToastProvider } from '@metanoia/ui'
 import { JsonLd } from '@/components/seo/json-ld'
 import { generateWebsiteJsonLd, generateOrganizationJsonLd, generateOgImageUrl } from '@/lib/seo'
 import { InstallPrompt, UpdatePrompt, OfflineIndicator } from '@/components/pwa'
+import { NotificationToastContainer } from '@/components/notifications'
 import { SkipLink, LiveRegionProvider } from '@/components/accessibility'
 import '../globals.css'
 
@@ -244,6 +245,8 @@ export default async function LocaleLayout({ children, params }: Props) {
                 <OfflineIndicator />
                 <InstallPrompt />
                 <UpdatePrompt />
+                {/* Notifications */}
+                <NotificationToastContainer />
               </LiveRegionProvider>
             </AppProvider>
           </ToastProvider>

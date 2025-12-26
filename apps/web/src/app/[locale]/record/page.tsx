@@ -1,89 +1,76 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations, useLocale } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { VideoRecorder, Button, Input, Textarea, useToast, Card, CardContent } from '@metanoia/ui'
-import {
-  Upload,
-  CheckCircle,
-  ArrowRight,
-  ArrowLeft,
-  LogIn,
-  User,
-  Lightbulb,
-  Users,
-  Sparkles,
-  Heart,
-  MessageCircle,
-  Trophy,
-  Shuffle,
-} from 'lucide-react'
+import { Upload, CheckCircle, ArrowRight, ArrowLeft, LogIn, User, Sparkles } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { useTestimonyStore } from '@/lib/stores/testimony-store'
-import { useIsAuthenticated, useUser } from '@/lib/stores/auth-store'
+import { useIsAuthenticated, useIsCreator } from '@/lib/stores/auth-store'
 import { InlineError } from '@/components/error-boundary'
 import { Confetti } from '@/components/animations/confetti'
 import { SocialShare } from '@/components/sharing'
-import { STORY_CATEGORIES, type StoryCategory, type Prompt } from '@/types'
-import { getPromptsByCategory, getRandomPrompt } from '@/lib/mock-data'
+import { StoryJourney } from '@/components/journey'
+import { STORY_CATEGORIES, type StoryCategory } from '@/types'
+import type { StoryOutline } from '@/lib/story-journey'
 
-type Step = 'prepare' | 'record' | 'details' | 'success'
-
-// Category icons mapping
-const CATEGORY_ICONS = {
-  life_wisdom: Lightbulb,
-  family_history: Users,
-  transformation: Sparkles,
-  faith_journey: Heart,
-  final_messages: MessageCircle,
-  milestones: Trophy,
-}
+type Step = 'journey' | 'record' | 'details' | 'success'
 
 export default function RecordPage() {
-  const [currentStep, setCurrentStep] = useState<Step>('prepare')
+  const [currentStep, setCurrentStep] = useState<Step>('journey')
   const [recordedBlob, setRecordedBlob] = useState<Blob | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<StoryCategory | null>(null)
-  const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null)
+  const [storyOutline, setStoryOutline] = useState<StoryOutline | null>(null)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
   const isAuthenticated = useIsAuthenticated()
+  const isCreator = useIsCreator()
 
   // Show auth prompt if not signed in
   if (!isAuthenticated) {
     return <AuthPrompt />
   }
 
+  // Show creator upgrade prompt if not a creator
+  if (!isCreator) {
+    return <CreatorUpgradePrompt />
+  }
+
+  const handleJourneyComplete = (data: {
+    category: StoryCategory
+    outline: StoryOutline
+    email: string | null
+  }) => {
+    setSelectedCategory(data.category)
+    setStoryOutline(data.outline)
+    setUserEmail(data.email)
+    setCurrentStep('record')
+  }
+
   return (
     <div className="section">
       <div className="container max-w-4xl">
-        <RecordHeader />
-        <StepIndicator currentStep={currentStep} />
+        {currentStep !== 'journey' && <RecordHeader />}
+        {currentStep !== 'journey' && currentStep !== 'success' && (
+          <StepIndicator currentStep={currentStep} />
+        )}
 
-        <div className="mt-12">
-          {currentStep === 'prepare' && (
-            <PrepareStep
-              selectedCategory={selectedCategory}
-              selectedPrompt={selectedPrompt}
-              onCategoryChange={(category) => {
-                setSelectedCategory(category)
-                setSelectedPrompt(null) // Reset prompt when category changes
-              }}
-              onPromptChange={setSelectedPrompt}
-              onContinue={() => setCurrentStep('record')}
-            />
-          )}
+        <div className={currentStep === 'journey' ? '' : 'mt-12'}>
+          {currentStep === 'journey' && <StoryJourney onComplete={handleJourneyComplete} />}
           {currentStep === 'record' && (
             <RecordStep
+              storyOutline={storyOutline}
               onRecordingComplete={(blob) => {
                 setRecordedBlob(blob)
                 setCurrentStep('details')
               }}
-              onBack={() => setCurrentStep('prepare')}
+              onBack={() => setCurrentStep('journey')}
             />
           )}
           {currentStep === 'details' && (
             <DetailsStep
               videoBlob={recordedBlob}
               selectedCategory={selectedCategory}
-              selectedPrompt={selectedPrompt}
+              storyOutline={storyOutline}
               onSubmit={() => setCurrentStep('success')}
               onBack={() => setCurrentStep('record')}
             />
@@ -96,8 +83,6 @@ export default function RecordPage() {
 }
 
 function AuthPrompt() {
-  const t = useTranslations('record')
-
   return (
     <div className="section flex min-h-[60vh] items-center justify-center">
       <div className="container max-w-md">
@@ -143,6 +128,64 @@ function AuthPrompt() {
   )
 }
 
+function CreatorUpgradePrompt() {
+  return (
+    <div className="section flex min-h-[60vh] items-center justify-center">
+      <div className="container max-w-md">
+        <Card>
+          <CardContent className="p-8 text-center">
+            <div className="mx-auto mb-6 flex h-20 w-20 animate-scale-in items-center justify-center rounded-full bg-green-100">
+              <Sparkles className="h-10 w-10 text-green-600" />
+            </div>
+            <h2 className="font-display text-2xl font-bold text-warm-900">Become a Creator</h2>
+            <p className="mt-3 text-warm-600">
+              Recording and sharing testimonies is available to Creator accounts. Upgrade to start
+              sharing your story with the world.
+            </p>
+            <div className="mt-6 rounded-lg bg-warm-50 p-4 text-left">
+              <h3 className="text-sm font-semibold text-warm-900">Creator benefits:</h3>
+              <ul className="mt-2 space-y-1 text-sm text-warm-600">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  Record unlimited testimonies
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  Access to Creator Dashboard
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  View analytics on your content
+                </li>
+              </ul>
+            </div>
+            <div className="mt-8 flex flex-col gap-3">
+              <Link href="/pricing">
+                <Button className="w-full">
+                  <ArrowRight className="mr-2 h-5 w-5" />
+                  View Plans
+                </Button>
+              </Link>
+              <Link href="/testimonies">
+                <Button variant="outline" className="w-full">
+                  Browse Testimonies
+                </Button>
+              </Link>
+            </div>
+            <p className="mt-6 text-sm text-warm-500">
+              For demo purposes, sign in as a Creator from the{' '}
+              <Link href="/auth/signin" className="text-primary-600 hover:underline">
+                sign in page
+              </Link>
+              .
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}
+
 function RecordHeader() {
   const t = useTranslations('record')
 
@@ -158,15 +201,13 @@ function StepIndicator({ currentStep }: { currentStep: Step }) {
   const t = useTranslations('record.steps')
 
   const steps = [
-    { key: 'prepare', title: t('prepare.title') },
     { key: 'record', title: t('record.title') },
     { key: 'submit', title: t('submit.title') },
   ]
 
   const getStepIndex = (step: Step) => {
-    if (step === 'prepare') return 0
-    if (step === 'record') return 1
-    return 2
+    if (step === 'record') return 0
+    return 1
   }
 
   const currentIndex = getStepIndex(currentStep)
@@ -204,138 +245,22 @@ function StepIndicator({ currentStep }: { currentStep: Step }) {
   )
 }
 
-function PrepareStep({
-  selectedCategory,
-  selectedPrompt,
-  onCategoryChange,
-  onPromptChange,
-  onContinue,
-}: {
-  selectedCategory: StoryCategory | null
-  selectedPrompt: Prompt | null
-  onCategoryChange: (category: StoryCategory) => void
-  onPromptChange: (prompt: Prompt | null) => void
-  onContinue: () => void
-}) {
-  const t = useTranslations('record')
-  const locale = useLocale()
-
-  const prompts = selectedCategory ? getPromptsByCategory(selectedCategory) : []
-
-  const handleRandomPrompt = () => {
-    if (selectedCategory) {
-      const random = getRandomPrompt(selectedCategory)
-      onPromptChange(random)
-    }
-  }
-
-  const getPromptText = (prompt: Prompt) => {
-    return prompt.promptText[locale] || prompt.promptText['en'] || ''
-  }
-
-  return (
-    <div className="mx-auto max-w-3xl">
-      {/* Step 1: Choose Category */}
-      <div className="rounded-xl border border-warm-200 bg-white p-6 sm:p-8">
-        <h2 className="mb-2 text-xl font-semibold text-warm-900">{t('category.title')}</h2>
-        <p className="mb-6 text-warm-600">{t('category.subtitle')}</p>
-
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {Object.entries(STORY_CATEGORIES).map(([key, { label, description }]) => {
-            const Icon = CATEGORY_ICONS[key as StoryCategory]
-            const isSelected = selectedCategory === key
-            return (
-              <button
-                key={key}
-                onClick={() => onCategoryChange(key as StoryCategory)}
-                className={`group flex flex-col items-start gap-2 rounded-lg border-2 p-4 text-left transition-all ${
-                  isSelected
-                    ? 'border-primary-500 bg-primary-50 ring-2 ring-primary-500/20'
-                    : 'border-warm-200 hover:border-primary-300 hover:bg-warm-50'
-                }`}
-              >
-                <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-lg ${
-                    isSelected
-                      ? 'bg-primary-500 text-white'
-                      : 'bg-warm-100 text-warm-600 group-hover:bg-primary-100 group-hover:text-primary-600'
-                  }`}
-                >
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-warm-900">{label}</h3>
-                  <p className="mt-0.5 text-xs text-warm-500">{description}</p>
-                </div>
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* Step 2: Choose Prompt (shown when category is selected) */}
-      {selectedCategory && (
-        <div className="mt-6 animate-fade-in-up rounded-xl border border-warm-200 bg-white p-6 sm:p-8">
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-semibold text-warm-900">{t('prompts.title')}</h2>
-              <p className="text-warm-600">{t('prompts.intro')}</p>
-            </div>
-            <Button variant="ghost" size="sm" onClick={handleRandomPrompt}>
-              <Shuffle className="mr-2 h-4 w-4" />
-              {t('prompts.inspire')}
-            </Button>
-          </div>
-
-          <div className="space-y-3">
-            {prompts.map((prompt) => {
-              const isSelected = selectedPrompt?.id === prompt.id
-              return (
-                <button
-                  key={prompt.id}
-                  onClick={() => onPromptChange(isSelected ? null : prompt)}
-                  className={`w-full rounded-lg border-2 p-4 text-left transition-all ${
-                    isSelected
-                      ? 'border-primary-500 bg-primary-50'
-                      : 'border-warm-200 hover:border-primary-300 hover:bg-warm-50'
-                  }`}
-                >
-                  <p className="text-warm-800">{getPromptText(prompt)}</p>
-                  {isSelected && (
-                    <p className="mt-2 text-xs text-primary-600">✓ {t('prompts.selected')}</p>
-                  )}
-                </button>
-              )
-            })}
-          </div>
-
-          <p className="mt-4 text-center text-sm text-warm-500">{t('prompts.optional')}</p>
-        </div>
-      )}
-
-      {/* Continue Button */}
-      <div className="mt-8 flex justify-center">
-        <Button onClick={onContinue} size="lg" disabled={!selectedCategory}>
-          {t('prompts.ready')}
-          <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
-      </div>
-    </div>
-  )
-}
-
 function RecordStep({
+  storyOutline,
   onRecordingComplete,
   onBack,
 }: {
+  storyOutline: StoryOutline | null
   onRecordingComplete: (blob: Blob) => void
   onBack: () => void
 }) {
   const t = useTranslations('record')
   const v = useTranslations('validation')
+  const sg = useTranslations('journey.storyGuide')
   const toast = useToast()
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
+  const [showOutline, setShowOutline] = useState(true)
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -372,12 +297,67 @@ function RecordStep({
 
   return (
     <div>
+      {/* Story Outline Guide */}
+      {storyOutline && showOutline && (
+        <div className="mb-8 rounded-xl border border-primary-200 bg-primary-50 p-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-primary-800">{sg('title')}</h3>
+            <button
+              onClick={() => setShowOutline(false)}
+              className="text-sm text-primary-600 hover:underline"
+            >
+              {sg('hide')}
+            </button>
+          </div>
+          <div className="mt-3 space-y-2 text-sm text-primary-700">
+            {storyOutline.hook && (
+              <p>
+                <span className="font-medium">{sg('startWith')}</span>{' '}
+                {storyOutline.hook.slice(0, 80)}...
+              </p>
+            )}
+            {storyOutline.context && (
+              <p>
+                <span className="font-medium">{sg('background')}</span>{' '}
+                {storyOutline.context.slice(0, 80)}...
+              </p>
+            )}
+            {storyOutline.turning && (
+              <p>
+                <span className="font-medium">{sg('moment')}</span>{' '}
+                {storyOutline.turning.slice(0, 80)}...
+              </p>
+            )}
+            {storyOutline.impact && (
+              <p>
+                <span className="font-medium">{sg('impact')}</span>{' '}
+                {storyOutline.impact.slice(0, 80)}...
+              </p>
+            )}
+            {storyOutline.message && (
+              <p>
+                <span className="font-medium">{sg('message')}</span>{' '}
+                {storyOutline.message.slice(0, 80)}...
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+      {storyOutline && !showOutline && (
+        <button
+          onClick={() => setShowOutline(true)}
+          className="mb-4 text-sm text-primary-600 hover:underline"
+        >
+          {sg('show')}
+        </button>
+      )}
+
       <VideoRecorder onRecordingComplete={onRecordingComplete} maxDuration={600} />
 
       <div className="mt-8 text-center">
         <Button variant="ghost" onClick={onBack}>
           <ArrowLeft className="mr-2 h-5 w-5" />
-          Back to Preparation
+          {sg('backToPreparation')}
         </Button>
       </div>
 
@@ -429,19 +409,18 @@ function RecordStep({
 function DetailsStep({
   videoBlob,
   selectedCategory,
-  selectedPrompt,
+  storyOutline,
   onSubmit,
   onBack,
 }: {
   videoBlob: Blob | null
   selectedCategory: StoryCategory | null
-  selectedPrompt: Prompt | null
+  storyOutline: StoryOutline | null
   onSubmit: () => void
   onBack: () => void
 }) {
   const t = useTranslations('record.form')
   const v = useTranslations('validation')
-  const locale = useLocale()
   const toast = useToast()
   const { uploadTestimony, isLoading, error, clearError } = useTestimonyStore((state) => ({
     uploadTestimony: state.uploadTestimony,
@@ -455,10 +434,6 @@ function DetailsStep({
   const [category, setCategory] = useState<StoryCategory>(selectedCategory || 'life_wisdom')
   const [language, setLanguage] = useState('en')
   const [tags, setTags] = useState('')
-
-  const getPromptText = (prompt: Prompt) => {
-    return prompt.promptText[locale] || prompt.promptText['en'] || ''
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -484,7 +459,6 @@ function DetailsStep({
         .split(',')
         .map((t) => t.trim())
         .filter(Boolean),
-      promptId: selectedPrompt?.id,
     })
 
     if (result.success) {
@@ -511,13 +485,13 @@ function DetailsStep({
           />
         )}
 
-        {/* Show selected prompt if any */}
-        {selectedPrompt && (
+        {/* Show story outline summary if available */}
+        {storyOutline && storyOutline.message && (
           <div className="rounded-lg border border-primary-200 bg-primary-50 p-4">
             <p className="text-xs font-medium uppercase tracking-wide text-primary-600">
-              {t('answering')}
+              Your Story's Message
             </p>
-            <p className="mt-1 text-warm-800">{getPromptText(selectedPrompt)}</p>
+            <p className="mt-1 text-warm-800">{storyOutline.message}</p>
           </div>
         )}
 

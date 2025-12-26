@@ -21,22 +21,19 @@ export default function AccountPage() {
   const t = useTranslations('account')
   const router = useRouter()
   const toast = useToast()
-  const { user, isAuthenticated, signOut, updateProfile, isLoading } = useAuthStore()
+  const { user, signOut, updateProfile } = useAuthStore()
 
   const [fullName, setFullName] = useState('')
   const [bio, setBio] = useState('')
   const [isSaving, setIsSaving] = useState(false)
 
+  // Auth is handled by layout - just sync form state when user changes
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/auth/signin')
-      return
-    }
     if (user) {
       setFullName(user.fullName || '')
       setBio(user.bio || '')
     }
-  }, [isAuthenticated, user, router])
+  }, [user])
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -61,7 +58,8 @@ export default function AccountPage() {
     toast.info(t('signedOut'), t('signedOutDescription'))
   }
 
-  if (!isAuthenticated || !user) {
+  // Auth is handled by layout - user is guaranteed to exist
+  if (!user) {
     return null
   }
 

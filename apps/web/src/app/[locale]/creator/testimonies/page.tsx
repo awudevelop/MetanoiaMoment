@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button, Card, CardContent, CardHeader, CardTitle, Input } from '@metanoia/ui'
 import {
@@ -19,8 +19,8 @@ import {
   ExternalLink,
   ArrowLeft,
 } from 'lucide-react'
-import { Link, useRouter } from '@/i18n/routing'
-import { useAuthStore, useIsCreator } from '@/lib/stores/auth-store'
+import { Link } from '@/i18n/routing'
+import { useAuthStore } from '@/lib/stores/auth-store'
 import { AnimateOnScroll, StaggerChildren } from '@/components/animations'
 import { MOCK_TESTIMONIES } from '@/lib/mock-data'
 import type { Testimony } from '@/types'
@@ -29,26 +29,14 @@ type FilterStatus = 'all' | 'pending' | 'approved' | 'rejected'
 
 export default function CreatorTestimoniesPage() {
   const t = useTranslations('creator')
-  const router = useRouter()
-  const { user, isAuthenticated } = useAuthStore()
-  const isCreator = useIsCreator()
+  const { user } = useAuthStore()
 
   const [searchQuery, setSearchQuery] = useState('')
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all')
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/auth/signin')
-      return
-    }
-    if (!isCreator) {
-      router.push('/account')
-      return
-    }
-  }, [isAuthenticated, isCreator, router])
-
-  if (!isAuthenticated || !user || !isCreator) {
+  // Auth is handled by layout - user is guaranteed to be a creator
+  if (!user) {
     return null
   }
 

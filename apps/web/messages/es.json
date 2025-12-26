@@ -11,17 +11,45 @@
     "viewAll": "Ver Todo",
     "loading": "Cargando...",
     "error": "Algo salió mal",
-    "retry": "Intentar de Nuevo"
+    "retry": "Intentar de Nuevo",
+    "back": "Atrás",
+    "continue": "Continuar",
+    "next": "Siguiente",
+    "skip": "Saltar"
   },
   "nav": {
     "home": "Inicio",
     "testimonies": "Testimonios",
     "record": "Grabar",
+    "pricing": "Precios",
     "about": "Nosotros",
     "support": "Apoyar",
     "signIn": "Iniciar Sesión",
     "signOut": "Cerrar Sesión",
     "myAccount": "Mi Cuenta"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "toggle": "Alternar notificaciones",
+    "empty": "Sin notificaciones",
+    "clearAll": "Limpiar todo",
+    "dismiss": "Descartar",
+    "count": "{count, plural, =1 {# notificación} other {# notificaciones}}",
+    "markAsRead": "Marcar como leída"
+  },
+  "search": {
+    "placeholder": "Buscar testimonios...",
+    "label": "Buscar",
+    "clear": "Limpiar búsqueda",
+    "open": "Abrir búsqueda",
+    "cancel": "Cancelar",
+    "results": "{count, plural, =1 {# resultado} other {# resultados}}",
+    "noResults": "No se encontraron testimonios",
+    "tryDifferent": "Intenta con un término diferente",
+    "recent": "Búsquedas Recientes",
+    "clearRecent": "Limpiar",
+    "trending": "Temas Populares",
+    "hint": "Presiona Enter para buscar o ESC para cerrar"
   },
   "home": {
     "hero": {
@@ -53,6 +81,40 @@
       "badge": "Explorar por Categoría",
       "title": "Encuentra Historias que Te Hablen",
       "subtitle": "Explora testimonios organizados por el tipo de viaje que comparten"
+    },
+    "pricing": {
+      "badge": "Precios Simples",
+      "title": "Gratis para Ti. Premium para la Familia.",
+      "subtitle": "Graba historias ilimitadas gratis. Mejora cuando estés listo para construir un legado familiar.",
+      "popular": "Más Popular",
+      "viewAll": "Ver Todos los Planes",
+      "free": {
+        "name": "Gratis",
+        "period": "siempre",
+        "description": "Todo lo que necesitas para compartir tu historia",
+        "f1": "Historias ilimitadas",
+        "f2": "Videos de 10 minutos",
+        "f3": "Calidad 720p HD",
+        "cta": "Comenzar Gratis"
+      },
+      "family": {
+        "name": "Familia",
+        "period": "mes",
+        "description": "Preserva historias juntos como familia",
+        "f1": "Cofre Familiar",
+        "f2": "Calidad 4K",
+        "f3": "Hasta 10 contribuidores",
+        "cta": "Plan Familiar"
+      },
+      "legacy": {
+        "name": "Legado",
+        "period": "único",
+        "description": "Preserva tus historias para la eternidad",
+        "f1": "Respaldo IPFS descentralizado",
+        "f2": "USB anual",
+        "f3": "Libro de memorias impreso",
+        "cta": "Plan Legado"
+      }
     }
   },
   "testimonies": {
@@ -444,6 +506,239 @@
     "invalidFile": "Archivo inválido",
     "invalidFileDescription": "Por favor selecciona un archivo de video.",
     "fileTooLarge": "Archivo muy grande",
-    "fileTooLargeDescription": "El tamaño máximo es 100MB."
+    "fileTooLargeDescription": "El tamaño máximo es 100MB.",
+    "passwordTooShort": "La contraseña debe tener al menos {min} caracteres",
+    "passwordEmpty": "Ingresa una contraseña",
+    "passwordMixedCase": "Agrega mayúsculas y minúsculas",
+    "passwordNumber": "Agrega un número",
+    "passwordSpecial": "Agrega un carácter especial (!@#$%...)",
+    "passwordStrength": "Fortaleza de la contraseña",
+    "passwordWeak": "Débil",
+    "passwordFair": "Regular",
+    "passwordGood": "Buena",
+    "passwordStrong": "Fuerte",
+    "nameTooShort": "El nombre debe tener al menos {min} caracteres",
+    "nameTooLong": "El nombre debe tener máximo {max} caracteres"
+  },
+  "journey": {
+    "progress": {
+      "welcome": "Bienvenida",
+      "category": "Categoría",
+      "discovery": "Descubrimiento",
+      "outline": "Tu Historia",
+      "ready": "Listo"
+    },
+    "welcome": {
+      "title": "Tu Historia Importa",
+      "subtitle": "Cada testimonio tiene el poder de inspirar, sanar y transformar. Vamos a ayudarte a descubrir qué historia está esperando ser contada.",
+      "whatToExpect": "En los próximos minutos, vamos a:",
+      "step1": "Ayudarte a elegir qué tipo de historia compartir",
+      "step2": "Hacer preguntas reflexivas para desbloquear tus recuerdos",
+      "step3": "Crear un esquema simple para guiar tu grabación",
+      "step4": "Asegurarnos de que te sientas listo y confiado",
+      "saveProgress": "Guarda Tu Progreso",
+      "saveProgressDescription": "¡La vida pasa! Ingresa tu correo para que podamos guardar tu progreso y recordarte amablemente si no terminas hoy. (Opcional)",
+      "emailPlaceholder": "tu@correo.com",
+      "consentLabel": "Sí, envíenme recordatorios amables si no termino. Puedo cancelar en cualquier momento.",
+      "letsBegin": "Comencemos",
+      "duration": "Toma unos 5-10 minutos"
+    },
+    "category": {
+      "title": "¿Qué Historia Contarás?",
+      "subtitle": "Elige el tipo de historia que tienes en el corazón ahora.",
+      "lifeWisdom": {
+        "label": "Sabiduría de Vida",
+        "description": "Lecciones aprendidas con esfuerzo",
+        "example": "\"El día que aprendí que el éxito no es dinero...\""
+      },
+      "familyHistory": {
+        "label": "Historia Familiar",
+        "description": "Historias de quienes vinieron antes",
+        "example": "\"Mi abuela sobrevivió la guerra y me enseñó...\""
+      },
+      "transformation": {
+        "label": "Transformación",
+        "description": "Superando luchas y encontrando esperanza",
+        "example": "\"Fui adicto por 10 años, hasta que...\""
+      },
+      "faithJourney": {
+        "label": "Camino de Fe",
+        "description": "Cómo Dios se volvió real en tu vida",
+        "example": "\"Nunca creí hasta ese momento cuando...\""
+      },
+      "finalMessages": {
+        "label": "Mensajes Finales",
+        "description": "Palabras para quienes más importan",
+        "example": "\"A mis nietos, quiero que sepan...\""
+      },
+      "milestones": {
+        "label": "Momentos Importantes",
+        "description": "Celebraciones y logros",
+        "example": "\"El día de mi boda, recuerdo sentir...\""
+      }
+    },
+    "discovery": {
+      "questionOf": "Pregunta {current} de {total}",
+      "shareMore": "Comparte un poco más...",
+      "characters": "{current}/{min} caracteres",
+      "greatDetail": "¡Gran detalle!",
+      "next": "Siguiente",
+      "seeOutline": "Ver Mi Esquema",
+      "skip": "Saltar",
+      "back": "Atrás",
+      "allRequired": "¡Todas las preguntas requeridas contestadas!",
+      "requiredProgress": "{completed} de {total} preguntas requeridas contestadas"
+    },
+    "outline": {
+      "title": "Tu Esquema de Historia",
+      "subtitle": "Basado en lo que compartiste, aquí hay una estructura para guiar tu grabación.",
+      "sectionsReady": "{count} de {total} secciones listas",
+      "addMoreLater": "{count} secciones llenas - puedes agregar más después",
+      "sections": {
+        "hook": {
+          "label": "Gancho Inicial",
+          "description": "Comienza fuerte - atrae a los espectadores inmediatamente"
+        },
+        "context": {
+          "label": "El Contexto",
+          "description": "Prepara la escena - ayuda a entender dónde estabas"
+        },
+        "turning": {
+          "label": "El Punto de Inflexión",
+          "description": "El corazón de tu historia - el momento en que todo cambió"
+        },
+        "impact": {
+          "label": "El Impacto",
+          "description": "¿Cómo te cambió esto a ti o a otros?"
+        },
+        "message": {
+          "label": "Tu Mensaje",
+          "description": "¿Qué quieres que los espectadores recuerden?"
+        }
+      },
+      "speakDuringRecording": "Hablarás de esto durante la grabación",
+      "proTips": "Consejos",
+      "tip1": "No tienes que seguir este esquema exactamente - es solo una guía",
+      "tip2": "Habla naturalmente, como si hablaras con un amigo",
+      "tip3": "Está bien pausar, respirar o empezar de nuevo",
+      "tip4": "Tu yo auténtico es más poderoso que la perfección",
+      "editAnswers": "Editar Respuestas",
+      "readyToRecord": "Estoy Listo para Grabar"
+    },
+    "ready": {
+      "title": "¡Estás Listo!",
+      "subtitle": "Te has preparado bien. Ahora es tiempo de compartir tu historia.",
+      "aboutToShare": "Estás a punto de compartir",
+      "checklist": "Lista Rápida",
+      "beforeRecord": "Antes de grabar...",
+      "checks": {
+        "camera": {
+          "label": "Cámara a nivel de los ojos",
+          "detail": "Posiciona tu dispositivo para mirar directamente a la cámara"
+        },
+        "lighting": {
+          "label": "Buena iluminación en tu cara",
+          "detail": "Mira hacia una ventana o lámpara - evita contraluz"
+        },
+        "quiet": {
+          "label": "Ambiente tranquilo",
+          "detail": "Apaga la TV, cierra ventanas, silencia el teléfono"
+        },
+        "clothing": {
+          "label": "Colores sólidos funcionan mejor",
+          "detail": "Evita patrones ocupados o logos"
+        },
+        "time": {
+          "label": "Tienes 5-10 minutos sin interrupciones",
+          "detail": "Avisa a otros que necesitas tiempo tranquilo"
+        },
+        "authentic": {
+          "label": "Estás listo para ser auténtico",
+          "detail": "Imperfecto y real es mejor que pulido y falso"
+        }
+      },
+      "remember": "Recuerda...",
+      "encouragement": "Tu historia no tiene que ser perfecta. Solo tiene que ser tuya. Alguien allá afuera necesita escuchar exactamente lo que estás por compartir.",
+      "reviewOutline": "Revisar Mi Esquema",
+      "startRecording": "Comenzar a Grabar"
+    },
+    "storyGuide": {
+      "title": "Tu Guía de Historia",
+      "hide": "Ocultar",
+      "show": "Mostrar mi guía de historia",
+      "startWith": "1. Comienza con:",
+      "background": "2. Contexto:",
+      "moment": "3. El momento:",
+      "impact": "4. Impacto:",
+      "message": "5. Mensaje:",
+      "backToPreparation": "Volver a Preparación de Historia"
+    }
+  },
+  "pricing": {
+    "badge": "Precios Simples y Transparentes",
+    "title": "Gratis para Ti. Premium para la Familia.",
+    "subtitle": "Compartir tu historia es completamente gratis. Las funciones premium se desbloquean cuando las familias quieren preservar historias juntas.",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "savePercent": "Ahorra 34%",
+    "month": "mes",
+    "year": "año",
+    "mostPopular": "Más Popular",
+    "billedYearly": "Facturado como ${amount}/año",
+    "orOneTime": "O ${amount} pago único",
+    "church": {
+      "badge": "Para Iglesias y Ministerios",
+      "title": "Programa de Asociación con Iglesias",
+      "subtitle": "Ayuda a tu congregación a preservar sus testimonios. Gratis para iglesias pequeñas.",
+      "size": "Tamaño de Congregación",
+      "price": "Precio Mensual",
+      "stories": "Historias/Año",
+      "cta": "Contáctanos Sobre Planes para Iglesias"
+    },
+    "features": {
+      "title": "Todo lo que Necesitas para Preservar tu Historia",
+      "subtitle": "Funciones poderosas diseñadas para familias que quieren crear legados duraderos",
+      "unlimited": {
+        "title": "Historias Ilimitadas",
+        "description": "Graba tantas historias como quieras, para siempre"
+      },
+      "forever": {
+        "title": "Almacenamiento Eterno",
+        "description": "Tus historias se preservan por generaciones"
+      },
+      "secure": {
+        "title": "Seguridad Bancaria",
+        "description": "Cifrado empresarial protege tus memorias"
+      },
+      "qr": {
+        "title": "Compartir por QR",
+        "description": "Genera códigos para compartir fácilmente"
+      },
+      "download": {
+        "title": "Descarga en Cualquier Momento",
+        "description": "Exporta tus videos en calidad HD"
+      },
+      "support": {
+        "title": "Soporte Dedicado",
+        "description": "Personas reales que entienden tu misión"
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "q1": "¿El plan gratuito es realmente ilimitado?",
+      "a1": "¡Sí! Puedes grabar historias ilimitadas, de hasta 10 minutos cada una, almacenadas para siempre en calidad 720p. Sin tarjeta de crédito, sin límites ocultos.",
+      "q2": "¿Qué pasa con mis historias si cancelo?",
+      "a2": "Tus historias nunca se eliminan. Si bajas de un plan pagado, mantienes todo tu contenido pero pierdes acceso a funciones premium como calidad 4K y el Cofre Familiar.",
+      "q3": "¿Puedo subir o bajar de plan en cualquier momento?",
+      "a3": "Absolutamente. Puedes cambiar tu plan cuando quieras. Al subir, obtienes acceso inmediato a las nuevas funciones. Al bajar, tus funciones premium permanecen hasta el final de tu ciclo de facturación.",
+      "q4": "¿Cuál es la diferencia entre Familia y Legado?",
+      "a4": "Familia es para familias activas que quieren colaborar en la preservación de historias. Legado es para quienes quieren respaldo permanente y descentralizado con productos físicos como memorias USB anuales y libros impresos."
+    },
+    "cta": {
+      "title": "¿Listo para Preservar tu Historia?",
+      "description": "Únete a miles de familias creando legados duraderos. Comienza gratis hoy.",
+      "button": "Comenzar Gratis",
+      "watch": "Ver Testimonios"
+    }
   }
 }

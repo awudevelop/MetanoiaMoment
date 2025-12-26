@@ -16,7 +16,7 @@ export const config = {
     // Match all pathnames except for
     // - API routes
     // - Next.js internals
-    // - Static files
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    // - Static files (images, manifest, service worker, icons)
+    '/((?!api|_next/static|_next/image|favicon.ico|manifest\\.json|sw\\.js|icons/|splash/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
   ],
 }

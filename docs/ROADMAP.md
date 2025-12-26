@@ -175,6 +175,12 @@ Stories are organized by type, with faith naturally integrated:
 - [x] **Viral Sharing** - Social share, QR codes, embed generator
 - [x] **Bot Protection** - reCAPTCHA, honeypot, rate limiting
 - [x] **Multi-Portal System** - User/Creator/Admin roles
+- [x] **Auth Architecture** - AuthGuard, route config, layout-level protection
+- [x] **Mobile Navigation** - Scroll-hide, role-based icons, press feedback
+- [x] **Skeleton Loading** - Page-specific skeletons for all major views
+- [x] **Form Validation** - Password strength indicator, i18n validation messages
+- [x] **Notification System** - Bell icon center, toast notifications
+- [x] **Search** - Modal search with keyboard shortcuts, recent searches
 
 ---
 
@@ -724,6 +730,9 @@ npm run test:coverage # Coverage
 | 2024-12 | Referral rewards (cash + credits)     | Incentivize viral growth                |
 | 2024-12 | Church tier (free for small)          | Ministry partnership, B2B2C             |
 | 2024-12 | IPFS for Legacy tier                  | Censorship resistance, permanence       |
+| 2024-12 | Layout-level auth guards              | Cleaner pages, single source of truth   |
+| 2024-12 | Notification center vs toast only     | Better UX for persistent notifications  |
+| 2024-12 | Modal search vs inline                | Cmd+K pattern, clean header             |
 
 ---
 

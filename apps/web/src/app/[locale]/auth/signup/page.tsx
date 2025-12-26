@@ -6,7 +6,8 @@ import { useRouter, Link } from '@/i18n/routing'
 import { Button, Input, Card, CardContent, useToast } from '@metanoia/ui'
 import { useAuthStore, useAuthError } from '@/lib/stores/auth-store'
 import { InlineError } from '@/components/error-boundary'
-import { CheckCircle, Shield } from 'lucide-react'
+import { PasswordStrengthIndicator } from '@/components/forms'
+import { CheckCircle, Shield, User, Mail, Lock } from 'lucide-react'
 import {
   useFormValidation,
   required,
@@ -142,6 +143,7 @@ export default function SignUpPage() {
                 onChange={(e) => setName(e.target.value)}
                 onBlur={() => handleBlur('name', name)}
                 error={getFieldError('name')}
+                icon={<User className="h-5 w-5" />}
                 required
               />
 
@@ -152,18 +154,26 @@ export default function SignUpPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={() => handleBlur('email', email)}
                 error={getFieldError('email')}
+                icon={<Mail className="h-5 w-5" />}
                 required
               />
 
-              <Input
-                type="password"
-                label={t('password')}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onBlur={() => handleBlur('password', password)}
-                error={getFieldError('password')}
-                required
-              />
+              <div>
+                <Input
+                  type="password"
+                  label={t('password')}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onBlur={() => handleBlur('password', password)}
+                  error={getFieldError('password')}
+                  icon={<Lock className="h-5 w-5" />}
+                  required
+                />
+                <PasswordStrengthIndicator
+                  password={password}
+                  showRequirements={password.length > 0}
+                />
+              </div>
 
               <Input
                 type="password"
@@ -172,6 +182,7 @@ export default function SignUpPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 onBlur={() => handleBlur('confirmPassword', confirmPassword)}
                 error={getFieldError('confirmPassword')}
+                icon={<Lock className="h-5 w-5" />}
                 required
               />
 

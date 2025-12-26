@@ -515,12 +515,19 @@ apps/web/src/
 │   └── api/          # API routes (use /api)
 ├── components/
 │   ├── animations/   # Animation components (use /animation)
+│   ├── auth/         # AuthGuard, protected route wrappers
+│   ├── forms/        # Form components (use /password, /validate)
 │   ├── layout/       # Header, footer, mobile-nav
+│   ├── notifications/# NotificationCenter, toasts (use /notification)
 │   ├── pwa/          # PWA components (use /pwa)
-│   └── seo/          # SEO components (use /seo)
+│   ├── search/       # Search modal, input (use /search)
+│   ├── seo/          # SEO components (use /seo)
+│   └── sharing/      # Social share components (use /share)
 ├── hooks/            # Custom React hooks
 ├── lib/
+│   ├── auth/         # Route auth config
 │   ├── stores/       # Zustand stores (use /store)
+│   ├── validation.ts # Form validation utilities
 │   ├── animations.ts # Animation utilities
 │   └── seo.ts        # SEO helpers
 └── types/            # TypeScript types
@@ -892,6 +899,133 @@ import { CategoryBrowseClient } from '@/app/[locale]/category-browse-client'
 | `faith_journey`  | Faith Journey  | Heart         | rose   |
 | `final_messages` | Final Messages | MessageCircle | teal   |
 | `milestones`     | Milestones     | Trophy        | green  |
+
+---
+
+### `/search` - Add Search Functionality
+
+Adds search modal with autocomplete, recent searches, and keyboard shortcuts.
+
+**Usage**: `/search header` or `/search page`
+
+**Components Available**:
+
+```tsx
+import { SearchTrigger, SearchModal, SearchInput } from '@/components/search'
+
+// Button trigger (shows search icon, opens modal)
+<SearchTrigger className="hidden sm:block" />
+
+// Input-style trigger (shows placeholder, opens modal)
+<SearchTrigger variant="input" />
+
+// Standalone search input (no modal)
+<SearchInput
+  placeholder="Search..."
+  onSearch={(query) => handleSearch(query)}
+  isLoading={isSearching}
+/>
+```
+
+**Features**:
+
+- Keyboard shortcut: ⌘K (Mac) / Ctrl+K (Windows)
+- Recent searches (persisted to localStorage)
+- Trending/popular topics
+- Debounced search with loading state
+- i18n support (EN/ES)
+
+**Translation Keys** (in `search` namespace):
+
+- `placeholder`, `label`, `clear`, `open`, `cancel`
+- `results`, `noResults`, `tryDifferent`
+- `recent`, `clearRecent`, `trending`, `hint`
+
+---
+
+### `/notification` - Add Notification System
+
+Adds notification center and toast notifications.
+
+**Usage**: `/notification center` or `/notification toast`
+
+**Components Available**:
+
+```tsx
+import { NotificationCenter, NotificationToastContainer } from '@/components/notifications'
+import { useNotifications, showSuccessNotification } from '@/lib/stores/app-store'
+
+// Bell icon dropdown (header)
+<NotificationCenter className="hidden sm:block" />
+
+// Toast container (root layout)
+<NotificationToastContainer />
+
+// Programmatic notifications
+showSuccessNotification('Success!', 'Your changes were saved.')
+showErrorNotification('Error', 'Something went wrong.')
+showWarningNotification('Warning', 'This action is irreversible.')
+showInfoNotification('Info', 'New updates available.')
+
+// With hook
+const { add, remove, clear, notifications } = useNotifications()
+add({ type: 'success', title: 'Done!', description: 'Task completed.' })
+```
+
+**Notification Types**: `success`, `error`, `warning`, `info`
+
+**Features**:
+
+- Auto-dismiss (configurable duration)
+- Action buttons
+- Badge count
+- i18n support
+
+---
+
+### `/password` - Add Password Strength Indicator
+
+Adds password strength indicator with requirements checklist.
+
+**Usage**: `/password signup-form`
+
+**Components Available**:
+
+```tsx
+import { PasswordStrengthIndicator } from '@/components/forms'
+
+<Input
+  type="password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+/>
+<PasswordStrengthIndicator
+  password={password}
+  showRequirements={password.length > 0}
+/>
+```
+
+**Strength Levels**:
+
+| Score | Label  | Color  |
+| ----- | ------ | ------ |
+| 0     | Empty  | gray   |
+| 1     | Weak   | red    |
+| 2     | Fair   | orange |
+| 3     | Good   | yellow |
+| 4     | Strong | green  |
+
+**Requirements Checked**:
+
+- Minimum 8 characters
+- Mixed case (uppercase + lowercase)
+- Contains number
+- Contains special character
+
+**Translation Keys** (in `validation` namespace):
+
+- `passwordStrength`, `passwordWeak`, `passwordFair`, `passwordGood`, `passwordStrong`
+- `passwordMixedCase`, `passwordNumber`, `passwordSpecial`
 
 ---
 

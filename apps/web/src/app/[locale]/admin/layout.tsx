@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter, usePathname, Link } from '@/i18n/routing'
-import { useAuthStore, useIsAdmin } from '@/lib/stores/auth-store'
+import { useAuthStore } from '@/lib/stores/auth-store'
+import { AuthGuard } from '@/components/auth'
 import {
   LayoutDashboard,
   Video,
@@ -15,8 +16,6 @@ import {
   X,
   LogOut,
 } from 'lucide-react'
-import { Button } from '@metanoia/ui'
-import { LoadingSpinner } from '@/components/global-loading'
 
 interface AdminLayoutProps {
   children: React.ReactNode
@@ -32,39 +31,22 @@ const NAV_ITEMS = [
 ]
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
+  return (
+    <AuthGuard minRole="admin">
+      <AdminLayoutContent>{children}</AdminLayoutContent>
+    </AuthGuard>
+  )
+}
+
+function AdminLayoutContent({ children }: AdminLayoutProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const { user, isAuthenticated, signOut } = useAuthStore()
-  const isAdmin = useIsAdmin()
-  const [isLoading, setIsLoading] = useState(true)
+  const { user, signOut } = useAuthStore()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/auth/signin')
-      return
-    }
-
-    // Check both role-based and legacy isAdmin flag
-    if (!isAdmin && !user?.isAdmin) {
-      router.push('/')
-      return
-    }
-
-    setIsLoading(false)
-  }, [isAuthenticated, isAdmin, user, router])
 
   const handleSignOut = () => {
     signOut()
     router.push('/')
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    )
   }
 
   const isActive = (href: string, exact = false) => {
