@@ -2,10 +2,18 @@
 
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
-import { Button, Input, Textarea, Card, CardContent, CardHeader, CardTitle, useToast } from '@metanoia/ui'
+import {
+  Button,
+  Input,
+  Textarea,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  useToast,
+} from '@metanoia/ui'
 import { User, Mail, Camera, Save, LogOut, Video, Eye, Calendar } from 'lucide-react'
-import { Link } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/routing'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { AnimateOnScroll } from '@/components/animations'
 
@@ -132,7 +140,11 @@ export default function AccountPage() {
                       {t('myTestimonies')}
                     </Button>
                   </Link>
-                  <Button variant="ghost" className="w-full text-red-600 hover:bg-red-50 hover:text-red-700" onClick={handleSignOut}>
+                  <Button
+                    variant="ghost"
+                    className="w-full text-red-600 hover:bg-red-50 hover:text-red-700"
+                    onClick={handleSignOut}
+                  >
                     <LogOut className="mr-2 h-4 w-4" />
                     {t('signOut')}
                   </Button>

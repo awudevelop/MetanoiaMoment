@@ -109,6 +109,7 @@ export const useAuthStore = create<AuthStore>()(
           }
 
           // STUB: Create new user (in real app, this would be an API call)
+          const now = new Date().toISOString()
           const newUser: User = {
             id: `user-${Date.now()}`,
             email: credentials.email,
@@ -116,9 +117,23 @@ export const useAuthStore = create<AuthStore>()(
             avatarUrl: null,
             bio: null,
             role: 'user',
+            tier: 'free',
+            tierExpiresAt: null,
+            stripeCustomerId: null,
+            stripeSubscriptionId: null,
+            referralCode: `REF${Date.now().toString(36).toUpperCase()}`,
+            referredBy: credentials.referralCode || null,
+            referralCredits: 0,
+            totalReferrals: 0,
+            language: 'en',
+            timezone: null,
+            createdAt: now,
+            updatedAt: now,
+            // Computed helpers
             isAdmin: false,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
+            isCreator: false,
+            hasFamilyTier: false,
+            hasLegacyTier: false,
           }
 
           set({ user: newUser, isAuthenticated: true, isLoading: false })
@@ -279,4 +294,27 @@ export function useAuthError() {
 
 export function useAuthLoading() {
   return useAuthStore((state) => state.isLoading)
+}
+
+export function useUserTier() {
+  return useAuthStore((state) => state.user?.tier ?? 'free')
+}
+
+export function useHasFamilyTier() {
+  return useAuthStore((state) => state.user?.hasFamilyTier ?? false)
+}
+
+export function useHasLegacyTier() {
+  return useAuthStore((state) => state.user?.hasLegacyTier ?? false)
+}
+
+export function useReferralCode() {
+  return useAuthStore((state) => state.user?.referralCode ?? null)
+}
+
+export function useReferralStats() {
+  return useAuthStore((state) => ({
+    credits: state.user?.referralCredits ?? 0,
+    totalReferrals: state.user?.totalReferrals ?? 0,
+  }))
 }

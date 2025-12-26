@@ -1,21 +1,49 @@
 'use client'
 
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { VideoRecorder, Button, Input, Textarea, useToast, Card, CardContent } from '@metanoia/ui'
-import { Upload, CheckCircle, ArrowRight, ArrowLeft, LogIn, User } from 'lucide-react'
+import {
+  Upload,
+  CheckCircle,
+  ArrowRight,
+  ArrowLeft,
+  LogIn,
+  User,
+  Lightbulb,
+  Users,
+  Sparkles,
+  Heart,
+  MessageCircle,
+  Trophy,
+  Shuffle,
+} from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import { useTestimonyStore } from '@/lib/stores/testimony-store'
 import { useIsAuthenticated, useUser } from '@/lib/stores/auth-store'
 import { InlineError } from '@/components/error-boundary'
 import { Confetti } from '@/components/animations/confetti'
 import { SocialShare } from '@/components/sharing'
+import { STORY_CATEGORIES, type StoryCategory, type Prompt } from '@/types'
+import { getPromptsByCategory, getRandomPrompt } from '@/lib/mock-data'
 
 type Step = 'prepare' | 'record' | 'details' | 'success'
+
+// Category icons mapping
+const CATEGORY_ICONS = {
+  life_wisdom: Lightbulb,
+  family_history: Users,
+  transformation: Sparkles,
+  faith_journey: Heart,
+  final_messages: MessageCircle,
+  milestones: Trophy,
+}
 
 export default function RecordPage() {
   const [currentStep, setCurrentStep] = useState<Step>('prepare')
   const [recordedBlob, setRecordedBlob] = useState<Blob | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<StoryCategory | null>(null)
+  const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null)
   const isAuthenticated = useIsAuthenticated()
 
   // Show auth prompt if not signed in
@@ -30,7 +58,18 @@ export default function RecordPage() {
         <StepIndicator currentStep={currentStep} />
 
         <div className="mt-12">
-          {currentStep === 'prepare' && <PrepareStep onContinue={() => setCurrentStep('record')} />}
+          {currentStep === 'prepare' && (
+            <PrepareStep
+              selectedCategory={selectedCategory}
+              selectedPrompt={selectedPrompt}
+              onCategoryChange={(category) => {
+                setSelectedCategory(category)
+                setSelectedPrompt(null) // Reset prompt when category changes
+              }}
+              onPromptChange={setSelectedPrompt}
+              onContinue={() => setCurrentStep('record')}
+            />
+          )}
           {currentStep === 'record' && (
             <RecordStep
               onRecordingComplete={(blob) => {
@@ -43,6 +82,8 @@ export default function RecordPage() {
           {currentStep === 'details' && (
             <DetailsStep
               videoBlob={recordedBlob}
+              selectedCategory={selectedCategory}
+              selectedPrompt={selectedPrompt}
               onSubmit={() => setCurrentStep('success')}
               onBack={() => setCurrentStep('record')}
             />
@@ -163,34 +204,121 @@ function StepIndicator({ currentStep }: { currentStep: Step }) {
   )
 }
 
-function PrepareStep({ onContinue }: { onContinue: () => void }) {
-  const t = useTranslations('record.prompts')
+function PrepareStep({
+  selectedCategory,
+  selectedPrompt,
+  onCategoryChange,
+  onPromptChange,
+  onContinue,
+}: {
+  selectedCategory: StoryCategory | null
+  selectedPrompt: Prompt | null
+  onCategoryChange: (category: StoryCategory) => void
+  onPromptChange: (prompt: Prompt | null) => void
+  onContinue: () => void
+}) {
+  const t = useTranslations('record')
+  const locale = useLocale()
 
-  const questions = t.raw('questions') as string[]
+  const prompts = selectedCategory ? getPromptsByCategory(selectedCategory) : []
+
+  const handleRandomPrompt = () => {
+    if (selectedCategory) {
+      const random = getRandomPrompt(selectedCategory)
+      onPromptChange(random)
+    }
+  }
+
+  const getPromptText = (prompt: Prompt) => {
+    return prompt.promptText[locale] || prompt.promptText['en'] || ''
+  }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <div className="rounded-xl border border-warm-200 bg-white p-8">
-        <h2 className="mb-2 text-xl font-semibold text-warm-900">{t('title')}</h2>
-        <p className="mb-6 text-warm-600">{t('intro')}</p>
+    <div className="mx-auto max-w-3xl">
+      {/* Step 1: Choose Category */}
+      <div className="rounded-xl border border-warm-200 bg-white p-6 sm:p-8">
+        <h2 className="mb-2 text-xl font-semibold text-warm-900">{t('category.title')}</h2>
+        <p className="mb-6 text-warm-600">{t('category.subtitle')}</p>
 
-        <ul className="space-y-4">
-          {questions.map((question, index) => (
-            <li key={index} className="flex gap-3">
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary-100 text-sm font-medium text-primary-600">
-                {index + 1}
-              </span>
-              <span className="text-warm-700">{question}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-8 flex justify-center">
-          <Button onClick={onContinue} size="lg">
-            I'm Ready to Record
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {Object.entries(STORY_CATEGORIES).map(([key, { label, description }]) => {
+            const Icon = CATEGORY_ICONS[key as StoryCategory]
+            const isSelected = selectedCategory === key
+            return (
+              <button
+                key={key}
+                onClick={() => onCategoryChange(key as StoryCategory)}
+                className={`group flex flex-col items-start gap-2 rounded-lg border-2 p-4 text-left transition-all ${
+                  isSelected
+                    ? 'border-primary-500 bg-primary-50 ring-2 ring-primary-500/20'
+                    : 'border-warm-200 hover:border-primary-300 hover:bg-warm-50'
+                }`}
+              >
+                <div
+                  className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                    isSelected
+                      ? 'bg-primary-500 text-white'
+                      : 'bg-warm-100 text-warm-600 group-hover:bg-primary-100 group-hover:text-primary-600'
+                  }`}
+                >
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-medium text-warm-900">{label}</h3>
+                  <p className="mt-0.5 text-xs text-warm-500">{description}</p>
+                </div>
+              </button>
+            )
+          })}
         </div>
+      </div>
+
+      {/* Step 2: Choose Prompt (shown when category is selected) */}
+      {selectedCategory && (
+        <div className="mt-6 animate-fade-in-up rounded-xl border border-warm-200 bg-white p-6 sm:p-8">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-semibold text-warm-900">{t('prompts.title')}</h2>
+              <p className="text-warm-600">{t('prompts.intro')}</p>
+            </div>
+            <Button variant="ghost" size="sm" onClick={handleRandomPrompt}>
+              <Shuffle className="mr-2 h-4 w-4" />
+              {t('prompts.inspire')}
+            </Button>
+          </div>
+
+          <div className="space-y-3">
+            {prompts.map((prompt) => {
+              const isSelected = selectedPrompt?.id === prompt.id
+              return (
+                <button
+                  key={prompt.id}
+                  onClick={() => onPromptChange(isSelected ? null : prompt)}
+                  className={`w-full rounded-lg border-2 p-4 text-left transition-all ${
+                    isSelected
+                      ? 'border-primary-500 bg-primary-50'
+                      : 'border-warm-200 hover:border-primary-300 hover:bg-warm-50'
+                  }`}
+                >
+                  <p className="text-warm-800">{getPromptText(prompt)}</p>
+                  {isSelected && (
+                    <p className="mt-2 text-xs text-primary-600">✓ {t('prompts.selected')}</p>
+                  )}
+                </button>
+              )
+            })}
+          </div>
+
+          <p className="mt-4 text-center text-sm text-warm-500">{t('prompts.optional')}</p>
+        </div>
+      )}
+
+      {/* Continue Button */}
+      <div className="mt-8 flex justify-center">
+        <Button onClick={onContinue} size="lg" disabled={!selectedCategory}>
+          {t('prompts.ready')}
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
       </div>
     </div>
   )
@@ -300,15 +428,20 @@ function RecordStep({
 
 function DetailsStep({
   videoBlob,
+  selectedCategory,
+  selectedPrompt,
   onSubmit,
   onBack,
 }: {
   videoBlob: Blob | null
+  selectedCategory: StoryCategory | null
+  selectedPrompt: Prompt | null
   onSubmit: () => void
   onBack: () => void
 }) {
   const t = useTranslations('record.form')
   const v = useTranslations('validation')
+  const locale = useLocale()
   const toast = useToast()
   const { uploadTestimony, isLoading, error, clearError } = useTestimonyStore((state) => ({
     uploadTestimony: state.uploadTestimony,
@@ -319,8 +452,13 @@ function DetailsStep({
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [category, setCategory] = useState<StoryCategory>(selectedCategory || 'life_wisdom')
   const [language, setLanguage] = useState('en')
   const [tags, setTags] = useState('')
+
+  const getPromptText = (prompt: Prompt) => {
+    return prompt.promptText[locale] || prompt.promptText['en'] || ''
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -340,11 +478,13 @@ function DetailsStep({
       video: videoBlob,
       title: title.trim(),
       description: description.trim() || undefined,
+      category,
       language,
       tags: tags
         .split(',')
         .map((t) => t.trim())
         .filter(Boolean),
+      promptId: selectedPrompt?.id,
     })
 
     if (result.success) {
@@ -371,6 +511,16 @@ function DetailsStep({
           />
         )}
 
+        {/* Show selected prompt if any */}
+        {selectedPrompt && (
+          <div className="rounded-lg border border-primary-200 bg-primary-50 p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-primary-600">
+              {t('answering')}
+            </p>
+            <p className="mt-1 text-warm-800">{getPromptText(selectedPrompt)}</p>
+          </div>
+        )}
+
         <Input
           label={t('title')}
           placeholder={t('titlePlaceholder')}
@@ -386,6 +536,21 @@ function DetailsStep({
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
         />
+
+        <div>
+          <label className="mb-2 block text-sm font-medium text-warm-700">Category</label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value as StoryCategory)}
+            className="w-full rounded-lg border border-warm-300 px-4 py-3 text-warm-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+          >
+            {Object.entries(STORY_CATEGORIES).map(([key, { label, description }]) => (
+              <option key={key} value={key}>
+                {label} - {description}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div>
           <label className="mb-2 block text-sm font-medium text-warm-700">{t('language')}</label>

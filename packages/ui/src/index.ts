@@ -15,19 +15,18 @@ export { Input, type InputProps } from './components/input'
 export { Textarea, type TextareaProps } from './components/textarea'
 export { VideoPlayer, type VideoPlayerProps } from './components/video-player'
 export { VideoRecorder, type VideoRecorderProps } from './components/video-recorder'
-export { TestimonyCard, type TestimonyCardProps } from './components/testimony-card'
+export {
+  TestimonyCard,
+  type TestimonyCardProps,
+  type StoryCategory,
+} from './components/testimony-card'
 export {
   LanguageSwitcher,
   SUPPORTED_LANGUAGES,
   type Language,
   type LanguageSwitcherProps,
 } from './components/language-switcher'
-export {
-  ToastProvider,
-  useToast,
-  type Toast,
-  type ToastType,
-} from './components/toast'
+export { ToastProvider, useToast, type Toast, type ToastType } from './components/toast'
 export {
   Modal,
   ConfirmModal,

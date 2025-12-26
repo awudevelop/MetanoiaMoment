@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@metanoia/ui'
 import {
   Eye,
@@ -15,7 +14,7 @@ import {
   BarChart3,
   Calendar,
 } from 'lucide-react'
-import { Link } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/routing'
 import { useAuthStore, useIsCreator } from '@/lib/stores/auth-store'
 import { AnimateOnScroll, StaggerChildren } from '@/components/animations'
 import { MOCK_TESTIMONIES } from '@/lib/mock-data'

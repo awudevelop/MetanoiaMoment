@@ -108,17 +108,17 @@ Stories are organized by type, with faith naturally integrated:
 
 ## Phase Overview
 
-| Phase         | Focus                      | Status         |
-| ------------- | -------------------------- | -------------- |
-| **Phase 1**   | Frontend Foundation        | **Complete**   |
-| **Phase 1.5** | Frontend Enhancements      | **Complete**   |
-| **Phase 2**   | Backend Integration        | Ready to Start |
-| **Phase 2.5** | Story Categories & Prompts | Planned        |
-| **Phase 3**   | Monetization & Tiers       | Planned        |
-| **Phase 4**   | Family Features            | Planned        |
-| **Phase 5**   | Viral & Referral Engine    | Planned        |
-| **Phase 6**   | Legacy & Preservation      | Planned        |
-| **Phase 7**   | Scale & Resilience         | Planned        |
+| Phase         | Focus                      | Status             |
+| ------------- | -------------------------- | ------------------ |
+| **Phase 1**   | Frontend Foundation        | **Complete**       |
+| **Phase 1.5** | Frontend Enhancements      | **Complete**       |
+| **Phase 2**   | Backend Integration        | **In Progress** 🔧 |
+| **Phase 2.5** | Story Categories & Prompts | **Complete**       |
+| **Phase 3**   | Monetization & Tiers       | Planned            |
+| **Phase 4**   | Family Features            | Planned            |
+| **Phase 5**   | Viral & Referral Engine    | Planned            |
+| **Phase 6**   | Legacy & Preservation      | Planned            |
+| **Phase 7**   | Scale & Resilience         | Planned            |
 
 ---
 
@@ -180,7 +180,7 @@ Stories are organized by type, with faith naturally integrated:
 
 ## Phase 2: Backend Integration
 
-**Status**: Ready to Start
+**Status**: In Progress (Foundation Complete)
 
 ### 2.1 Database Setup
 
@@ -190,10 +190,14 @@ Stories are organized by type, with faith naturally integrated:
 - [ ] Set up video storage bucket
 - [ ] Configure storage policies
 
-### 2.2 Authentication
+### 2.2 Authentication (Frontend Ready)
 
-- [ ] Add `@supabase/ssr` package
-- [ ] Create Supabase client utilities
+- [x] Add `@supabase/ssr` package
+- [x] Create Supabase client utilities (browser, server, middleware)
+- [x] Create database types (`src/lib/supabase/types.ts`)
+- [x] Create transformer helpers (`src/lib/supabase/helpers.ts`)
+- [x] Update TypeScript types for User (tier, referrals, computed helpers)
+- [x] Update TypeScript types for Story (category, visibility, 4K, IPFS)
 - [ ] Replace auth-store with Supabase calls
 - [ ] Email verification flow
 - [ ] Password reset flow
@@ -201,6 +205,7 @@ Stories are organized by type, with faith naturally integrated:
 
 ### 2.3 Story CRUD
 
+- [x] Update mock data with new Story schema (categories, visibility, etc.)
 - [ ] Replace testimony-store with Supabase queries
 - [ ] Video upload to Supabase Storage
 - [ ] API routes for stories
@@ -266,24 +271,28 @@ CREATE TABLE public.stories (
 
 ---
 
-## Phase 2.5: Story Categories & Prompts
+## Phase 2.5: Story Categories & Prompts ✅
 
-**Status**: Planned
+**Status**: Complete
 
 ### 2.5.1 Category System
 
-- [ ] Add story category selection to record flow
-- [ ] Category icons and descriptions
-- [ ] Browse page category filters
-- [ ] Category-specific landing pages
+- [x] Add story category selection to record flow (PrepareStep)
+- [x] Category icons and descriptions (6 categories)
+- [x] Browse page category filters
+- [x] Category badges on testimony cards (TestimonyCard component)
+- [x] Homepage "Browse by Category" section (CategoryBrowseClient)
+- [x] Related testimonies prioritized by category (scoring algorithm)
+- [ ] Category-specific landing pages (deferred)
 
 ### 2.5.2 Recording Prompts
 
-- [ ] Prompt library database table
-- [ ] Prompts organized by category
-- [ ] Randomize/shuffle prompts
-- [ ] "Inspire me" button
-- [ ] User can skip prompts
+- [x] Mock prompts data (18 prompts, 3 per category)
+- [x] Prompts organized by category
+- [x] Randomize/shuffle prompts ("Inspire Me" button)
+- [x] User can select or skip prompts
+- [x] Selected prompt shown in DetailsStep
+- [x] i18n support (EN/ES)
 
 ### Prompt Examples by Category
 

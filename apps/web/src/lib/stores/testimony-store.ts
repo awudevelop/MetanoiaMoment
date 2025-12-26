@@ -1,6 +1,14 @@
 import { create } from 'zustand'
+import type { Story, StoryFilters, StorySort, StoryUpload, StoryCategory } from '@/types'
+// Legacy type aliases for backward compatibility
 import type { Testimony, TestimonyFilters, TestimonySort, TestimonyUpload } from '@/types'
 import {
+  getStories as getMockStories,
+  getStoryById as getMockStoryById,
+  getFeaturedStories as getMockFeaturedStories,
+  getPendingStories as getMockPendingStories,
+  MOCK_STORIES,
+  // Legacy aliases
   getTestimonies as getMockTestimonies,
   getTestimonyById as getMockTestimonyById,
   getFeaturedTestimonies as getMockFeaturedTestimonies,
@@ -236,39 +244,49 @@ export const useTestimonyStore = create<TestimonyStore>((set, get) => ({
   // These simulate backend operations. Replace with real API calls later.
   // ==========================================================================
 
-  uploadTestimony: async (data: TestimonyUpload): Promise<Result<Testimony>> => {
+  uploadTestimony: async (data: StoryUpload): Promise<Result<Story>> => {
     set({ isLoading: true, error: null })
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
       // STUB: In real implementation, upload video to storage and create record
-      const newTestimony: Testimony = {
-        id: `testimony-${Date.now()}`,
+      const now = new Date().toISOString()
+      const newStory: Story = {
+        id: `story-${Date.now()}`,
         userId: 'current-user',
         title: data.title,
         description: data.description || null,
         videoUrl: URL.createObjectURL(data.video),
         thumbnailUrl: null,
         duration: null,
-        language: data.language,
+        category: data.category,
         tags: data.tags || [],
+        language: data.language,
+        promptId: data.promptId || null,
         status: 'pending',
+        visibility: data.visibility || 'public',
+        familyVaultId: data.familyVaultId || null,
         viewCount: 0,
         likeCount: 0,
         shareCount: 0,
+        has4k: false,
+        ipfsHash: null,
+        moderatedBy: null,
+        moderatedAt: null,
+        rejectionReason: null,
         featured: false,
-        author: undefined,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdAt: now,
+        updatedAt: now,
         publishedAt: null,
+        author: undefined,
       }
 
       // Add to mock data
-      MOCK_TESTIMONIES.push(newTestimony)
+      MOCK_STORIES.push(newStory)
 
       set({ isLoading: false, lastFetched: null })
-      return success(newTestimony)
+      return success(newStory)
     } catch (err) {
       const error = createAppError('UPLOAD_FAILED', {
         details: err instanceof Error ? err.message : undefined,

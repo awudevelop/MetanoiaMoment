@@ -44,6 +44,15 @@
       "title": "Tu Historia Importa",
       "description": "Ya sea que fuiste salvo ayer o hace décadas, tu testimonio tiene el poder de inspirar a otros y permanecer como testigo para las generaciones venideras.",
       "button": "Graba Tu Testimonio"
+    },
+    "recentlyShared": {
+      "title": "Sucediendo Ahora",
+      "subtitle": "Mira los testimonios que se comparten y ven en todo el mundo"
+    },
+    "categories": {
+      "badge": "Explorar por Categoría",
+      "title": "Encuentra Historias que Te Hablen",
+      "subtitle": "Explora testimonios organizados por el tipo de viaje que comparten"
     }
   },
   "testimonies": {
@@ -80,9 +89,17 @@
         "description": "Revisa y comparte con el mundo"
       }
     },
+    "category": {
+      "title": "¿Qué tipo de historia estás compartiendo?",
+      "subtitle": "Elige la categoría que mejor describa tu testimonio."
+    },
     "prompts": {
       "title": "Preguntas Guía",
-      "intro": "Puedes responder alguna o todas estas:",
+      "intro": "Elige una pregunta para guiar tu historia, o habla libremente.",
+      "inspire": "Inspírame",
+      "selected": "Seleccionado",
+      "optional": "Seleccionar una pregunta es opcional - siéntete libre de compartir a tu manera.",
+      "ready": "Estoy Listo para Grabar",
       "questions": [
         "¿Cómo era tu vida antes de conocer a Jesús?",
         "¿Cómo llegaste a conocer a Cristo?",
@@ -113,7 +130,8 @@
       "descriptionPlaceholder": "Comparte un breve resumen de tu testimonio",
       "language": "Idioma Hablado",
       "tags": "Temas (opcional)",
-      "tagsPlaceholder": "ej., sanidad, salvación, familia"
+      "tagsPlaceholder": "ej., sanidad, salvación, familia",
+      "answering": "Respondiendo"
     },
     "success": {
       "title": "¡Gracias!",

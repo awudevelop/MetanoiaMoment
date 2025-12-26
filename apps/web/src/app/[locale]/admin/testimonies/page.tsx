@@ -97,7 +97,11 @@ export default function AdminTestimoniesPage() {
     const result = await approveTestimony(id)
     if (result.success) {
       setTestimonies((prev) =>
-        prev.map((t) => (t.id === id ? { ...t, status: 'approved' as const, publishedAt: new Date().toISOString() } : t))
+        prev.map((t) =>
+          t.id === id
+            ? { ...t, status: 'approved' as const, publishedAt: new Date().toISOString() }
+            : t
+        )
       )
       toast.success('Testimony approved', 'The testimony is now live.')
       if (selectedTestimony?.id === id) {
@@ -146,9 +150,7 @@ export default function AdminTestimoniesPage() {
   }
 
   const handleToggleFeatured = (id: string) => {
-    setTestimonies((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, featured: !t.featured } : t))
-    )
+    setTestimonies((prev) => prev.map((t) => (t.id === id ? { ...t, featured: !t.featured } : t)))
     const testimony = testimonies.find((t) => t.id === id)
     toast.success(
       testimony?.featured ? 'Removed from featured' : 'Added to featured',
@@ -288,10 +290,11 @@ function TestimonyRow({
 }) {
   const [showMenu, setShowMenu] = useState(false)
 
-  const statusColors = {
+  const statusColors: Record<string, string> = {
     pending: 'bg-amber-100 text-amber-700',
     approved: 'bg-green-100 text-green-700',
     rejected: 'bg-red-100 text-red-700',
+    flagged: 'bg-orange-100 text-orange-700',
   }
 
   return (
@@ -324,7 +327,9 @@ function TestimonyRow({
         </div>
       </div>
 
-      <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${statusColors[testimony.status]}`}>
+      <span
+        className={`rounded-full px-2.5 py-1 text-xs font-medium ${statusColors[testimony.status]}`}
+      >
         {testimony.status}
       </span>
 
@@ -371,7 +376,9 @@ function TestimonyRow({
                 }}
                 className="flex w-full items-center gap-2 px-4 py-2 text-sm text-warm-700 hover:bg-warm-50"
               >
-                <Star className={`h-4 w-4 ${testimony.featured ? 'fill-amber-400 text-amber-400' : ''}`} />
+                <Star
+                  className={`h-4 w-4 ${testimony.featured ? 'fill-amber-400 text-amber-400' : ''}`}
+                />
                 {testimony.featured ? 'Remove from Featured' : 'Add to Featured'}
               </button>
               <button
@@ -426,7 +433,7 @@ function TestimonyPreview({
         <h4 className="font-medium text-warm-900">{testimony.title}</h4>
 
         {testimony.description && (
-          <p className="mt-2 text-sm text-warm-600 line-clamp-3">{testimony.description}</p>
+          <p className="mt-2 line-clamp-3 text-sm text-warm-600">{testimony.description}</p>
         )}
 
         <div className="mt-4 space-y-2 text-sm">

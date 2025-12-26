@@ -17,13 +17,15 @@ import {
   ChevronRight,
   RefreshCw,
   Share2,
+  Layers,
 } from 'lucide-react'
 import { ShareModal } from '@/components/sharing'
 import { useTestimonies, useTestimonyFilters } from '@/lib/stores/testimony-store'
 import { MOCK_TESTIMONIES, getTestimonies } from '@/lib/mock-data'
 import { ErrorFallback, InlineError } from '@/components/error-boundary'
 import { AnimatedCard, SkeletonTestimonyCard } from '@/components/animations'
-import type { Testimony, TestimonySort } from '@/types'
+import type { Testimony, TestimonySort, StoryCategory } from '@/types'
+import { STORY_CATEGORIES } from '@/types'
 
 const ITEMS_PER_PAGE = 9
 
@@ -50,6 +52,7 @@ export default function TestimoniesPage() {
   // State from URL params
   const [search, setSearch] = useState(searchParams.get('q') || '')
   const [selectedTag, setSelectedTag] = useState(searchParams.get('tag') || '')
+  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || '')
   const [selectedLanguage, setSelectedLanguage] = useState(searchParams.get('lang') || '')
   const [sortBy, setSortBy] = useState<SortOption>(
     (searchParams.get('sort') as SortOption) || 'recent'
@@ -102,6 +105,7 @@ export default function TestimoniesPage() {
         const result = getTestimonies({
           filters: {
             status: 'approved',
+            category: (selectedCategory as StoryCategory) || undefined,
             language: selectedLanguage || undefined,
             search: search || undefined,
           },
@@ -133,7 +137,7 @@ export default function TestimoniesPage() {
     }
 
     loadTestimonies()
-  }, [search, selectedTag, selectedLanguage, sortBy, page])
+  }, [search, selectedTag, selectedCategory, selectedLanguage, sortBy, page])
 
   const handleRetry = () => {
     setLoadError(null)
@@ -143,11 +147,12 @@ export default function TestimoniesPage() {
   }
 
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE)
-  const hasActiveFilters = !!(selectedTag || selectedLanguage || search)
+  const hasActiveFilters = !!(selectedTag || selectedCategory || selectedLanguage || search)
 
   const clearFilters = () => {
     setSearch('')
     setSelectedTag('')
+    setSelectedCategory('')
     setSelectedLanguage('')
     setSortBy('recent')
     setPage(1)
@@ -210,7 +215,30 @@ export default function TestimoniesPage() {
           {/* Expanded Filters */}
           {showFilters && (
             <div className="mt-4 rounded-lg border border-warm-200 bg-white p-4">
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {/* Category Filter */}
+                <div>
+                  <label className="mb-2 flex items-center gap-2 text-sm font-medium text-warm-700">
+                    <Layers className="h-4 w-4" />
+                    Category
+                  </label>
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => {
+                      setSelectedCategory(e.target.value)
+                      setPage(1)
+                    }}
+                    className="w-full rounded-lg border border-warm-300 px-3 py-2 text-warm-900 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                  >
+                    <option value="">All Categories</option>
+                    {Object.entries(STORY_CATEGORIES).map(([key, { label }]) => (
+                      <option key={key} value={key}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
                 {/* Tag Filter */}
                 <div>
                   <label className="mb-2 flex items-center gap-2 text-sm font-medium text-warm-700">
@@ -300,6 +328,12 @@ export default function TestimoniesPage() {
           {hasActiveFilters && !showFilters && (
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <span className="text-sm text-warm-500">Active filters:</span>
+              {selectedCategory && (
+                <FilterPill
+                  label={`Category: ${STORY_CATEGORIES[selectedCategory as StoryCategory]?.label}`}
+                  onRemove={() => setSelectedCategory('')}
+                />
+              )}
               {selectedTag && (
                 <FilterPill label={`Topic: ${selectedTag}`} onRemove={() => setSelectedTag('')} />
               )}
@@ -348,6 +382,12 @@ export default function TestimoniesPage() {
                         viewCount={testimony.viewCount}
                         authorName={testimony.author?.fullName || undefined}
                         authorAvatar={testimony.author?.avatarUrl || undefined}
+                        category={testimony.category}
+                        categoryLabel={
+                          testimony.category
+                            ? STORY_CATEGORIES[testimony.category]?.label
+                            : undefined
+                        }
                         className="h-full"
                         onShare={() => setShareTestimony(testimony)}
                       />

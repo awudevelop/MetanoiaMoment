@@ -3,12 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
-import {
-  VideoPlayer,
-  Button,
-  Card,
-  CardContent,
-} from '@metanoia/ui'
+import { VideoPlayer, Button, Card, CardContent } from '@metanoia/ui'
 import {
   ChevronLeft,
   Share2,
@@ -22,18 +17,47 @@ import {
   Copy,
   Check,
   X,
+  Lightbulb,
+  Users,
+  Sparkles,
+  Heart,
+  MessageCircle,
+  Trophy,
+  Layers,
 } from 'lucide-react'
 import { useTestimonyStore } from '@/lib/stores/testimony-store'
 import { getTestimonies } from '@/lib/mock-data'
 import { ErrorFallback } from '@/components/error-boundary'
-import type { Testimony } from '@/types'
+import type { Testimony, StoryCategory } from '@/types'
+import { STORY_CATEGORIES } from '@/types'
+
+const CATEGORY_ICONS: Record<StoryCategory, React.ElementType> = {
+  life_wisdom: Lightbulb,
+  family_history: Users,
+  transformation: Sparkles,
+  faith_journey: Heart,
+  final_messages: MessageCircle,
+  milestones: Trophy,
+}
+
+const CATEGORY_COLORS: Record<StoryCategory, string> = {
+  life_wisdom: 'bg-amber-100 text-amber-700',
+  family_history: 'bg-blue-100 text-blue-700',
+  transformation: 'bg-purple-100 text-purple-700',
+  faith_journey: 'bg-rose-100 text-rose-700',
+  final_messages: 'bg-teal-100 text-teal-700',
+  milestones: 'bg-green-100 text-green-700',
+}
 
 interface TestimonyDetailClientProps {
   testimonyId: string
   initialTestimony: Testimony | null
 }
 
-export function TestimonyDetailClient({ testimonyId, initialTestimony }: TestimonyDetailClientProps) {
+export function TestimonyDetailClient({
+  testimonyId,
+  initialTestimony,
+}: TestimonyDetailClientProps) {
   const incrementViewCount = useTestimonyStore((state) => state.incrementViewCount)
   const [relatedTestimonies, setRelatedTestimonies] = useState<Testimony[]>([])
 
@@ -42,16 +66,37 @@ export function TestimonyDetailClient({ testimonyId, initialTestimony }: Testimo
       // Increment view count on client
       incrementViewCount(testimonyId)
 
-      // Get related testimonies
+      // Get related testimonies - prioritize by category, then language, then tags
       const all = getTestimonies({ filters: { status: 'approved' } })
-      const related = all.data
-        .filter((t) => t.id !== initialTestimony.id)
-        .filter(
-          (t) =>
-            t.language === initialTestimony.language ||
-            t.tags.some((tag) => initialTestimony.tags.includes(tag))
-        )
+      const others = all.data.filter((t) => t.id !== initialTestimony.id)
+
+      // Score each testimony based on relevance
+      const scored = others.map((t) => {
+        let score = 0
+        // Category match is most important (3 points)
+        if (initialTestimony.category && t.category === initialTestimony.category) {
+          score += 3
+        }
+        // Same language (2 points)
+        if (t.language === initialTestimony.language) {
+          score += 2
+        }
+        // Shared tags (1 point each)
+        const sharedTags = t.tags.filter((tag) => initialTestimony.tags.includes(tag)).length
+        score += sharedTags
+        return { testimony: t, score }
+      })
+
+      // Sort by score (descending), then by view count for ties
+      const related = scored
+        .filter((s) => s.score > 0)
+        .sort((a, b) => {
+          if (b.score !== a.score) return b.score - a.score
+          return b.testimony.viewCount - a.testimony.viewCount
+        })
         .slice(0, 3)
+        .map((s) => s.testimony)
+
       setRelatedTestimonies(related)
     }
   }, [testimonyId, initialTestimony, incrementViewCount])
@@ -95,8 +140,12 @@ function Breadcrumb({ title }: { title: string }) {
         <ChevronLeft className="h-4 w-4" />
         {t('testimonies')}
       </Link>
-      <span className="text-warm-300" aria-hidden="true">/</span>
-      <span className="truncate text-warm-700" aria-current="page">{title}</span>
+      <span className="text-warm-300" aria-hidden="true">
+        /
+      </span>
+      <span className="truncate text-warm-700" aria-current="page">
+        {title}
+      </span>
     </nav>
   )
 }
@@ -129,11 +178,17 @@ function MainContent({ testimony }: { testimony: Testimony }) {
     <article>
       {/* Video Player */}
       <div className="overflow-hidden rounded-xl bg-warm-900">
-        <VideoPlayer
-          src={testimony.videoUrl}
-          poster={testimony.thumbnailUrl || undefined}
-          className="aspect-video w-full"
-        />
+        {testimony.videoUrl ? (
+          <VideoPlayer
+            src={testimony.videoUrl}
+            poster={testimony.thumbnailUrl || undefined}
+            className="aspect-video w-full"
+          />
+        ) : (
+          <div className="flex aspect-video w-full items-center justify-center bg-warm-100 text-warm-500">
+            <span>Video not available</span>
+          </div>
+        )}
       </div>
 
       {/* Title & Actions */}
@@ -142,11 +197,21 @@ function MainContent({ testimony }: { testimony: Testimony }) {
           {testimony.title}
         </h1>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => setShowEmbed(true)} aria-label="Get embed code">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowEmbed(true)}
+            aria-label="Get embed code"
+          >
             <Code className="mr-2 h-4 w-4" />
             Embed
           </Button>
-          <Button variant="outline" size="sm" onClick={handleShare} aria-label="Share this testimony">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleShare}
+            aria-label="Share this testimony"
+          >
             <Share2 className="mr-2 h-4 w-4" />
             {copied ? 'Copied!' : 'Share'}
           </Button>
@@ -154,12 +219,7 @@ function MainContent({ testimony }: { testimony: Testimony }) {
       </div>
 
       {/* Embed Modal */}
-      {showEmbed && (
-        <EmbedModal
-          testimony={testimony}
-          onClose={() => setShowEmbed(false)}
-        />
-      )}
+      {showEmbed && <EmbedModal testimony={testimony} onClose={() => setShowEmbed(false)} />}
 
       {/* Author */}
       {testimony.author && (
@@ -176,9 +236,7 @@ function MainContent({ testimony }: { testimony: Testimony }) {
             )}
           </div>
           <div>
-            <p className="font-medium text-warm-900">
-              {testimony.author.fullName || 'Anonymous'}
-            </p>
+            <p className="font-medium text-warm-900">{testimony.author.fullName || 'Anonymous'}</p>
             <p className="text-sm text-warm-500">
               <time dateTime={testimony.publishedAt || undefined}>
                 {testimony.publishedAt &&
@@ -196,7 +254,7 @@ function MainContent({ testimony }: { testimony: Testimony }) {
       {/* Description */}
       {testimony.description && (
         <div className="mt-6">
-          <p className="whitespace-pre-wrap text-warm-700 leading-relaxed">
+          <p className="whitespace-pre-wrap leading-relaxed text-warm-700">
             {testimony.description}
           </p>
         </div>
@@ -256,9 +314,7 @@ function TestimonyMeta({ testimony }: { testimony: Testimony }) {
     {
       icon: Calendar,
       label: 'Published',
-      value: testimony.publishedAt
-        ? new Date(testimony.publishedAt).toLocaleDateString()
-        : '-',
+      value: testimony.publishedAt ? new Date(testimony.publishedAt).toLocaleDateString() : '-',
     },
   ]
 
@@ -266,6 +322,21 @@ function TestimonyMeta({ testimony }: { testimony: Testimony }) {
     <Card>
       <CardContent className="p-4">
         <h2 className="mb-4 font-semibold text-warm-900">Details</h2>
+
+        {/* Category badge */}
+        {testimony.category && CATEGORY_ICONS[testimony.category] && (
+          <Link
+            href={`/testimonies?category=${testimony.category}`}
+            className={`mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium transition-opacity hover:opacity-80 ${CATEGORY_COLORS[testimony.category]}`}
+          >
+            {(() => {
+              const Icon = CATEGORY_ICONS[testimony.category!]
+              return <Icon className="h-4 w-4" />
+            })()}
+            {STORY_CATEGORIES[testimony.category]?.label}
+          </Link>
+        )}
+
         <dl className="space-y-3">
           {stats.map((stat) => (
             <div key={stat.label} className="flex items-center justify-between">
@@ -289,37 +360,50 @@ function RelatedTestimonies({ testimonies }: { testimonies: Testimony[] }) {
     <aside>
       <h2 className="mb-4 font-semibold text-warm-900">Related Testimonies</h2>
       <div className="space-y-4">
-        {testimonies.map((testimony) => (
-          <Link key={testimony.id} href={`/testimonies/${testimony.id}`}>
-            <Card className="transition-all hover:shadow-md">
-              <CardContent className="p-3">
-                <div className="flex gap-3">
-                  <div className="h-16 w-24 flex-shrink-0 overflow-hidden rounded bg-warm-100">
-                    {testimony.thumbnailUrl ? (
-                      <img
-                        src={testimony.thumbnailUrl}
-                        alt=""
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <Eye className="h-6 w-6 text-warm-300" aria-hidden="true" />
-                      </div>
-                    )}
+        {testimonies.map((testimony) => {
+          const CategoryIcon = testimony.category ? CATEGORY_ICONS[testimony.category] : null
+
+          return (
+            <Link key={testimony.id} href={`/testimonies/${testimony.id}`}>
+              <Card className="transition-all hover:shadow-md">
+                <CardContent className="p-3">
+                  <div className="flex gap-3">
+                    <div className="h-16 w-24 flex-shrink-0 overflow-hidden rounded bg-warm-100">
+                      {testimony.thumbnailUrl ? (
+                        <img
+                          src={testimony.thumbnailUrl}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center">
+                          <Eye className="h-6 w-6 text-warm-300" aria-hidden="true" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      {/* Category badge */}
+                      {testimony.category && CategoryIcon && (
+                        <span
+                          className={`inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium ${CATEGORY_COLORS[testimony.category]}`}
+                        >
+                          <CategoryIcon className="h-2.5 w-2.5" />
+                          {STORY_CATEGORIES[testimony.category]?.label}
+                        </span>
+                      )}
+                      <h3 className="line-clamp-2 text-sm font-medium text-warm-900">
+                        {testimony.title}
+                      </h3>
+                      <p className="mt-1 text-xs text-warm-500">
+                        {testimony.author?.fullName || 'Anonymous'}
+                      </p>
+                    </div>
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="line-clamp-2 text-sm font-medium text-warm-900">
-                      {testimony.title}
-                    </h3>
-                    <p className="mt-1 text-xs text-warm-500">
-                      {testimony.author?.fullName || 'Anonymous'}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
+                </CardContent>
+              </Card>
+            </Link>
+          )
+        })}
       </div>
     </aside>
   )
@@ -359,7 +443,8 @@ function EmbedModal({ testimony, onClose }: { testimony: Testimony; onClose: () 
     large: { width: 854, height: 480 },
   }
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://metanoiamoment.org'
+  const baseUrl =
+    typeof window !== 'undefined' ? window.location.origin : 'https://metanoiamoment.org'
   const embedUrl = `${baseUrl}/embed/${testimony.id}`
 
   const embedCode = `<iframe
@@ -388,7 +473,7 @@ function EmbedModal({ testimony, onClose }: { testimony: Testimony; onClose: () 
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-lg rounded-xl bg-white p-6 shadow-2xl animate-scale-in">
+      <div className="relative w-full max-w-lg animate-scale-in rounded-xl bg-white p-6 shadow-2xl">
         {/* Close button */}
         <button
           onClick={onClose}

@@ -106,27 +106,27 @@ describe('Testimony Store', () => {
     it('should fetch a specific testimony', async () => {
       const { fetchTestimonyById } = useTestimonyStore.getState()
 
-      const result = await fetchTestimonyById('testimony-1')
+      const result = await fetchTestimonyById('story-1')
 
       expect(result.success).toBe(true)
       if (result.success) {
-        expect(result.data.id).toBe('testimony-1')
+        expect(result.data.id).toBe('story-1')
         expect(result.data.title).toBe('From Addiction to Freedom')
       }
 
       const state = useTestimonyStore.getState()
-      expect(state.currentTestimony?.id).toBe('testimony-1')
+      expect(state.currentTestimony?.id).toBe('story-1')
     })
 
     it('should return cached testimony if already loaded', async () => {
       const { fetchTestimonyById } = useTestimonyStore.getState()
 
       // First fetch
-      await fetchTestimonyById('testimony-1')
+      await fetchTestimonyById('story-1')
 
       // Second fetch should be instant (cached)
       const start = Date.now()
-      await fetchTestimonyById('testimony-1')
+      await fetchTestimonyById('story-1')
       const duration = Date.now() - start
 
       // Should be much faster than the 300ms simulated delay
@@ -279,7 +279,8 @@ describe('Testimony Store', () => {
     it('should approve a pending testimony', async () => {
       const { approveTestimony } = useTestimonyStore.getState()
 
-      const result = await approveTestimony('testimony-7')
+      // Use story-pending-1 which is a pending story in our mock data
+      const result = await approveTestimony('story-pending-1')
 
       expect(result.success).toBe(true)
       if (result.success) {
@@ -304,7 +305,8 @@ describe('Testimony Store', () => {
     it('should reject a pending testimony', async () => {
       const { rejectTestimony } = useTestimonyStore.getState()
 
-      const result = await rejectTestimony('testimony-8')
+      // Use story-pending-2 which is another pending story
+      const result = await rejectTestimony('story-pending-2')
 
       expect(result.success).toBe(true)
       if (result.success) {
@@ -318,15 +320,15 @@ describe('Testimony Store', () => {
       const { incrementViewCount, fetchTestimonyById } = useTestimonyStore.getState()
 
       // Get initial view count
-      await fetchTestimonyById('testimony-1')
+      await fetchTestimonyById('story-1')
       const initialCount = useTestimonyStore.getState().currentTestimony?.viewCount || 0
 
       // Increment
-      incrementViewCount('testimony-1')
+      incrementViewCount('story-1')
 
       // Refetch to check
       useTestimonyStore.setState({ currentTestimony: null })
-      await fetchTestimonyById('testimony-1')
+      await fetchTestimonyById('story-1')
       const newCount = useTestimonyStore.getState().currentTestimony?.viewCount || 0
 
       expect(newCount).toBe(initialCount + 1)

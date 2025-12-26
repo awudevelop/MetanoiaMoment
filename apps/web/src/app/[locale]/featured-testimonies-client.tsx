@@ -5,51 +5,38 @@ import { TestimonyCard } from '@metanoia/ui'
 import { Link } from '@/i18n/routing'
 import { AnimateOnScroll, AnimatedCard } from '@/components/animations'
 import { ShareModal } from '@/components/sharing'
+import { MOCK_TESTIMONIES } from '@/lib/mock-data'
+import { STORY_CATEGORIES } from '@/types'
+import type { Testimony } from '@/types'
 
-// Mock data - replace with real data from Supabase
-const testimonies = [
-  {
-    id: '1',
-    title: 'From Addiction to Freedom',
-    description: 'After 15 years of struggling with addiction, I found hope in Christ.',
-    duration: 342,
-    viewCount: 1245,
-    authorName: 'Michael R.',
-  },
-  {
-    id: '2',
-    title: 'Healing from Grief',
-    description: 'How God brought me through the darkest season of my life.',
-    duration: 456,
-    viewCount: 892,
-    authorName: 'Sarah M.',
-  },
-  {
-    id: '3',
-    title: 'A Prodigal Returns',
-    description: 'I ran from God for 20 years. Here is my story of coming home.',
-    duration: 521,
-    viewCount: 2103,
-    authorName: 'David K.',
-  },
-]
+// Get featured testimonies (approved, sorted by views, take top 3)
+const testimonies = MOCK_TESTIMONIES.filter((t) => t.status === 'approved')
+  .sort((a, b) => b.viewCount - a.viewCount)
+  .slice(0, 3)
 
 export function FeaturedTestimoniesClient() {
-  const [shareTestimony, setShareTestimony] = useState<typeof testimonies[0] | null>(null)
+  const [shareTestimony, setShareTestimony] = useState<Testimony | null>(null)
 
   return (
     <>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {testimonies.map((testimony, index) => (
-          <AnimateOnScroll
-            key={testimony.id}
-            animation="fade-in-up"
-            delay={index * 100}
-          >
+          <AnimateOnScroll key={testimony.id} animation="fade-in-up" delay={index * 100}>
             <Link href={`/testimonies/${testimony.id}`}>
               <AnimatedCard hoverEffect="lift">
                 <TestimonyCard
-                  {...testimony}
+                  id={testimony.id}
+                  title={testimony.title}
+                  description={testimony.description || undefined}
+                  thumbnailUrl={testimony.thumbnailUrl || undefined}
+                  duration={testimony.duration || undefined}
+                  viewCount={testimony.viewCount}
+                  authorName={testimony.author?.fullName || undefined}
+                  authorAvatar={testimony.author?.avatarUrl || undefined}
+                  category={testimony.category}
+                  categoryLabel={
+                    testimony.category ? STORY_CATEGORIES[testimony.category]?.label : undefined
+                  }
                   className="h-full"
                   onShare={() => setShareTestimony(testimony)}
                 />
@@ -62,7 +49,11 @@ export function FeaturedTestimoniesClient() {
       <ShareModal
         isOpen={!!shareTestimony}
         onClose={() => setShareTestimony(null)}
-        url={shareTestimony ? `${typeof window !== 'undefined' ? window.location.origin : ''}/testimonies/${shareTestimony.id}` : ''}
+        url={
+          shareTestimony
+            ? `${typeof window !== 'undefined' ? window.location.origin : ''}/testimonies/${shareTestimony.id}`
+            : ''
+        }
         title={shareTestimony?.title || ''}
         description={shareTestimony?.description || ''}
       />

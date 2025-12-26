@@ -48,6 +48,11 @@
     "recentlyShared": {
       "title": "Happening Right Now",
       "subtitle": "See testimonies being shared and watched around the world"
+    },
+    "categories": {
+      "badge": "Browse by Category",
+      "title": "Find Stories That Speak to You",
+      "subtitle": "Explore testimonies organized by the type of journey they share"
     }
   },
   "testimonies": {
@@ -84,9 +89,17 @@
         "description": "Review and share with the world"
       }
     },
+    "category": {
+      "title": "What kind of story are you sharing?",
+      "subtitle": "Choose a category that best fits your testimony."
+    },
     "prompts": {
       "title": "Guiding Questions",
-      "intro": "You can answer any or all of these:",
+      "intro": "Choose a prompt to help guide your story, or speak freely.",
+      "inspire": "Inspire Me",
+      "selected": "Selected",
+      "optional": "Selecting a prompt is optional - feel free to share in your own way.",
+      "ready": "I'm Ready to Record",
       "questions": [
         "What was your life like before you knew Jesus?",
         "How did you come to know Christ?",
@@ -117,7 +130,8 @@
       "descriptionPlaceholder": "Share a brief summary of your testimony",
       "language": "Spoken Language",
       "tags": "Topics (optional)",
-      "tagsPlaceholder": "e.g., healing, salvation, family"
+      "tagsPlaceholder": "e.g., healing, salvation, family",
+      "answering": "Answering"
     },
     "success": {
       "title": "Thank You!",

@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useAuthStore } from '../auth-store'
+import type { User } from '@/types'
 
 // Mock the persist middleware storage
 vi.mock('zustand/middleware', async () => {
@@ -9,6 +10,36 @@ vi.mock('zustand/middleware', async () => {
     persist: (fn: any) => fn,
   }
 })
+
+// Helper to create a test user with all required fields
+function createTestUser(partial: Partial<User> = {}): User {
+  const now = new Date().toISOString()
+  return {
+    id: 'test-user',
+    email: 'test@example.com',
+    fullName: 'Test User',
+    avatarUrl: null,
+    bio: null,
+    role: 'user',
+    tier: 'free',
+    tierExpiresAt: null,
+    stripeCustomerId: null,
+    stripeSubscriptionId: null,
+    referralCode: 'TESTREF123',
+    referredBy: null,
+    referralCredits: 0,
+    totalReferrals: 0,
+    language: 'en',
+    timezone: null,
+    createdAt: now,
+    updatedAt: now,
+    isAdmin: false,
+    isCreator: false,
+    hasFamilyTier: false,
+    hasLegacyTier: false,
+    ...partial,
+  }
+}
 
 describe('Auth Store', () => {
   beforeEach(() => {
@@ -172,17 +203,7 @@ describe('Auth Store', () => {
     it('should set user directly', () => {
       const { setUser } = useAuthStore.getState()
 
-      setUser({
-        id: 'test-user',
-        email: 'test@example.com',
-        fullName: 'Test User',
-        avatarUrl: null,
-        bio: null,
-        role: 'user',
-        isAdmin: false,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      })
+      setUser(createTestUser({ email: 'test@example.com' }))
 
       const state = useAuthStore.getState()
       expect(state.user?.email).toBe('test@example.com')
@@ -193,17 +214,7 @@ describe('Auth Store', () => {
       const { setUser } = useAuthStore.getState()
 
       // First set a user
-      setUser({
-        id: 'test-user',
-        email: 'test@example.com',
-        fullName: 'Test User',
-        avatarUrl: null,
-        bio: null,
-        role: 'user',
-        isAdmin: false,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      })
+      setUser(createTestUser())
 
       // Then clear
       setUser(null)

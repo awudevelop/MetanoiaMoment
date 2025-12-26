@@ -819,6 +819,131 @@ export default function {Name}Page() {
 
 ---
 
+### `/category` - Add Category Badge/Section
+
+Adds category badges or category browsing sections to components and pages.
+
+**Usage**: `/category badge` or `/category section`
+
+**For Badge** - Adds to a card or list item:
+
+```tsx
+import { STORY_CATEGORIES } from '@/types'
+import type { StoryCategory } from '@/types'
+import { Lightbulb, Users, Sparkles, Heart, MessageCircle, Trophy } from 'lucide-react'
+
+const CATEGORY_ICONS: Record<StoryCategory, React.ElementType> = {
+  life_wisdom: Lightbulb,
+  family_history: Users,
+  transformation: Sparkles,
+  faith_journey: Heart,
+  final_messages: MessageCircle,
+  milestones: Trophy,
+}
+
+const CATEGORY_COLORS: Record<StoryCategory, string> = {
+  life_wisdom: 'bg-amber-100 text-amber-700',
+  family_history: 'bg-blue-100 text-blue-700',
+  transformation: 'bg-purple-100 text-purple-700',
+  faith_journey: 'bg-rose-100 text-rose-700',
+  final_messages: 'bg-teal-100 text-teal-700',
+  milestones: 'bg-green-100 text-green-700',
+}
+
+// Usage in JSX:
+{
+  category && CATEGORY_ICONS[category] && (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${CATEGORY_COLORS[category]}`}
+    >
+      {React.createElement(CATEGORY_ICONS[category], { className: 'h-3 w-3' })}
+      {STORY_CATEGORIES[category]?.label}
+    </span>
+  )
+}
+```
+
+**For Section** - Category browse grid:
+
+```tsx
+import { CategoryBrowseClient } from '@/app/[locale]/category-browse-client'
+
+// In JSX:
+;<section className="section bg-warm-50">
+  <div className="container">
+    <h2>Browse by Category</h2>
+    <CategoryBrowseClient />
+  </div>
+</section>
+```
+
+**Existing Category Components**:
+
+- `TestimonyCard` - Has `category` and `categoryLabel` props for badge display
+- `CategoryBrowseClient` - Full category grid with icons, descriptions, counts
+
+**Available Categories**:
+
+| Key              | Label          | Icon          | Color  |
+| ---------------- | -------------- | ------------- | ------ |
+| `life_wisdom`    | Life Wisdom    | Lightbulb     | amber  |
+| `family_history` | Family History | Users         | blue   |
+| `transformation` | Transformation | Sparkles      | purple |
+| `faith_journey`  | Faith Journey  | Heart         | rose   |
+| `final_messages` | Final Messages | MessageCircle | teal   |
+| `milestones`     | Milestones     | Trophy        | green  |
+
+---
+
+### `/related` - Related Content Algorithm
+
+Adds related content section with smart scoring algorithm.
+
+**Usage**: `/related testimonies`
+
+**Algorithm Template**:
+
+```tsx
+// Score each item based on relevance
+const scored = items.map((item) => {
+  let score = 0
+  // Category match is most important (3 points)
+  if (currentItem.category && item.category === currentItem.category) {
+    score += 3
+  }
+  // Same language (2 points)
+  if (item.language === currentItem.language) {
+    score += 2
+  }
+  // Shared tags (1 point each)
+  const sharedTags = item.tags.filter((tag) => currentItem.tags.includes(tag)).length
+  score += sharedTags
+  return { item, score }
+})
+
+// Sort by score (descending), then by popularity for ties
+const related = scored
+  .filter((s) => s.score > 0)
+  .sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score
+    return b.item.viewCount - a.item.viewCount
+  })
+  .slice(0, 3)
+  .map((s) => s.item)
+```
+
+**Scoring Weights**:
+
+| Factor        | Points | Rationale             |
+| ------------- | ------ | --------------------- |
+| Same category | 3      | Most relevant match   |
+| Same language | 2      | Content accessibility |
+| Shared tag    | 1 each | Thematic connection   |
+
+**Example Implementation**: See `apps/web/src/app/[locale]/testimonies/[id]/testimony-detail-client.tsx`
+
+---
+
 ## Future Skills (Phase 2+)
 
 ### `/migration` - Database Migration
@@ -1053,52 +1178,127 @@ Execute in this order to respect foreign key dependencies:
 **Phase 4: Frontend Integration Order**
 
 1. **Auth first** (other stores depend on user state)
-   - [ ] Create `src/lib/supabase/client.ts`
-   - [ ] Create `src/lib/supabase/server.ts`
+   - [x] Create `src/lib/supabase/client.ts`
+   - [x] Create `src/lib/supabase/server.ts`
+   - [x] Create `src/lib/supabase/middleware.ts`
    - [ ] Update `src/middleware.ts` for session refresh
    - [ ] Replace `auth-store.ts` → Supabase Auth
 
 2. **Profiles second** (testimonies depend on profiles)
+   - [x] Add `src/lib/supabase/types.ts` (Database types)
+   - [x] Add `src/lib/supabase/helpers.ts` (transformers)
    - [ ] Add profile fetch/update functions
    - [ ] Connect to auth flow
 
-3. **Testimonies last** (depends on auth + profiles)
+3. **Stories last** (depends on auth + profiles)
    - [ ] Replace `testimony-store.ts` → Supabase queries
    - [ ] Implement video upload to Storage
 
-### TypeScript Interfaces (Already Defined)
+### Supabase Client Utilities (Ready to Use)
 
-Frontend types in `src/lib/stores/` already match schema:
+Located in `apps/web/src/lib/supabase/`:
 
 ```typescript
-// Profile (matches profiles table)
+// Browser client (client components)
+import { createClient } from '@/lib/supabase/client'
+const supabase = createClient()
+
+// Server client (server components, route handlers)
+import { createClient } from '@/lib/supabase/server'
+const supabase = await createClient()
+
+// Middleware client (Next.js middleware)
+import { createClient } from '@/lib/supabase/middleware'
+const { supabase, response } = createClient(request)
+
+// Database types
+import type { Database, Profile, Story } from '@/lib/supabase/types'
+
+// Transformers (DB → App types)
+import { transformProfile, transformStory } from '@/lib/supabase/helpers'
+```
+
+**Helper Functions**:
+
+- `transformProfile(profile)` → User type with computed helpers
+- `transformStory(story, author?)` → Story type with author preview
+- `buildPagination(page, pageSize)` → { from, to } for Supabase range queries
+- `getStorageUrl(bucket, path)` → Full public URL
+- `getVideoPath(userId, storyId)` → Storage path for videos
+- `getThumbnailPath(userId, storyId)` → Storage path for thumbnails
+
+### TypeScript Interfaces (Already Defined)
+
+Frontend types in `src/types/` match schema:
+
+```typescript
+// User (matches profiles table with computed helpers)
 interface User {
   id: string
   email: string
-  fullName?: string
-  avatarUrl?: string
+  fullName: string
+  avatarUrl: string | null
+  bio: string | null
+  role: 'user' | 'creator' | 'admin'
+  tier: 'free' | 'family' | 'legacy'
+  tierExpiresAt: string | null
+  stripeCustomerId: string | null
+  stripeSubscriptionId: string | null
+  referralCode: string
+  referredBy: string | null
+  referralCredits: number
+  totalReferrals: number
+  language: string
+  timezone: string | null
+  createdAt: string
+  updatedAt: string
+  // Computed helpers
   isAdmin: boolean
+  isCreator: boolean
+  hasFamilyTier: boolean
+  hasLegacyTier: boolean
 }
 
-// Testimony (matches testimonies table)
-interface Testimony {
+// Story (matches stories table)
+interface Story {
   id: string
+  userId: string
   title: string
-  description?: string
+  description: string | null
   videoUrl: string
-  thumbnailUrl?: string
-  duration?: number
-  language: string
+  thumbnailUrl: string | null
+  duration: number | null
+  category: StoryCategory
   tags: string[]
+  language: string
+  promptId: string | null
   status: 'pending' | 'approved' | 'rejected'
+  visibility: 'public' | 'unlisted' | 'private' | 'family'
+  familyVaultId: string | null
   viewCount: number
+  likeCount: number
+  shareCount: number
+  has4k: boolean
+  ipfsHash: string | null
+  moderatedBy: string | null
+  moderatedAt: string | null
+  rejectionReason: string | null
   featured: boolean
-  publishedAt?: string
-  authorId: string
-  authorName: string
-  authorAvatar?: string
   createdAt: string
+  updatedAt: string
+  publishedAt: string | null
+  author?: UserPreview
+  isLiked?: boolean
 }
+
+// Story categories
+type StoryCategory =
+  | 'life_wisdom'
+  | 'family_history'
+  | 'transformation'
+  | 'faith_journey'
+  | 'final_messages'
+  | 'milestones'
 ```
 
 ### Full SQL Schema

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { Button, Card, CardContent, useToast } from '@metanoia/ui'
 import {
   Video,
@@ -16,7 +15,7 @@ import {
   Edit,
   ChevronLeft,
 } from 'lucide-react'
-import { Link } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/routing'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { useTestimonyStore } from '@/lib/stores/testimony-store'
 import { AnimateOnScroll, StaggerChildren } from '@/components/animations'

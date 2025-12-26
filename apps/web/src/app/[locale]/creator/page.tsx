@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@metanoia/ui'
 import {
   Video,
@@ -11,12 +10,13 @@ import {
   Clock,
   CheckCircle,
   XCircle,
+  AlertTriangle,
   TrendingUp,
   Settings,
   LogOut,
   User,
 } from 'lucide-react'
-import { Link } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/routing'
 import { useAuthStore, useIsCreator } from '@/lib/stores/auth-store'
 import { AnimateOnScroll, StaggerChildren } from '@/components/animations'
 import { MOCK_TESTIMONIES } from '@/lib/mock-data'
@@ -259,7 +259,7 @@ export default function CreatorPortalPage() {
   )
 }
 
-function StatusBadge({ status }: { status: 'pending' | 'approved' | 'rejected' }) {
+function StatusBadge({ status }: { status: 'pending' | 'approved' | 'rejected' | 'flagged' }) {
   const config = {
     pending: {
       icon: Clock,
@@ -275,6 +275,11 @@ function StatusBadge({ status }: { status: 'pending' | 'approved' | 'rejected' }
       icon: XCircle,
       label: 'Rejected',
       className: 'bg-red-100 text-red-700',
+    },
+    flagged: {
+      icon: AlertTriangle,
+      label: 'Flagged',
+      className: 'bg-orange-100 text-orange-700',
     },
   }
 
