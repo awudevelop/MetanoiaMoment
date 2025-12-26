@@ -2,20 +2,123 @@
 
 ## Vision
 
-Build a global, censorship-resistant platform for sharing faith testimonies that will stand for generations.
+Build a global platform for preserving life's transformative moments across generations. From faith testimonies to family wisdom, every story of change has the power to inspire and endure.
+
+> "Every life has a turning point worth sharing."
+
+---
+
+## Business Model: Generous Individual, Premium Family
+
+### Core Philosophy
+
+**Free for YOU. Premium for your FAMILY.**
+
+Individual storytelling is completely free and high-quality. The paywall only appears when families want to collaborate and preserve stories together.
+
+### Tier Structure
+
+| Tier       | Price                      | Target User                   |
+| ---------- | -------------------------- | ----------------------------- |
+| **Free**   | $0                         | Individuals recording stories |
+| **Family** | $9.99/mo or $79/yr         | Families preserving together  |
+| **Legacy** | $199 one-time or $19.99/mo | Serious legacy preservation   |
+| **Church** | Free - $99/mo              | Ministries & congregations    |
+
+### Free Tier - "Your Story"
+
+- Unlimited stories
+- 10-minute videos
+- Forever storage
+- 720p HD quality
+- Public, unlisted, or private links
+- HD downloads (own videos)
+- QR code generation
+- Full prompt library
+
+### Family Tier - "Your Legacy"
+
+Everything in Free, plus:
+
+- Family Vault (private archive)
+- Up to 10 family contributors
+- 4K video quality
+- No branding watermark
+- Family tree visualization
+- Story responses (reply to family)
+- Memorial mode
+- Family notifications
+- Download any family story
+
+### Legacy Tier - "Generations"
+
+Everything in Family, plus:
+
+- Unlimited family members
+- IPFS decentralized backup
+- Annual USB drive mailed
+- 1 hardcover book/year
+- QR frame art printables
+- Estate documentation
+- Annual contact verification
+- Phone support
+
+### Church Tier - "Congregation"
+
+| Size            | Price  | Stories/year |
+| --------------- | ------ | ------------ |
+| < 100 members   | Free   | 50           |
+| 100-500 members | $29/mo | 200          |
+| 500+ members    | $99/mo | Unlimited    |
+
+---
+
+## Revenue Projections
+
+### Year 1 Target: $80K ARR
+
+| Source                  | Estimate |
+| ----------------------- | -------- |
+| Family Tier (500 users) | $39,500  |
+| Legacy Tier (100 users) | $19,900  |
+| Legacy One-time (50)    | $9,950   |
+| Book Sales (200)        | $5,800   |
+| Church Tier (10 paying) | $5,880   |
+
+### Year 2 Target: $400K ARR
+
+5x growth through referral engine and church partnerships.
+
+---
+
+## Story Categories
+
+Stories are organized by type, with faith naturally integrated:
+
+| Category           | Description                             |
+| ------------------ | --------------------------------------- |
+| **Life Wisdom**    | Lessons learned, advice for descendants |
+| **Family History** | Ancestry, traditions, heritage          |
+| **Transformation** | Recovery, healing, change moments       |
+| **Faith Journey**  | Spiritual testimony (opt-in tag)        |
+| **Final Messages** | End-of-life, terminal illness           |
+| **Milestones**     | Weddings, births, graduations           |
 
 ---
 
 ## Phase Overview
 
-| Phase         | Focus                 | Status         |
-| ------------- | --------------------- | -------------- |
-| **Phase 1**   | Frontend Foundation   | **Complete**   |
-| **Phase 1.5** | Frontend Enhancements | **Complete**   |
-| **Phase 2**   | Backend Integration   | Ready to Start |
-| **Phase 3**   | Video Processing      | Planned        |
-| **Phase 4**   | Production Features   | Planned        |
-| **Phase 5**   | Scale & Resilience    | Planned        |
+| Phase         | Focus                      | Status         |
+| ------------- | -------------------------- | -------------- |
+| **Phase 1**   | Frontend Foundation        | **Complete**   |
+| **Phase 1.5** | Frontend Enhancements      | **Complete**   |
+| **Phase 2**   | Backend Integration        | Ready to Start |
+| **Phase 2.5** | Story Categories & Prompts | Planned        |
+| **Phase 3**   | Monetization & Tiers       | Planned        |
+| **Phase 4**   | Family Features            | Planned        |
+| **Phase 5**   | Viral & Referral Engine    | Planned        |
+| **Phase 6**   | Legacy & Preservation      | Planned        |
+| **Phase 7**   | Scale & Resilience         | Planned        |
 
 ---
 
@@ -26,51 +129,34 @@ Build a global, censorship-resistant platform for sharing faith testimonies that
 ### Completed Tasks
 
 - [x] **Project Structure**
-  - Turborepo mono-repo with pnpm workspaces
+  - Turborepo mono-repo with npm workspaces
   - Next.js 15 with App Router
   - TypeScript configuration
   - Tailwind CSS with custom design tokens
 
 - [x] **UI Component Library** (`@metanoia/ui`)
-  - Button (primary, secondary, outline, ghost, link variants)
-  - Card (header, content, footer, title, description)
-  - Input & Textarea with labels and error states
+  - Button, Card, Input, Textarea components
   - VideoPlayer with custom controls
   - VideoRecorder with webcam capture
   - TestimonyCard for archive display
   - LanguageSwitcher (8 languages)
 
 - [x] **Pages**
-  - Home (hero, featured testimonies, stats, CTA)
-  - Testimonies archive with search/filter UI
+  - Home (hero, featured, stats, CTA)
+  - Testimonies archive with search/filter
   - Record page with 3-step flow
-  - About (mission, meaning, vision)
-  - Support/Donate page
-  - Authentication (sign in, sign up)
+  - About, Support, Auth pages
   - Admin dashboard
 
 - [x] **State Management**
   - Zustand stores for auth and testimonies
-  - Mock data layer with realistic content
-  - TypeScript interfaces for all entities
+  - Mock data layer
+  - TypeScript interfaces
 
 - [x] **Internationalization**
   - next-intl with 8 locales
-  - EN and ES translations complete
+  - EN and ES translations
   - RTL support for Arabic
-
-- [x] **Documentation**
-  - Backend specification (database, API, webhooks)
-  - Project README with quick start
-  - Skills documentation
-
-### Deliverables
-
-```
-apps/web/           # Fully functional frontend
-packages/ui/        # Reusable component library
-docs/               # Technical documentation
-```
 
 ---
 
@@ -80,175 +166,15 @@ docs/               # Technical documentation
 
 ### Completed Tasks
 
-- [x] **Admin Dashboard** (`/admin`)
-  - Testimony moderation with approve/reject/flag actions
-  - Statistics cards (total, pending, approved, views)
-  - User management interface
-  - Settings panel
-  - Responsive table with mobile-friendly cards
-
-- [x] **SEO & Social Sharing**
-  - JSON-LD structured data (Organization, Website schemas)
-  - Open Graph meta tags for all pages
-  - Twitter card support
-  - Dynamic OG image generation
-  - Sitemap and robots.txt ready
-
-- [x] **Animation & Micro-interactions**
-  - CSS-based animation library (no Framer Motion dependency)
-  - 15+ custom animations: fade-in, slide-in, scale, bounce, shimmer, confetti
-  - `AnimateOnScroll` component with Intersection Observer
-  - `StaggerChildren` for sequential animations
-  - Loading skeletons for all content types
-  - Interactive components: AnimatedCard, AnimatedButton, CountUp, TypeWriter
-  - Celebration/Confetti component for success moments
-  - Tailwind animation utilities in config
-
-- [x] **PWA (Progressive Web App)**
-  - Web app manifest with icons and shortcuts
-  - Service worker with intelligent caching strategies
-  - Offline page with localized content
-  - Install prompt with platform-specific instructions
-  - Update notification prompt
-  - Offline/online status indicator
-  - Background sync ready for offline submissions
-
-- [x] **Global Platform Support**
-  - Comprehensive platform detection (iOS, Android, Windows, macOS, Linux)
-  - Browser detection (Safari, Chrome, Firefox, Edge, Samsung)
-  - Platform-specific PWA install instructions
-  - Localized PWA prompts (EN, ES)
-  - Service worker locale detection
-
-- [x] **Accessibility**
-  - Skip to main content link
-  - Focus visible states with ring indicator
-  - Reduced motion support (CSS + JS)
-  - ARIA live regions for dynamic announcements
-  - Screen reader friendly component structure
-
-- [x] **Performance Optimization**
-  - Font subsetting for non-Latin scripts (Cyrillic, Greek, Vietnamese, Latin-ext)
-  - System font fallbacks for CJK, Arabic, and Devanagari scripts
-  - Bundle analyzer integration (`npm run analyze`)
-  - Next.js optimizePackageImports for tree-shaking
-  - Modern image formats (AVIF, WebP) enabled
-  - CSS minification with cssnano in production
-  - Route-level loading.tsx for instant feedback
-  - Font display swap and preload
-
-- [x] **Viral Sharing & Engagement (NEW)**
-  - SocialShare component (Facebook, Twitter, WhatsApp, Email)
-  - QR code generation for testimonies
-  - ShareModal for full sharing experience
-  - Share buttons on testimony cards (hover to reveal)
-  - Embed code generator for testimony pages
-  - Copy-to-clipboard functionality
-
-- [x] **Security & Bot Protection (NEW)**
-  - reCAPTCHA v3 integration (configurable via env)
-  - Honeypot fields for catching bots
-  - Client-side rate limiting
-  - useBotProtection hook for forms
-  - Protected signin/signup forms
-
-- [x] **User Experience Polish (NEW)**
-  - Record page auth check (must sign in first)
-  - "Recently Shared" live activity feed on home page
-  - Confetti celebration on testimony submission
-  - Password reset flow
-  - User account/profile page
-  - My Testimonies page
-  - Custom 404 page with inspirational message
-  - Fixed dead links on Support page
-
-- [x] **Multi-Portal System (NEW)**
-  - **Role-Based Access Control**
-    - `UserRole` type: 'user' | 'creator' | 'admin'
-    - Helper hooks: `useIsAdmin()`, `useIsCreator()`, `useUserRole()`
-    - Role-based route protection with redirects
-  - **Unified Sign-In Page**
-    - 3 quick-access portal buttons with pre-filled credentials
-    - Hover to preview credentials, click for instant sign-in
-    - Demo credentials for testing (user@demo.com, creator@demo.com, admin@demo.com)
-  - **Creator Portal** (`/creator`)
-    - Dashboard with stats (total, pending, approved, views)
-    - Quick actions (record new, view analytics)
-    - Recent testimonies management
-    - Testimonies page with search, filter, and actions menu
-    - Analytics page with performance metrics and activity feed
-  - **Admin Portal Enhancements** (`/admin`)
-    - Updated to use role-based access checks
-    - Supports both `useIsAdmin()` hook and legacy `isAdmin` flag
-  - **Header Navigation Updates**
-    - Role-based nav links (Admin, Creator, Account)
-    - User dropdown with role badge
-    - Portal-specific links based on user role
-
-### New Components
-
-```
-src/components/animations/
-├── animate-on-scroll.tsx    # Scroll-triggered animations + reduced motion
-├── skeleton.tsx             # Loading skeletons
-├── interactive.tsx          # AnimatedCard, CountUp, TypeWriter
-├── confetti.tsx             # Celebration confetti component
-└── index.ts
-
-src/components/sharing/
-├── social-share.tsx         # SocialShare, QuickShareButton, ShareModal
-└── index.ts
-
-src/components/pwa/
-├── install-prompt.tsx       # Smart install banner
-├── update-prompt.tsx        # Update notification
-├── offline-indicator.tsx    # Online/offline status
-└── index.ts
-
-src/components/seo/
-└── json-ld.tsx              # Structured data component
-
-src/components/accessibility/
-├── skip-link.tsx            # Skip to main content
-├── live-region.tsx          # ARIA live announcements
-└── index.ts
-
-src/lib/
-├── animations.ts            # Animation utilities
-└── seo.ts                   # SEO helper functions
-
-src/lib/hooks/
-├── use-pwa.ts               # PWA hook with platform detection
-├── use-form-validation.ts   # Form validation hook
-└── use-recaptcha.ts         # Bot protection hook
-
-src/app/[locale]/
-├── account/page.tsx         # User profile page
-├── account/testimonies/page.tsx  # My testimonies
-├── auth/forgot-password/page.tsx # Password reset
-├── creator/page.tsx         # Creator dashboard
-├── creator/testimonies/page.tsx  # Creator testimonies management
-├── creator/analytics/page.tsx    # Creator analytics
-├── not-found.tsx            # Custom 404 page
-├── featured-testimonies-client.tsx
-└── recently-shared-client.tsx
-
-public/
-├── manifest.json           # PWA manifest
-└── sw.js                   # Service worker
-```
-
-### Deliverables
-
-```
-apps/web/src/components/animations/      # Animation component library
-apps/web/src/components/pwa/             # PWA components
-apps/web/src/components/seo/             # SEO components
-apps/web/src/components/accessibility/   # Accessibility components
-apps/web/public/manifest.json            # PWA manifest
-apps/web/public/sw.js                    # Service worker
-apps/web/src/app/globals.css             # Focus/reduced motion styles
-```
+- [x] **Admin Dashboard** - Moderation, stats, user management
+- [x] **SEO & Social Sharing** - JSON-LD, OG tags, dynamic images
+- [x] **Animation Library** - 15+ CSS animations, no dependencies
+- [x] **PWA** - Offline support, install prompts, service worker
+- [x] **Accessibility** - Skip links, focus states, reduced motion
+- [x] **Performance** - Font subsetting, bundle optimization
+- [x] **Viral Sharing** - Social share, QR codes, embed generator
+- [x] **Bot Protection** - reCAPTCHA, honeypot, rate limiting
+- [x] **Multi-Portal System** - User/Creator/Admin roles
 
 ---
 
@@ -256,330 +182,554 @@ apps/web/src/app/globals.css             # Focus/reduced motion styles
 
 **Status**: Ready to Start
 
-### Prerequisites
-
-- [ ] Create Supabase account and project
-- [ ] Configure environment variables
-- [ ] Run database migrations
-
-### Tasks
-
-#### 2.1 Database Setup
+### 2.1 Database Setup
 
 - [ ] Create Supabase project
-- [ ] Run `supabase/schema.sql` migrations
-- [ ] Verify RLS policies
-- [ ] Set up storage bucket for videos
+- [ ] Run schema migrations (see below)
+- [ ] Configure RLS policies
+- [ ] Set up video storage bucket
 - [ ] Configure storage policies
 
-#### 2.2 Authentication
+### 2.2 Authentication
 
 - [ ] Add `@supabase/ssr` package
-- [ ] Create `src/lib/supabase/client.ts`
-- [ ] Create `src/lib/supabase/server.ts`
-- [ ] Update middleware for session refresh
-- [ ] Replace `auth-store.ts` with Supabase calls
-- [ ] Add OAuth providers (Google, Apple) - optional
+- [ ] Create Supabase client utilities
+- [ ] Replace auth-store with Supabase calls
 - [ ] Email verification flow
 - [ ] Password reset flow
+- [ ] OAuth providers (Google, Apple) - optional
 
-#### 2.3 Testimony CRUD
+### 2.3 Story CRUD
 
-- [ ] Replace `testimony-store.ts` with Supabase queries
-- [ ] Implement video upload to Supabase Storage
-- [ ] Create API routes for:
-  - `GET /api/testimonies` (with pagination)
-  - `GET /api/testimonies/[id]`
-  - `POST /api/testimonies`
-  - `PATCH /api/testimonies/[id]`
-  - `DELETE /api/testimonies/[id]`
-- [ ] View count increment endpoint
+- [ ] Replace testimony-store with Supabase queries
+- [ ] Video upload to Supabase Storage
+- [ ] API routes for stories
+- [ ] View count tracking
 
-#### 2.4 Admin Functions
+### 2.4 Admin Functions
 
 - [ ] Server-side admin verification
-- [ ] Approve/reject endpoints
-- [ ] Admin stats dashboard data
-- [ ] Audit logging (optional)
+- [ ] Moderation endpoints
+- [ ] Admin stats queries
+
+### Database Schema
+
+```sql
+-- Core users table (extends Supabase auth.users)
+CREATE TABLE public.profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id),
+  email TEXT NOT NULL,
+  full_name TEXT,
+  avatar_url TEXT,
+  bio TEXT,
+  role TEXT DEFAULT 'user', -- 'user' | 'creator' | 'admin'
+  tier TEXT DEFAULT 'free', -- 'free' | 'family' | 'legacy'
+  tier_expires_at TIMESTAMP,
+  referral_code TEXT UNIQUE,
+  referred_by TEXT,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Stories (renamed from testimonies for broader appeal)
+CREATE TABLE public.stories (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES public.profiles(id),
+  title TEXT NOT NULL,
+  description TEXT,
+  video_url TEXT,
+  thumbnail_url TEXT,
+  duration INTEGER, -- seconds
+  category TEXT DEFAULT 'life_wisdom',
+  tags TEXT[],
+  language TEXT DEFAULT 'en',
+  status TEXT DEFAULT 'pending', -- 'pending' | 'approved' | 'rejected'
+  visibility TEXT DEFAULT 'public', -- 'public' | 'unlisted' | 'private' | 'family'
+  view_count INTEGER DEFAULT 0,
+  like_count INTEGER DEFAULT 0,
+  share_count INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Story categories enum reference
+-- 'life_wisdom' | 'family_history' | 'transformation' | 'faith_journey' | 'final_messages' | 'milestones'
+```
 
 ### Success Criteria
 
 - [ ] Users can register and sign in
-- [ ] Users can upload video testimonies
-- [ ] Admins can approve/reject testimonies
-- [ ] Approved testimonies appear in public archive
+- [ ] Users can upload video stories
+- [ ] Admins can moderate content
+- [ ] Approved stories appear publicly
 - [ ] Data persists across sessions
 
 ---
 
-## Phase 3: Video Processing
+## Phase 2.5: Story Categories & Prompts
 
 **Status**: Planned
 
-### Tasks
+### 2.5.1 Category System
 
-#### 3.1 Basic Processing (FFmpeg)
+- [ ] Add story category selection to record flow
+- [ ] Category icons and descriptions
+- [ ] Browse page category filters
+- [ ] Category-specific landing pages
 
-- [ ] Set up FFmpeg in serverless function or worker
-- [ ] Transcode uploads to MP4 (H.264/AAC)
-- [ ] Generate thumbnail at 5-second mark
-- [ ] Extract video duration
-- [ ] Update testimony record with metadata
+### 2.5.2 Recording Prompts
 
-#### 3.2 Storage Optimization
+- [ ] Prompt library database table
+- [ ] Prompts organized by category
+- [ ] Randomize/shuffle prompts
+- [ ] "Inspire me" button
+- [ ] User can skip prompts
 
-- [ ] Implement chunked uploads for large files
-- [ ] Add upload progress indicators
-- [ ] Compress videos for web delivery
-- [ ] Generate multiple quality levels (optional)
+### Prompt Examples by Category
 
-#### 3.3 Cloud Processing (Optional - for scale)
+**Life Wisdom:**
 
-- [ ] Evaluate Mux vs Cloudflare Stream vs AWS MediaConvert
-- [ ] Implement webhook handlers for processing status
-- [ ] Add HLS streaming support
-- [ ] CDN integration for global delivery
+- "What's the best advice you ever received?"
+- "What do you want your grandchildren to know?"
+- "What mistake taught you the most?"
+
+**Transformation:**
+
+- "Describe the moment everything changed"
+- "What helped you through your darkest time?"
+- "Who or what saved your life?"
+
+**Faith Journey:**
+
+- "How did you come to faith?"
+- "Describe a moment when God felt real"
+- "What does your faith mean to you?"
+
+**Final Messages:**
+
+- "What do you want your family to remember?"
+- "What brings you peace?"
+- "What are you most grateful for?"
+
+### 2.5.3 Prompt-Based Discovery
+
+- [ ] Show prompts on story cards
+- [ ] "Answer this prompt" CTA
+- [ ] Related stories by prompt
 
 ### Success Criteria
 
-- [ ] All videos transcoded to web-friendly format
-- [ ] Thumbnails auto-generated
-- [ ] Duration displayed on cards
-- [ ] Large files upload reliably
+- [ ] Users can browse and select prompts
+- [ ] Each category has 10+ prompts
+- [ ] Faith prompts are opt-in, not forced
+- [ ] Prompts inspire meaningful content
 
 ---
 
-## Phase 4: Production Features
+## Phase 3: Monetization & Tiers
 
 **Status**: Planned
 
-### Tasks
+### 3.1 Stripe Integration
 
-#### 4.1 User Experience
+- [ ] Stripe account setup
+- [ ] Products and prices in Stripe
+- [ ] Checkout session API
+- [ ] Webhook handlers
+- [ ] Customer portal
 
-- [ ] Email notifications (welcome, testimony approved)
-- [x] User profile pages _(moved to Phase 1.5)_
-- [x] "My Testimonies" dashboard _(moved to Phase 1.5)_
-- [x] Share buttons (copy link, social media) _(moved to Phase 1.5)_
-- [x] Embed code generator _(moved to Phase 1.5)_
+### 3.2 Tier System
 
-#### 4.2 Content Management
+- [ ] User tier field in database
+- [ ] Tier expiration handling
+- [ ] Feature gating logic
+- [ ] Upgrade prompts (tasteful, not pushy)
 
-- [ ] Featured testimonies curation
-- [ ] Tag/category management
-- [ ] Content moderation queue improvements
-- [ ] Bulk actions for admins
-- [ ] Reporting/flagging system
+### 3.3 Upgrade Triggers
 
-#### 4.3 Discovery
+Strategic moments to suggest upgrade:
 
-- [ ] Full-text search implementation
-- [ ] Filter by language, tags, date
-- [ ] Related testimonies suggestions
-- [ ] Popular/trending algorithm
+| Trigger               | Message                                          |
+| --------------------- | ------------------------------------------------ |
+| 3+ family viewers     | "Your family loves your stories! Create a vault" |
+| Memorial inquiry      | "Preserve their memory with Family tier"         |
+| 4K request            | "Unlock stunning 4K quality"                     |
+| Download family story | "Upgrade to download family stories"             |
 
-#### 4.4 Analytics
+### 3.4 Stripe Products
 
-- [ ] View tracking
-- [ ] Play/completion metrics
-- [ ] Geographic distribution
-- [ ] Admin analytics dashboard
-
-#### 4.5 Donations
-
-- [ ] Stripe integration
-- [ ] Recurring donation support
-- [ ] Donation receipt emails
-- [ ] Donor management
+```javascript
+const products = {
+  family_monthly: { price: 999, interval: 'month' },
+  family_yearly: { price: 7900, interval: 'year' },
+  legacy_monthly: { price: 1999, interval: 'month' },
+  legacy_onetime: { price: 19900 },
+  book_standard: { price: 2900 },
+  book_premium: { price: 5900 },
+  usb_drive: { price: 1900 },
+  church_small: { price: 2900, interval: 'month' },
+  church_large: { price: 9900, interval: 'month' },
+}
+```
 
 ### Success Criteria
 
-- [ ] Users receive email notifications
-- [ ] Search returns relevant results
-- [ ] Analytics dashboard shows engagement
-- [ ] Donations can be processed
+- [ ] Users can upgrade to paid tiers
+- [ ] Subscriptions renew automatically
+- [ ] Users can cancel/manage subscription
+- [ ] Feature gating works correctly
+- [ ] Upgrade prompts appear at right moments
 
 ---
 
-## Phase 5: Scale & Resilience
+## Phase 4: Family Features
 
 **Status**: Planned
 
-### Tasks
+### 4.1 Family Vault
 
-#### 5.1 Performance
+- [ ] Family vault creation
+- [ ] Invite family members
+- [ ] Accept/decline invitations
+- [ ] Family vault dashboard
+- [ ] Permission levels (owner, admin, member, viewer)
 
-- [ ] Image/video optimization
-- [ ] Edge caching strategy
-- [ ] Database query optimization
-- [ ] Lazy loading improvements
-- [ ] Core Web Vitals optimization
+### 4.2 Family Invitations
 
-#### 5.2 Anti-Censorship
+Beautiful invitation emails:
 
-- [ ] IPFS video backup integration
-- [ ] Mirror deployment to IncogNET/1984 Hosting
-- [ ] Decentralized storage evaluation (Filecoin, Arweave)
-- [ ] Alternative distribution (Odysee, Bitchute push)
+> "Your grandmother Ruth recorded a special message for the family. Watch now."
 
-#### 5.3 Reliability
+- [ ] Email invitation system
+- [ ] Invitation landing page
+- [ ] Auto-create account on accept
+- [ ] Track invitation status
+
+### 4.3 Family Tree
+
+- [ ] Visual family tree component
+- [ ] Link stories to family members
+- [ ] Relationship definitions
+- [ ] Tree-based story browsing
+
+### 4.4 Story Responses
+
+- [ ] Record response to family story
+- [ ] Response appears linked to original
+- [ ] Notification: "Grandson replied to your story"
+- [ ] Conversation threads
+
+### 4.5 Memorial Mode
+
+- [ ] Mark account as memorial
+- [ ] Special memorial UI treatment
+- [ ] Notify all family members
+- [ ] Preserve account permanently
+- [ ] "Record in their honor" prompt
+
+### Database Schema
+
+```sql
+-- Family vaults
+CREATE TABLE public.family_vaults (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  owner_id UUID REFERENCES public.profiles(id),
+  is_memorial BOOLEAN DEFAULT FALSE,
+  memorial_for TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Family members
+CREATE TABLE public.family_members (
+  vault_id UUID REFERENCES public.family_vaults(id),
+  user_id UUID REFERENCES public.profiles(id),
+  role TEXT DEFAULT 'member', -- 'owner' | 'admin' | 'member' | 'viewer'
+  relationship TEXT, -- 'spouse' | 'child' | 'grandchild' | etc
+  invited_by UUID REFERENCES public.profiles(id),
+  invited_at TIMESTAMP DEFAULT NOW(),
+  joined_at TIMESTAMP,
+  PRIMARY KEY (vault_id, user_id)
+);
+
+-- Story responses
+CREATE TABLE public.story_responses (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  story_id UUID REFERENCES public.stories(id),
+  responder_id UUID REFERENCES public.profiles(id),
+  response_video_url TEXT,
+  response_text TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+### Success Criteria
+
+- [ ] Users can create family vaults
+- [ ] Family members can be invited
+- [ ] Family-only stories are protected
+- [ ] Story responses work
+- [ ] Memorial mode preserves accounts
+
+---
+
+## Phase 5: Viral & Referral Engine
+
+**Status**: Planned
+
+### 5.1 Referral System
+
+- [ ] Unique referral codes per user
+- [ ] Referral tracking
+- [ ] Reward calculation
+- [ ] Reward claiming
+
+### Referral Rewards
+
+| Action                    | Reward                |
+| ------------------------- | --------------------- |
+| Friend signs up           | 1 month Family credit |
+| Friend records story      | +1 month credit       |
+| Friend upgrades to Family | 3 months OR $10 cash  |
+| Friend upgrades to Legacy | 6 months OR $25 cash  |
+
+### 5.2 Affiliate Tiers
+
+| Level           | Referrals | Benefits                            |
+| --------------- | --------- | ----------------------------------- |
+| Storyteller     | 0-4       | Standard rewards                    |
+| Family Champion | 5-19      | 1.5x rewards + badge                |
+| Legacy Builder  | 20-49     | 2x rewards + featured               |
+| Ambassador      | 50+       | Free Legacy forever + 25% rev share |
+
+### 5.3 Church Partnership Program
+
+- [ ] Church signup flow
+- [ ] Congregation management
+- [ ] Bulk testimony collection
+- [ ] Church-branded experience
+- [ ] Member referral tracking
+
+### 5.4 Viral Mechanics
+
+- [ ] Beautiful share cards
+- [ ] QR code generation
+- [ ] Embed widgets
+- [ ] "Family has X stories" social proof
+- [ ] Milestone celebrations
+
+### Database Schema
+
+```sql
+-- Referrals
+CREATE TABLE public.referrals (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  referrer_id UUID REFERENCES public.profiles(id),
+  referred_id UUID REFERENCES public.profiles(id),
+  status TEXT DEFAULT 'signed_up', -- 'signed_up' | 'recorded' | 'upgraded'
+  reward_type TEXT,
+  reward_claimed BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Referral rewards ledger
+CREATE TABLE public.referral_rewards (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES public.profiles(id),
+  reward_type TEXT, -- 'free_months' | 'cash'
+  amount INTEGER, -- months or cents
+  source_referral_id UUID REFERENCES public.referrals(id),
+  claimed_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+### Success Criteria
+
+- [ ] Referral codes work
+- [ ] Rewards calculated correctly
+- [ ] Affiliate tiers unlock
+- [ ] Churches can sign up and manage
+- [ ] Viral sharing feels natural
+
+---
+
+## Phase 6: Legacy & Preservation
+
+**Status**: Planned
+
+### 6.1 IPFS Backup (Legacy Tier)
+
+- [ ] IPFS integration (Web3.storage or similar)
+- [ ] Automatic backup on upload
+- [ ] IPFS hash stored in database
+- [ ] Verification UI
+
+### 6.2 Physical Products
+
+- [ ] Book generation service
+- [ ] USB drive fulfillment
+- [ ] QR frame printables
+- [ ] Order management
+- [ ] Shipping integration
+
+### 6.3 Estate Planning
+
+- [ ] Digital asset documentation
+- [ ] Beneficiary designation
+- [ ] Annual contact verification
+- [ ] Account transfer on death
+
+### 6.4 Long-term Preservation
+
+- [ ] Cold storage for old videos
+- [ ] Format migration planning
+- [ ] Redundant backups
+- [ ] "100-year plan" documentation
+
+### Success Criteria
+
+- [ ] IPFS backup works
+- [ ] Books can be ordered and shipped
+- [ ] Estate features documented
+- [ ] Stories can survive platform changes
+
+---
+
+## Phase 7: Scale & Resilience
+
+**Status**: Planned
+
+### 7.1 Video Processing
+
+- [ ] FFmpeg serverless function
+- [ ] Transcode to web-friendly format
+- [ ] Generate thumbnails
+- [ ] Multiple quality levels (720p free, 4K paid)
+- [ ] Chunked uploads
+
+### 7.2 Performance
+
+- [ ] Edge caching (Cloudflare)
+- [ ] Database optimization
+- [ ] Lazy loading
+- [ ] Core Web Vitals > 90
+
+### 7.3 Reliability
 
 - [ ] Error monitoring (Sentry)
 - [ ] Uptime monitoring
 - [ ] Automated backups
 - [ ] Disaster recovery plan
-- [ ] Rate limiting
 
-#### 5.4 Accessibility
+### 7.4 Anti-Censorship
 
-- [ ] WCAG 2.1 AA compliance audit
-- [ ] Screen reader testing
-- [ ] Keyboard navigation improvements
-- [ ] Color contrast verification
-- [ ] Captioning support for videos
-- [ ] Focus management for modals
-- [ ] ARIA labels audit
+- [ ] IPFS backup (Legacy tier)
+- [ ] Mirror deployments
+- [ ] Decentralized storage evaluation
+- [ ] Alternative distribution
 
 ### Success Criteria
 
-- [ ] Lighthouse score > 90 all categories
-- [ ] Content accessible from multiple hosts
-- [ ] 99.9% uptime target
-- [ ] Accessibility audit passed
-- [ ] PWA installable on all major platforms
+- [ ] Videos process automatically
+- [ ] Lighthouse > 90 all categories
+- [ ] 99.9% uptime
+- [ ] Content survives censorship
 
 ---
 
 ## Technical Debt & Improvements
 
-### Known Issues
-
-- [x] Video player needs keyboard controls _(implemented in Phase 1.5)_
-- [x] Form validation messages need i18n _(completed)_
-- [x] PWA icons need to be generated _(completed with sharp)_
-- [x] Splash screens for iOS need creation _(16 device sizes generated)_
-
 ### Code Quality
 
-- [x] Add unit tests for stores _(89 tests: auth-store 19, testimony-store 22)_
-- [x] Add component tests for UI library _(Button 17, Input 13, Card 18 tests)_
-- [ ] Add E2E tests with Playwright
-- [x] Set up CI/CD pipeline _(GitHub Actions: lint, typecheck, test, build)_
-- [x] Add pre-commit hooks (lint, format) _(husky + lint-staged)_
-- [x] Add typecheck script to package.json _(turbo typecheck)_
+- [x] Unit tests for stores (89 tests)
+- [x] Component tests for UI (48 tests)
+- [ ] E2E tests with Playwright
+- [x] CI/CD pipeline (GitHub Actions)
+- [x] Pre-commit hooks (husky)
 
 ### Documentation
 
+- [ ] API documentation (OpenAPI)
 - [ ] Component Storybook
-- [ ] API documentation (OpenAPI/Swagger)
 - [ ] Contribution guidelines
-- [ ] Code of conduct
-- [ ] Animation component usage guide
-- [ ] PWA setup guide for contributors
+- [ ] Business model documentation
 
-### Performance Optimization (Phase 1.5 complete)
+### Testing Infrastructure
 
-- [x] CSS-level reduced motion support
-- [ ] Image optimization with next/image (deferred to Phase 2 - needs real images)
-- [x] Font subsetting for non-Latin scripts (Inter, Lora, Playfair with extended subsets)
-- [x] Critical CSS extraction (cssnano, loading.tsx, Next.js auto-optimization)
-- [x] Bundle analysis and optimization (bundle-analyzer, optimizePackageImports, image formats)
-
-### Accessibility (Phase 1.5 complete)
-
-- [x] Skip to main content link
-- [x] Focus visible states for all interactive elements
-- [x] Reduced motion support for animations
-- [x] ARIA live regions for dynamic content (LiveRegionProvider)
-- [x] Keyboard-accessible focus ring (global CSS)
-
-### Testing Infrastructure (New)
-
-**Test Framework**: Vitest 4.x + React Testing Library + jsdom
-
-**Test Coverage**:
-| Package | Tests | Coverage |
-|---------|-------|----------|
-| auth-store | 19 | Sign in, sign up, sign out, profile update |
-| testimony-store | 22 | CRUD, pagination, moderation, view counts |
-| Button | 17 | Variants, sizes, loading, disabled states |
-| Input | 13 | Labels, errors, icons, disabled states |
-| Card | 18 | All sub-components and composition |
-
-**Scripts**:
+**Framework**: Vitest + React Testing Library
 
 ```bash
 npm test              # Watch mode
-npm run test:run      # Single run (CI)
-npm run test:coverage # With coverage report
-npm run test:ui       # Vitest UI
+npm run test:run      # CI mode
+npm run test:coverage # Coverage
 ```
-
-**CI/CD Pipeline** (`.github/workflows/ci.yml`):
-
-1. Lint check
-2. TypeScript typecheck
-3. Unit tests
-4. Production build
 
 ---
 
 ## Milestone Definitions
 
-### MVP (Minimum Viable Product)
+### MVP (Phase 2 complete)
 
-Phase 2 complete:
+- User authentication
+- Video upload & storage
+- Basic moderation
+- Public story viewing
 
-- User authentication working
-- Video upload and storage functional
-- Admin can moderate content
-- Public can view approved testimonies
+### Beta (Phase 3-4 complete)
 
-### Beta
+- Monetization working
+- Family vaults functional
+- Story categories live
+- Referral system active
 
-Phase 3 + partial Phase 4:
+### 1.0 Release (Phase 5 complete)
 
-- Video processing automated
-- Email notifications active
-- Basic search working
-- Analytics tracking
+- Viral engine running
+- Church partnerships
+- All tiers available
+- Stable & performant
 
-### 1.0 Release
+### 2.0 Release (Phase 6-7 complete)
 
-Phase 4 complete:
-
-- All user-facing features polished
-- Donation system operational
-- Comprehensive admin tools
-- Performance optimized
-
-### 2.0 Release
-
-Phase 5 complete:
-
+- Legacy preservation
+- Physical products
 - Multi-host deployment
-- Decentralized backup
-- Full accessibility compliance
-- Scaled for global traffic
+- Long-term sustainability
 
 ---
 
 ## Decision Log
 
-| Date    | Decision                                 | Rationale                                                  |
-| ------- | ---------------------------------------- | ---------------------------------------------------------- |
-| 2024-12 | Frontend-first approach                  | Validate UX before backend investment                      |
-| 2024-12 | Zustand for state                        | Lightweight, works well with Next.js                       |
-| 2024-12 | Supabase for backend                     | Auth + DB + Storage in one, good free tier                 |
-| 2024-12 | next-intl for i18n                       | Best App Router support, type-safe                         |
-| 2024-12 | CSS animations over Framer Motion        | Smaller bundle, better performance, no dependencies        |
-| 2024-12 | Custom service worker                    | Full control over caching, offline strategy                |
-| 2024-12 | Platform-specific PWA instructions       | Better UX for global audience, handles browser differences |
-| 2024-12 | Locale-aware offline pages               | Consistent i18n experience even when offline               |
-| 2024-12 | reCAPTCHA v3 + honeypot + rate limiting  | Multi-layer bot protection without friction                |
-| 2024-12 | Pull forward UX features to Phase 1.5    | Viral sharing and engagement crucial for adoption          |
-| 2024-12 | Multi-portal system with role-based auth | Separate user, creator, admin experiences for better UX    |
-| 2024-12 | Demo credentials on signin page          | Fast testing and demo during development phase             |
+| Date    | Decision                              | Rationale                               |
+| ------- | ------------------------------------- | --------------------------------------- |
+| 2024-12 | Frontend-first approach               | Validate UX before backend              |
+| 2024-12 | Zustand for state                     | Lightweight, Next.js friendly           |
+| 2024-12 | Supabase for backend                  | Auth + DB + Storage in one              |
+| 2024-12 | next-intl for i18n                    | Best App Router support                 |
+| 2024-12 | CSS animations                        | Smaller bundle, no dependencies         |
+| 2024-12 | Custom service worker                 | Full control over caching               |
+| 2024-12 | Multi-portal system                   | Separate user experiences               |
+| 2024-12 | "Generous Individual, Premium Family" | Maximize adoption, monetize families    |
+| 2024-12 | Story categories (not just faith)     | Broader appeal, organic faith discovery |
+| 2024-12 | Referral rewards (cash + credits)     | Incentivize viral growth                |
+| 2024-12 | Church tier (free for small)          | Ministry partnership, B2B2C             |
+| 2024-12 | IPFS for Legacy tier                  | Censorship resistance, permanence       |
+
+---
+
+## Competitive Positioning
+
+| Feature          | StoryWorth | Remento | StoryFile | MetanoiaMoment |
+| ---------------- | ---------- | ------- | --------- | -------------- |
+| Video-first      | No         | Yes     | Yes       | **Yes**        |
+| Free tier        | No ($99)   | No      | No        | **Unlimited**  |
+| Faith community  | No         | No      | No        | **Yes**        |
+| IPFS backup      | No         | No      | No        | **Yes**        |
+| Family vault     | No         | Partial | No        | **Yes**        |
+| Church tier      | No         | No      | No        | **Yes**        |
+| Referral rewards | No         | No      | No        | **Yes**        |
+| Printed books    | Yes        | Yes     | No        | **Yes**        |
 
 ---
 
@@ -589,4 +739,5 @@ Phase 5 complete:
 - [Skills Documentation](../.claude/skills.md)
 - [Supabase Docs](https://supabase.com/docs)
 - [Next.js App Router](https://nextjs.org/docs/app)
-- [Tailwind CSS](https://tailwindcss.com/docs)
+- [Stripe Docs](https://stripe.com/docs)
+- [IPFS/Web3.storage](https://web3.storage/docs/)
